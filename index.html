@@ -7,416 +7,94 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Bebas+Neue&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
 
-  :root {
-    --black: #0a0a0a;
-    --white: #ffffff;
-    --grey: #888;
-    --mid: #333;
-  }
-
+  :root { --black: #0a0a0a; --white: #ffffff; --grey: #888; --mid: #333; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  body {
-    background: var(--white);
-    color: var(--black);
-    font-family: 'Courier Prime', monospace;
-    overflow-x: hidden;
-    cursor: crosshair;
+  body { background: var(--white); color: var(--black); font-family: 'Courier Prime', monospace; overflow-x: hidden; cursor: crosshair; }
+
+  header { border-bottom: 3px solid var(--black); }
+
+  .header-tape { background: var(--black); color: var(--white); font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 3px; padding: 6px 0; text-align: center; text-transform: uppercase; }
+
+  .header-main { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 20px 40px; border-bottom: 1px solid var(--black); }
+
+  .header-left { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; line-height: 1.8; }
+  .header-right { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; text-align: right; line-height: 1.8; }
+
+  .issue-badge { display: inline-block; border: 2px solid var(--black); padding: 4px 10px; font-size: 10px; letter-spacing: 3px; transform: rotate(-2deg); margin-top: 8px; }
+
+  h1 { display: flex; justify-content: center; align-items: center; gap: 0; }
+
+  .title-word { position: relative; width: clamp(150px, 25vw, 380px); height: clamp(60px, 10vw, 130px); overflow: hidden; }
+
+  .title-word img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; }
+
+  #word-flat img:nth-child(1) { animation: fade 12.5s 0s infinite; }
+  #word-flat img:nth-child(2) { animation: fade 12.5s 2.5s infinite; }
+  #word-flat img:nth-child(3) { animation: fade 12.5s 5s infinite; }
+  #word-flat img:nth-child(4) { animation: fade 12.5s 7.5s infinite; }
+  #word-flat img:nth-child(5) { animation: fade 12.5s 10s infinite; }
+
+  #word-stick img:nth-child(1) { animation: fade 9s 0s infinite; }
+  #word-stick img:nth-child(2) { animation: fade 9s 1.8s infinite; }
+  #word-stick img:nth-child(3) { animation: fade 9s 3.6s infinite; }
+  #word-stick img:nth-child(4) { animation: fade 9s 5.4s infinite; }
+  #word-stick img:nth-child(5) { animation: fade 9s 7.2s infinite; }
+
+  @keyframes fade {
+    0%   { opacity: 1; }
+    18%  { opacity: 1; }
+    22%  { opacity: 0; }
+    98%  { opacity: 0; }
+    100% { opacity: 1; }
   }
 
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 999;
-    opacity: 0.3;
-  }
-
-  header {
-    border-bottom: 3px solid var(--black);
-    padding: 0;
-    position: relative;
-  }
-
-  .header-tape {
-    background: var(--black);
-    color: var(--white);
-    font-family: 'Courier Prime', monospace;
-    font-size: 11px;
-    letter-spacing: 3px;
-    padding: 6px 0;
-    text-align: center;
-    text-transform: uppercase;
-  }
-
-  .header-main {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    padding: 20px 40px;
-    border-bottom: 1px solid var(--black);
-  }
-
-  .header-left {
-    font-family: 'Courier Prime', monospace;
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    line-height: 1.8;
-  }
-
-  .header-right {
-    font-family: 'Courier Prime', monospace;
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    text-align: right;
-    line-height: 1.8;
-  }
-
-  .issue-badge {
-    display: inline-block;
-    border: 2px solid var(--black);
-    padding: 4px 10px;
-    font-size: 10px;
-    letter-spacing: 3px;
-    transform: rotate(-2deg);
-    margin-top: 8px;
-  }
-
-  h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0px;
-  }
-
-  .title-word {
-    position: relative;
-    width: clamp(150px, 25vw, 380px);
-    height: clamp(60px, 10vw, 130px);
-  }
-
-  .title-word img {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    opacity: 0;
-  }
-
-  .title-word .slot-strip {
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.18s cubic-bezier(0.4,0,0.2,1);
-  }
-
-  .title-word .slot-strip img {
-    position: static;
-    opacity: 1;
-    width: 100%;
-    height: auto;
-    display: block;
-    flex-shrink: 0;
-  }
-
-  .nav-strip {
-    display: flex;
-    border-bottom: 3px solid var(--black);
-  }
-
-  .nav-strip a {
-    flex: 1;
-    text-align: center;
-    padding: 12px;
-    font-family: 'Courier Prime', monospace;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: var(--black);
-    border-right: 1px solid var(--black);
-    transition: background 0.15s, color 0.15s;
-  }
-
+  .nav-strip { display: flex; border-bottom: 3px solid var(--black); }
+  .nav-strip a { flex: 1; text-align: center; padding: 12px; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; text-decoration: none; color: var(--black); border-right: 1px solid var(--black); transition: background 0.15s, color 0.15s; }
   .nav-strip a:last-child { border-right: none; }
   .nav-strip a:hover { background: var(--black); color: var(--white); }
 
-  .hero {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: 70vh;
-    border-bottom: 3px solid var(--black);
-  }
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 70vh; border-bottom: 3px solid var(--black); }
+  .hero-image { border-right: 3px solid var(--black); background: var(--mid); display: flex; align-items: center; justify-content: center; min-height: 400px; }
+  .zine-mockup { width: 200px; height: 280px; border: 3px solid var(--white); background: var(--black); position: relative; transform: rotate(-3deg); box-shadow: 8px 8px 0 rgba(255,255,255,0.2); }
+  .zine-mockup::before { content: 'FLAT STICK'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--white); letter-spacing: 2px; }
+  .zine-mockup::after { content: 'ISSUE 01'; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 10px; color: var(--white); letter-spacing: 3px; opacity: 0.6; }
 
-  .hero-image {
-    border-right: 3px solid var(--black);
-    background: var(--mid);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 400px;
-  }
+  .hero-content { padding: 60px 50px; display: flex; flex-direction: column; justify-content: center; }
+  .tagline { font-family: 'Special Elite', cursive; font-size: clamp(22px, 3vw, 32px); line-height: 1.3; margin-bottom: 24px; }
+  .tagline em { font-style: normal; text-decoration: underline; text-decoration-style: wavy; text-underline-offset: 4px; }
+  .description { font-size: 14px; line-height: 1.8; color: var(--mid); margin-bottom: 40px; max-width: 380px; }
 
-  .zine-mockup {
-    width: 200px;
-    height: 280px;
-    border: 3px solid var(--white);
-    background: var(--black);
-    position: relative;
-    transform: rotate(-3deg);
-    box-shadow: 8px 8px 0 rgba(255,255,255,0.2);
-  }
+  .get-copy { display: inline-block; padding: 14px 28px; font-family: 'Courier Prime', monospace; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; text-decoration: none; background: var(--black); color: var(--white); border: 2px solid var(--black); }
 
-  .zine-mockup::before {
-    content: 'FLAT STICK';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 36px;
-    color: var(--white);
-    letter-spacing: 2px;
-  }
+  #shop { border-bottom: 3px solid var(--black); }
+  .section-header { border-bottom: 2px solid var(--black); padding: 16px 40px; display: flex; align-items: baseline; gap: 16px; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 42px; letter-spacing: 2px; }
+  .section-sub { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--grey); }
 
-  .zine-mockup::after {
-    content: 'ISSUE 01';
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Courier Prime', monospace;
-    font-size: 10px;
-    color: var(--white);
-    letter-spacing: 3px;
-    opacity: 0.6;
-  }
-
-  .hero-content {
-    padding: 60px 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .tagline {
-    font-family: 'Special Elite', cursive;
-    font-size: clamp(22px, 3vw, 32px);
-    line-height: 1.3;
-    margin-bottom: 24px;
-  }
-
-  .tagline em {
-    font-style: normal;
-    text-decoration: underline;
-    text-decoration-style: wavy;
-    text-underline-offset: 4px;
-  }
-
-  .description {
-    font-size: 14px;
-    line-height: 1.8;
-    color: var(--mid);
-    margin-bottom: 40px;
-    max-width: 380px;
-  }
-
-  #shop {
-    border-bottom: 3px solid var(--black);
-  }
-
-  .section-header {
-    border-bottom: 2px solid var(--black);
-    padding: 16px 40px;
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-  }
-
-  .section-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 42px;
-    letter-spacing: 2px;
-  }
-
-  .section-sub {
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--grey);
-  }
-
-  .shop-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .product-card {
-    padding: 50px 40px;
-    border-right: 2px solid var(--black);
-    position: relative;
-  }
-
+  .shop-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .product-card { padding: 50px 40px; border-right: 2px solid var(--black); position: relative; }
   .product-card:last-child { border-right: none; }
+  .product-type { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--grey); margin-bottom: 12px; }
+  .product-title { font-family: 'Bebas Neue', sans-serif; font-size: 48px; line-height: 1; margin-bottom: 8px; }
+  .product-price { font-family: 'Bebas Neue', sans-serif; font-size: 64px; line-height: 1; margin-bottom: 20px; display: inline-block; }
+  .product-price::before { content: 'AUD '; font-size: 14px; font-family: 'Courier Prime', monospace; vertical-align: super; letter-spacing: 2px; }
+  .product-details { font-size: 12px; line-height: 1.9; color: var(--mid); margin-bottom: 32px; border-left: 2px solid var(--black); padding-left: 16px; }
+  .coming-soon { display: inline-block; border: 2px solid var(--grey); color: var(--grey); padding: 14px 28px; font-family: 'Courier Prime', monospace; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; }
+  .stamp { position: absolute; top: 30px; right: 30px; width: 70px; height: 70px; border: 3px solid var(--black); border-radius: 50%; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 8px; letter-spacing: 1px; text-transform: uppercase; line-height: 1.4; transform: rotate(12deg); }
 
-  .product-type {
-    font-size: 10px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--grey);
-    margin-bottom: 12px;
-  }
+  #about { display: grid; grid-template-columns: 1fr 2fr; border-bottom: 3px solid var(--black); }
+  .about-label { border-right: 3px solid var(--black); padding: 50px 40px; display: flex; align-items: flex-start; }
+  .about-label .section-title { writing-mode: vertical-rl; transform: rotate(180deg); letter-spacing: 6px; }
+  .about-content { padding: 50px 60px; }
+  .about-content p { font-size: 15px; line-height: 2; color: var(--mid); margin-bottom: 20px; max-width: 560px; }
+  .about-content p:first-child { font-family: 'Special Elite', cursive; font-size: 20px; color: var(--black); }
 
-  .product-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 48px;
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-
-  .product-price {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 64px;
-    line-height: 1;
-    margin-bottom: 20px;
-    display: inline-block;
-  }
-
-  .product-price::before {
-    content: 'AUD ';
-    font-size: 14px;
-    font-family: 'Courier Prime', monospace;
-    vertical-align: super;
-    letter-spacing: 2px;
-  }
-
-  .product-details {
-    font-size: 12px;
-    line-height: 1.9;
-    color: var(--mid);
-    margin-bottom: 32px;
-    border-left: 2px solid var(--black);
-    padding-left: 16px;
-  }
-
-  .coming-soon {
-    display: inline-block;
-    border: 2px solid var(--grey);
-    color: var(--grey);
-    padding: 14px 28px;
-    font-family: 'Courier Prime', monospace;
-    font-size: 12px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-  }
-
-  .stamp {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    width: 70px;
-    height: 70px;
-    border: 3px solid var(--black);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-size: 8px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    line-height: 1.4;
-    transform: rotate(12deg);
-    font-family: 'Courier Prime', monospace;
-  }
-
-  #about {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    border-bottom: 3px solid var(--black);
-  }
-
-  .about-label {
-    border-right: 3px solid var(--black);
-    padding: 50px 40px;
-    display: flex;
-    align-items: flex-start;
-  }
-
-  .about-label .section-title {
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    letter-spacing: 6px;
-  }
-
-  .about-content {
-    padding: 50px 60px;
-  }
-
-  .about-content p {
-    font-size: 15px;
-    line-height: 2;
-    color: var(--mid);
-    margin-bottom: 20px;
-    max-width: 560px;
-  }
-
-  .about-content p:first-child {
-    font-family: 'Special Elite', cursive;
-    font-size: 20px;
-    color: var(--black);
-  }
-
-  footer {
-    background: var(--black);
-    color: var(--white);
-    padding: 30px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-
-  footer a {
-    color: var(--white);
-    text-decoration: none;
-    opacity: 0.6;
-    transition: opacity 0.2s;
-  }
-
+  footer { background: var(--black); color: var(--white); padding: 30px 40px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+  footer a { color: var(--white); text-decoration: none; opacity: 0.6; }
   footer a:hover { opacity: 1; }
 
-  .ruled {
-    border-top: 1px solid var(--black);
-    border-bottom: 1px solid var(--black);
-    padding: 8px 40px;
-    font-size: 10px;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    color: var(--grey);
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .hero-content > * {
-    animation: fadeUp 0.6s ease forwards;
-    opacity: 0;
-  }
-
-  .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
-  .hero-content > *:nth-child(2) { animation-delay: 0.2s; }
-  .hero-content > *:nth-child(3) { animation-delay: 0.3s; }
+  .ruled { border-top: 1px solid var(--black); border-bottom: 1px solid var(--black); padding: 8px 40px; font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--grey); overflow: hidden; white-space: nowrap; }
 
   @media (max-width: 700px) {
     .header-main { grid-template-columns: 1fr; text-align: center; gap: 10px; padding: 20px; }
@@ -430,7 +108,6 @@
     .about-label { border-right: none; border-bottom: 3px solid var(--black); padding: 24px; }
     .about-label .section-title { writing-mode: horizontal-tb; transform: none; }
     .about-content { padding: 32px 24px; }
-    .section-header { padding: 16px 24px; }
     footer { flex-direction: column; gap: 12px; text-align: center; }
     .nav-strip a { font-size: 9px; padding: 10px 4px; letter-spacing: 1px; }
   }
@@ -439,16 +116,9 @@
 <body>
 
 <header>
-  <div class="header-tape">
-    ★ handmade zine ★ printed on a4 ★ made in a van ★ outback australia ★ fold and staple ★
-  </div>
+  <div class="header-tape">★ handmade zine ★ printed on a4 ★ made in a van ★ outback australia ★ fold and staple ★</div>
   <div class="header-main">
-    <div class="header-left">
-      Issue 01<br>
-      A5 Format<br>
-      16 Pages<br>
-      B&amp;W
-    </div>
+    <div class="header-left">Issue 01<br>A5 Format<br>16 Pages<br>B&amp;W</div>
     <h1>
       <div class="title-word" id="word-flat">
         <img src="flat1.png" alt="FLAT">
@@ -465,33 +135,23 @@
         <img src="stick5.png" alt="STICK">
       </div>
     </h1>
-    <div class="header-right">
-      Hand<br>Made<br>Zine<br>
-      <span class="issue-badge">Est. 2026</span>
-    </div>
+    <div class="header-right">Hand<br>Made<br>Zine<br><span class="issue-badge">Est. 2026</span></div>
   </div>
   <nav class="nav-strip">
     <a href="#shop">Shop</a>
     <a href="#about">About</a>
-    <a href="/cdn-cgi/l/email-protection#543238352027203d373f2e3d3a31143339353d387a373b39">Contact</a>
+    <a href="mailto:flatstickzine@gmail.com">Contact</a>
   </nav>
 </header>
 
-<div class="ruled">
-  ░░░ flat stick zine ░░░ outback australia ░░░ handmade ░░░ independent ░░░ flat stick zine ░░░ outback australia ░░░ handmade ░░░ independent ░░░
-</div>
+<div class="ruled">░░░ flat stick zine ░░░ outback australia ░░░ handmade ░░░ independent ░░░ flat stick zine ░░░ outback australia ░░░ handmade ░░░ independent ░░░</div>
 
 <section class="hero">
-  <div class="hero-image">
-    <div class="zine-mockup"></div>
-  </div>
+  <div class="hero-image"><div class="zine-mockup"></div></div>
   <div class="hero-content">
     <p class="tagline">A zine made <em>on the road</em><br>somewhere out west.</p>
-    <p class="description">
-      Flat Stick is a hand-drawn zine made in a van somewhere in outback Australia.
-      Black and white. Folded and stapled. No frills.
-    </p>
-    <a href="#shop" class="btn-filled" style="display:inline-block;padding:14px 28px;font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:3px;text-transform:uppercase;text-decoration:none;background:var(--black);color:var(--white);border:2px solid var(--black);">Get a copy ↓</a>
+    <p class="description">Flat Stick is a hand-drawn zine made in a van somewhere in outback Australia. Black and white. Folded and stapled. No frills.</p>
+    <a href="#shop" class="get-copy">Get a copy ↓</a>
   </div>
 </section>
 
@@ -501,65 +161,41 @@
     <span class="section-sub">— coming soon</span>
   </div>
   <div class="shop-grid">
-
     <div class="product-card">
       <div class="stamp">Digital<br>PDF<br>Download</div>
       <p class="product-type">Digital Edition</p>
       <h2 class="product-title">PDF<br>Download</h2>
       <div class="product-price">3</div>
-      <div class="product-details">
-        Full 16-page zine<br>
-        High resolution PDF<br>
-        Print at home<br>
-        Delivered by email
-      </div>
+      <div class="product-details">Full 16-page zine<br>High resolution PDF<br>Print at home<br>Delivered by email</div>
       <span class="coming-soon">Coming Soon</span>
     </div>
-
     <div class="product-card">
       <div class="stamp">Posted<br>Australia<br>Wide</div>
       <p class="product-type">Physical Edition</p>
       <h2 class="product-title">Printed<br>Copy</h2>
       <div class="product-price">10</div>
-      <div class="product-details">
-        Printed &amp; hand-assembled<br>
-        Folded &amp; saddle-stitched<br>
-        Posted anywhere in Australia<br>
-        Includes postage
-      </div>
+      <div class="product-details">Printed &amp; hand-assembled<br>Folded &amp; saddle-stitched<br>Posted anywhere in Australia<br>Includes postage</div>
       <span class="coming-soon">Coming Soon</span>
     </div>
-
   </div>
 </section>
 
-<div class="ruled">
-  ░░░ handmade in a van ░░░ outback australia ░░░ black and white ░░░ fold and staple ░░░ no frills ░░░
-</div>
+<div class="ruled">░░░ handmade in a van ░░░ outback australia ░░░ black and white ░░░ fold and staple ░░░ no frills ░░░</div>
 
 <section id="about">
-  <div class="about-label">
-    <span class="section-title">About</span>
-  </div>
+  <div class="about-label"><span class="section-title">About</span></div>
   <div class="about-content">
     <p>Flat Stick is a zine made in a van, somewhere in outback Australia.</p>
-    <p>
-      Each issue is hand-drawn in Procreate, printed on A4, folded in half and stapled.
-      No fancy equipment. No studio. Just the road, some ideas, and whatever's around.
-    </p>
-    <p>
-      Questions or just want to say g'day —
-      <a href="/cdn-cgi/l/email-protection#395f55584d4a4d505a524350575c795e54585055175a5654" style="color:var(--black);font-weight:700;">shoot us an email.</a>
-    </p>
+    <p>Each issue is hand-drawn in Procreate, printed on A4, folded in half and stapled. No fancy equipment. No studio. Just the road, some ideas, and whatever's around.</p>
+    <p>Questions or just want to say g'day — <a href="mailto:flatstickzine@gmail.com" style="color:var(--black);font-weight:700;">shoot us an email.</a></p>
   </div>
 </section>
 
 <footer>
   <span>© 2026 Flat Stick Zine</span>
   <span>Made in a van — outback Australia</span>
-  <a href="/cdn-cgi/l/email-protection#482e24293c3b3c212b233221262d082f25292124662b2725"><span class="__cf_email__" data-cfemail="8aece6ebfef9fee3e9e1f0e3e4efcaede7ebe3e6a4e9e5e7">[email&#160;protected]</span></a>
+  <a href="mailto:flatstickzine@gmail.com">flatstickzine@gmail.com</a>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-function rotateWord(containerId, interval) {
-  const imgs = document.querySelectorAll('#' 
+</body>
+</html>
