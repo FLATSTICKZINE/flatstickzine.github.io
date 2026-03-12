@@ -92,19 +92,23 @@
 
   .title-word {
     position: relative;
-    height: clamp(70px, 12vw, 150px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 4px 0;
+    width: clamp(200px, 50vw, 500px);
+    margin: 0 auto 8px auto;
   }
 
   .title-word img {
     position: absolute;
-    width: clamp(200px, 38vw, 460px);
+    top: 0;
+    left: 0;
+    width: 100%;
     height: auto;
     opacity: 0;
     transition: opacity 0.5s ease;
+  }
+
+  .title-word img:first-child {
+    position: relative;
+    visibility: hidden;
   }
 
   .title-word img.active {
@@ -461,7 +465,7 @@
   <nav class="nav-strip">
     <a href="#shop">Shop</a>
     <a href="#about">About</a>
-    <a href="mailto:flatstickzine@gmail.com">Contact</a>
+    <a href="/cdn-cgi/l/email-protection#543238352027203d373f2e3d3a31143339353d387a373b39">Contact</a>
   </nav>
 </header>
 
@@ -537,7 +541,7 @@
     </p>
     <p>
       Questions or just want to say g'day —
-      <a href="mailto:flatstickzine@gmail.com" style="color:var(--black);font-weight:700;">shoot us an email.</a>
+      <a href="/cdn-cgi/l/email-protection#395f55584d4a4d505a524350575c795e54585055175a5654" style="color:var(--black);font-weight:700;">shoot us an email.</a>
     </p>
   </div>
 </section>
@@ -545,23 +549,9 @@
 <footer>
   <span>© 2026 Flat Stick Zine</span>
   <span>Made in a van — outback Australia</span>
-  <a href="mailto:flatstickzine@gmail.com">flatstickzine@gmail.com</a>
+  <a href="/cdn-cgi/l/email-protection#482e24293c3b3c212b233221262d082f25292124662b2725"><span class="__cf_email__" data-cfemail="8aece6ebfef9fee3e9e1f0e3e4efcaede7ebe3e6a4e9e5e7">[email&#160;protected]</span></a>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 function rotateWord(containerId, interval) {
-  const imgs = document.querySelectorAll('#' + containerId + ' img');
-  if (imgs.length <= 1) return;
-  let current = 0;
-  setInterval(function() {
-    imgs[current].classList.remove('active');
-    current = (current + 1) % imgs.length;
-    imgs[current].classList.add('active');
-  }, interval);
-}
-rotateWord('word-flat', 2300);
-rotateWord('word-stick', 1700);
-</script>
-
-</body>
-</html>
+  const imgs = document.querySelectorAll('#' 
