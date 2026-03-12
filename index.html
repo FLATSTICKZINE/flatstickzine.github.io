@@ -31,18 +31,6 @@
 
   .title-word img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; }
 
-  #word-flat img:nth-child(1) { animation: fade 12.5s 0s infinite; }
-  #word-flat img:nth-child(2) { animation: fade 12.5s 2.5s infinite; }
-  #word-flat img:nth-child(3) { animation: fade 12.5s 5s infinite; }
-  #word-flat img:nth-child(4) { animation: fade 12.5s 7.5s infinite; }
-  #word-flat img:nth-child(5) { animation: fade 12.5s 10s infinite; }
-
-  #word-stick img:nth-child(1) { animation: fade 9s 0s infinite; }
-  #word-stick img:nth-child(2) { animation: fade 9s 1.8s infinite; }
-  #word-stick img:nth-child(3) { animation: fade 9s 3.6s infinite; }
-  #word-stick img:nth-child(4) { animation: fade 9s 5.4s infinite; }
-  #word-stick img:nth-child(5) { animation: fade 9s 7.2s infinite; }
-
   @keyframes fade {
     0%   { opacity: 1; }
     18%  { opacity: 1; }
@@ -128,6 +116,7 @@
         <img src="flat3.png" alt="FLAT">
         <img src="flat4.png" alt="FLAT">
         <img src="flat5.png" alt="FLAT">
+        <img src="flat6.png" alt="FLAT">
       </div>
       <div class="title-word" id="word-stick">
         <img src="stick1.png" alt="STICK">
@@ -135,6 +124,7 @@
         <img src="stick3.png" alt="STICK">
         <img src="stick4.png" alt="STICK">
         <img src="stick5.png" alt="STICK">
+        <img src="stick6.png" alt="STICK">
       </div>
     </h1>
     <div class="header-right">Hand<br>Made<br>Zine<br><span class="issue-badge">Est. 2026</span></div>
@@ -197,3 +187,18 @@
   <span>© 2026 Flat Stick Zine</span>
   <span>Made in a van — outback Australia</span>
   <a h
+<script>
+(function() {
+  function applyFade(containerId, duration) {
+    var imgs = document.querySelectorAll('#' + containerId + ' img');
+    var count = imgs.length;
+    if (!count) return;
+    var each = duration / count;
+    imgs.forEach(function(img, i) {
+      img.style.animation = 'fade ' + duration + 's ' + (each * i) + 's infinite';
+    });
+  }
+  applyFade('word-flat', 12.5);
+  applyFade('word-stick', 9);
+})();
+</script>
