@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FLAT STICK</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Bebas+Neue&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Bebas+Neue&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Permanent+Marker&family=Rock+Salt&family=Covered+By+Your+Grace&display=swap');
 
   :root {
     --black: #0a0a0a;
@@ -71,24 +71,30 @@
   }
 
   h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(80px, 15vw, 160px);
-    letter-spacing: -2px;
     line-height: 0.9;
     text-align: center;
     position: relative;
   }
 
-  h1::after {
-    content: 'FLAT STICK';
+  .title-word {
+    position: relative;
+    height: clamp(70px, 12vw, 150px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4px 0;
+  }
+
+  .title-word img {
     position: absolute;
-    top: 3px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: transparent;
-    -webkit-text-stroke: 1px var(--black);
-    opacity: 0.15;
-    z-index: -1;
+    width: clamp(200px, 38vw, 460px);
+    height: auto;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .title-word img.active {
+    opacity: 1;
   }
 
   .header-right {
@@ -512,7 +518,10 @@
       16 Pages<br>
       B&W
     </div>
-    <h1>FLAT<br>STICK</h1>
+    <h1>
+      <div class="title-word" id="word-flat"></div>
+      <div class="title-word" id="word-stick"></div>
+    </h1>
     <div class="header-right">
       Hand<br>Made<br>Zine<br>
       <span class="issue-badge">Est. 2026</span>
@@ -521,7 +530,7 @@
   <nav class="nav-strip">
     <a href="#shop">Shop</a>
     <a href="#about">About</a>
-    <a href="mailto:deraj.enots@gmail.com">Contact</a>
+    <a href="/cdn-cgi/l/email-protection#16727364777c38737879626556717b777f7a3875797b">Contact</a>
   </nav>
 </header>
 
@@ -605,7 +614,7 @@
     </p>
     <p>
       Questions, orders, or just want to say g'day —
-      <a href="mailto:deraj.enots@gmail.com" style="color:var(--black); font-weight:700;">shoot us an email.</a>
+      <a href="/cdn-cgi/l/email-protection#56323324373c78333839222516313b373f3a7835393b" style="color:var(--black); font-weight:700;">shoot us an email.</a>
     </p>
   </div>
 </section>
@@ -613,8 +622,4 @@
 <footer>
   <span>© 2026 Flat Stick Zine</span>
   <span>Made in a van — outback Australia</span>
-  <a href="mailto:deraj.enots@gmail.com">deraj.enots@gmail.com</a>
-</footer>
-
-</body>
-</html>
+  <a h
