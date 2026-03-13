@@ -218,16 +218,21 @@
     var steps = 0;
     var maxSteps = 8;
     var tempIdx = current;
+    var flatDir = spinDir;
+    var stickDir = spinDir * -1;
 
     function tick() {
       steps++;
-      tempIdx = (tempIdx + spinDir + count) % count;
-      var pos = tempIdx * imgH;
+      var flatIdx = (tempIdx + flatDir + count) % count;
+      var stickIdx = (tempIdx + stickDir + count) % count;
+      tempIdx = flatIdx;
       var dur = steps < maxSteps - 2 ? 120 : 400;
+      var flatPos = flatIdx * imgH;
+      var stickPos = stickIdx * imgH;
       flatReel.style.transition = 'transform ' + dur + 'ms ease-in-out';
       stickReel.style.transition = 'transform ' + dur + 'ms ease-in-out';
-      flatReel.style.transform = 'translateY(-' + pos + 'px)';
-      stickReel.style.transform = 'translateY(-' + pos + 'px)';
+      flatReel.style.transform = 'translateY(-' + flatPos + 'px)';
+      stickReel.style.transform = 'translateY(-' + stickPos + 'px)';
       if (steps < maxSteps) {
         setTimeout(tick, dur + 20);
       } else {
