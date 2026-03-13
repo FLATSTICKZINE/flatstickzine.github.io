@@ -27,22 +27,8 @@
 
   .title-word { width: clamp(260px, 38vw, 600px); height: clamp(80px, 11vw, 160px); overflow: hidden; }
 
-  .reel { display: flex; flex-direction: column; }
+  .reel { display: flex; flex-direction: column; transition: transform 0.3s ease-in-out; }
   .reel img { width: 100%; height: clamp(80px, 11vw, 160px); object-fit: contain; flex-shrink: 0; }
-
-  #word-flat .reel  { animation: reel-spin 30s ease-in-out infinite alternate; }
-  #word-stick .reel { animation: reel-spin 30s ease-in-out infinite alternate-reverse; }
-
-  @keyframes reel-spin {
-    0%   { transform: translateY(0); }
-    1.5% { transform: translateY(calc(-1 * clamp(80px, 11vw, 160px))); }
-    3%   { transform: translateY(calc(-2 * clamp(80px, 11vw, 160px))); }
-    4.5% { transform: translateY(calc(-3 * clamp(80px, 11vw, 160px))); }
-    6%   { transform: translateY(calc(-4 * clamp(80px, 11vw, 160px))); }
-    7.5% { transform: translateY(calc(-5 * clamp(80px, 11vw, 160px))); }
-    95%  { transform: translateY(calc(-5 * clamp(80px, 11vw, 160px))); }
-    100% { transform: translateY(0); }
-  }
 
   .nav-strip { display: flex; border-bottom: 3px solid var(--black); }
   .nav-strip a { flex: 1; text-align: center; padding: 12px; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; text-decoration: none; color: var(--black); border-right: 1px solid var(--black); transition: background 0.15s, color 0.15s; }
@@ -208,5 +194,59 @@
 
 
 
+<script>
+(function() {
+  var flatReel = document.querySelector('#word-flat .reel');
+  var stickReel = document.querySelector('#word-stick .reel');
+  var imgH = document.querySelector('#word-flat .reel img').offsetHeight;
+  var count = 6;
+  var current = 0;
+  var spinDir = 1;
+
+  function goTo(idx, dir) {
+    imgH = document.querySelector('#word-flat .reel img').offsetHeight;
+    var pos = idx * imgH;
+    flatReel.style.transition = 'none';
+    stickReel.style.transition = 'none';
+    flatReel.style.transform = 'translateY(-' + pos + 'px)';
+    stickReel.style.transform = 'translateY(-' + pos + 'px)';
+  }
+
+  function spin() {
+    imgH = document.querySelector('#word-flat .reel img').offsetHeight;
+    var target = Math.floor(Math.random() * count);
+    var steps = 0;
+    var maxSteps = 8;
+    var tempIdx = current;
+
+    function tick() {
+      steps++;
+      tempIdx = (tempIdx + spinDir + count) % count;
+      var pos = tempIdx * imgH;
+      var dur = steps < maxSteps - 2 ? 120 : 400;
+      flatReel.style.transition = 'transform ' + dur + 'ms ease-in-out';
+      stickReel.style.transition = 'transform ' + dur + 'ms ease-in-out';
+      flatReel.style.transform = 'translateY(-' + pos + 'px)';
+      stickReel.style.transform = 'translateY(-' + pos + 'px)';
+      if (steps < maxSteps) {
+        setTimeout(tick, dur + 20);
+      } else {
+        var finalPos = target * imgH;
+        flatReel.style.transition = 'transform 500ms ease-out';
+        stickReel.style.transition = 'transform 500ms ease-out';
+        flatReel.style.transform = 'translateY(-' + finalPos + 'px)';
+        stickReel.style.transform = 'translateY(-' + finalPos + 'px)';
+        current = target;
+        spinDir = spinDir * -1;
+        setTimeout(spin, 9000);
+      }
+    }
+    tick();
+  }
+
+  goTo(0, 1);
+  setTimeout(spin, 4000);
+})();
+</script>
 </body>
 </html>
