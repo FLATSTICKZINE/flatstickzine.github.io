@@ -30,29 +30,29 @@
   .reel { display: flex; flex-direction: column; }
   .reel img { width: 100%; height: clamp(80px, 11vw, 160px); object-fit: contain; flex-shrink: 0; }
 
-  #word-flat .reel  { animation: reel-down 30s ease-in-out infinite; }
-  #word-stick .reel { animation: reel-up 30s ease-in-out infinite; }
+  #word-flat .reel  { animation: reel-down 30s ease-in-out infinite alternate; }
+  #word-stick .reel { animation: reel-up 30s ease-in-out infinite alternate; }
 
   @keyframes reel-down {
     0%   { transform: translateY(0); }
-    2%   { transform: translateY(calc(-1 * clamp(80px, 11vw, 160px))); }
-    4%   { transform: translateY(calc(-2 * clamp(80px, 11vw, 160px))); }
-    6%   { transform: translateY(calc(-3 * clamp(80px, 11vw, 160px))); }
-    8%   { transform: translateY(calc(-4 * clamp(80px, 11vw, 160px))); }
-    10%  { transform: translateY(calc(-5 * clamp(80px, 11vw, 160px))); }
+    1.5% { transform: translateY(calc(-1 * clamp(80px, 11vw, 160px))); }
+    3%   { transform: translateY(calc(-2 * clamp(80px, 11vw, 160px))); }
+    4.5% { transform: translateY(calc(-3 * clamp(80px, 11vw, 160px))); }
+    6%   { transform: translateY(calc(-4 * clamp(80px, 11vw, 160px))); }
+    7.5% { transform: translateY(calc(-5 * clamp(80px, 11vw, 160px))); }
     95%  { transform: translateY(calc(-5 * clamp(80px, 11vw, 160px))); }
     100% { transform: translateY(0); }
   }
 
   @keyframes reel-up {
-    0%   { transform: translateY(calc(-5 * clamp(80px, 11vw, 160px))); }
-    2%   { transform: translateY(calc(-4 * clamp(80px, 11vw, 160px))); }
-    4%   { transform: translateY(calc(-3 * clamp(80px, 11vw, 160px))); }
-    6%   { transform: translateY(calc(-2 * clamp(80px, 11vw, 160px))); }
-    8%   { transform: translateY(calc(-1 * clamp(80px, 11vw, 160px))); }
-    10%  { transform: translateY(0); }
-    95%  { transform: translateY(0); }
-    100% { transform: translateY(calc(-5 * clamp(80px, 11vw, 160px))); }
+    0%   { transform: translateY(0); }
+    1.5% { transform: translateY(calc(1 * clamp(80px, 11vw, 160px))); }
+    3%   { transform: translateY(calc(2 * clamp(80px, 11vw, 160px))); }
+    4.5% { transform: translateY(calc(3 * clamp(80px, 11vw, 160px))); }
+    6%   { transform: translateY(calc(4 * clamp(80px, 11vw, 160px))); }
+    7.5% { transform: translateY(calc(5 * clamp(80px, 11vw, 160px))); }
+    95%  { transform: translateY(calc(5 * clamp(80px, 11vw, 160px))); }
+    100% { transform: translateY(0); }
   }
 
   .nav-strip { display: flex; border-bottom: 3px solid var(--black); }
