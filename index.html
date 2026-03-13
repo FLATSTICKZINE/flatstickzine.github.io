@@ -26,15 +26,29 @@
   h1 { display: flex; justify-content: center; align-items: flex-end; gap: 0; }
 
   .title-word { position: relative; width: clamp(150px, 25vw, 380px); height: clamp(60px, 10vw, 130px); overflow: hidden; }
-  #word-flat { margin-right: 0; }
-  #word-stick { margin-left: 0; }
 
   .title-word img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; object-position: bottom; opacity: 0; }
 
+  /* FLAT - 6 images */
+  #word-flat img:nth-child(1) { animation: fade 15s 0s infinite; }
+  #word-flat img:nth-child(2) { animation: fade 15s 2.5s infinite; }
+  #word-flat img:nth-child(3) { animation: fade 15s 5s infinite; }
+  #word-flat img:nth-child(4) { animation: fade 15s 7.5s infinite; }
+  #word-flat img:nth-child(5) { animation: fade 15s 10s infinite; }
+  #word-flat img:nth-child(6) { animation: fade 15s 12.5s infinite; }
+
+  /* STICK - 6 images */
+  #word-stick img:nth-child(1) { animation: fade 10.8s 0s infinite; }
+  #word-stick img:nth-child(2) { animation: fade 10.8s 1.8s infinite; }
+  #word-stick img:nth-child(3) { animation: fade 10.8s 3.6s infinite; }
+  #word-stick img:nth-child(4) { animation: fade 10.8s 5.4s infinite; }
+  #word-stick img:nth-child(5) { animation: fade 10.8s 7.2s infinite; }
+  #word-stick img:nth-child(6) { animation: fade 10.8s 9s infinite; }
+
   @keyframes fade {
     0%   { opacity: 1; }
-    18%  { opacity: 1; }
-    22%  { opacity: 0; }
+    15%  { opacity: 1; }
+    20%  { opacity: 0; }
     98%  { opacity: 0; }
     100% { opacity: 1; }
   }
@@ -111,20 +125,20 @@
     <div class="header-left">Issue 01<br>A5 Format<br>16 Pages<br>B&amp;W</div>
     <h1>
       <div class="title-word" id="word-flat">
-        <img src="flat1.PNG" alt="FLAT">
-        <img src="flat2.PNG" alt="FLAT">
-        <img src="flat3.PNG" alt="FLAT">
-        <img src="flat4.PNG" alt="FLAT">
-        <img src="flat5.PNG" alt="FLAT">
-        <img src="flat6.PNG" alt="FLAT">
+        <img src="flat1.png" alt="FLAT">
+        <img src="flat2.png" alt="FLAT">
+        <img src="flat3.png" alt="FLAT">
+        <img src="flat4.png" alt="FLAT">
+        <img src="flat5.png" alt="FLAT">
+        <img src="flat6.png" alt="FLAT">
       </div>
       <div class="title-word" id="word-stick">
-        <img src="stick1.PNG" alt="STICK">
-        <img src="stick2.PNG" alt="STICK">
-        <img src="stick3.PNG" alt="STICK">
-        <img src="stick4.PNG" alt="STICK">
-        <img src="stick5.PNG" alt="STICK">
-        <img src="stick6.PNG" alt="STICK">
+        <img src="stick1.png" alt="STICK">
+        <img src="stick2.png" alt="STICK">
+        <img src="stick3.png" alt="STICK">
+        <img src="stick4.png" alt="STICK">
+        <img src="stick5.png" alt="STICK">
+        <img src="stick6.png" alt="STICK">
       </div>
     </h1>
     <div class="header-right">Hand<br>Made<br>Zine<br><span class="issue-badge">Est. 2026</span></div>
@@ -132,7 +146,7 @@
   <nav class="nav-strip">
     <a href="#shop">Shop</a>
     <a href="#about">About</a>
-    <a href="/cdn-cgi/l/email-protection#c5a3a9a4b1b6b1aca6aebfacaba085a2a8a4aca9eba6aaa8">Contact</a>
+    <a href="mailto:flatstickzine@gmail.com">Contact</a>
   </nav>
 </header>
 
@@ -179,16 +193,15 @@
   <div class="about-content">
     <p>Flat Stick is a zine made in a van, somewhere in outback Australia.</p>
     <p>Each issue is hand-drawn in Procreate, printed on A4, folded in half and stapled. No fancy equipment. No studio. Just the road, some ideas, and whatever's around.</p>
-    <p>Questions or just want to say g'day — <a href="/cdn-cgi/l/email-protection#23454f425750574a4048594a4d4663444e424a4f0d404c4e" style="color:var(--black);font-weight:700;">shoot us an email.</a></p>
+    <p>Questions or just want to say g'day — <a href="mailto:flatstickzine@gmail.com" style="color:var(--black);font-weight:700;">shoot us an email.</a></p>
   </div>
 </section>
 
 <footer>
   <span>© 2026 Flat Stick Zine</span>
   <span>Made in a van — outback Australia</span>
-  <a href="/cdn-cgi/l/email-protection#dabcb6bbaea9aeb3b9b1a0b3b4bf9abdb7bbb3b6f4b9b5b7"><span class="__cf_email__" data-cfemail="cfa9a3aebbbcbba6aca4b5a6a1aa8fa8a2aea6a3e1aca0a2">[email&#160;protected]</span></a>
+  <a href="mailto:flatstickzine@gmail.com">flatstickzine@gmail.com</a>
 </footer>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-(function() {
-  function applyFade(containerId, duration) {
-    var imgs = document.querySelector
+
+</body>
+</html>
