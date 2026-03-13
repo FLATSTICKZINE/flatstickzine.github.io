@@ -25,11 +25,43 @@
 
   h1 { display: flex; justify-content: center; align-items: center; gap: 60px; padding: 30px 0; }
 
-  .title-word { position: relative; width: clamp(260px, 38vw, 600px); height: clamp(80px, 11vw, 160px); overflow: hidden; }
+  .title-word { width: clamp(260px, 38vw, 600px); height: clamp(80px, 11vw, 160px); overflow: hidden; }
 
-  .title-word img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; object-position: center; opacity: 0; transition: opacity 0.25s; }
+  .reel { display: flex; flex-direction: column; }
+  .reel img { width: 100%; height: clamp(80px, 11vw, 160px); object-fit: contain; flex-shrink: 0; }
 
-  .title-word img.visible { opacity: 1; }
+  #word-flat .reel { animation: scroll-down 22s cubic-bezier(0.25, 0.1, 0.25, 1) infinite; }
+  #word-stick .reel { animation: scroll-up 17s cubic-bezier(0.25, 0.1, 0.25, 1) infinite; }
+
+  @keyframes scroll-down {
+    0%   { transform: translateY(0); }
+    8%   { transform: translateY(calc(-1 * clamp(80px, 11vw, 160px))); }
+    16%  { transform: translateY(calc(-1 * clamp(80px, 11vw, 160px))); }
+    24%  { transform: translateY(calc(-2 * clamp(80px, 11vw, 160px))); }
+    32%  { transform: translateY(calc(-2 * clamp(80px, 11vw, 160px))); }
+    40%  { transform: translateY(calc(-3 * clamp(80px, 11vw, 160px))); }
+    48%  { transform: translateY(calc(-3 * clamp(80px, 11vw, 160px))); }
+    56%  { transform: translateY(calc(-4 * clamp(80px, 11vw, 160px))); }
+    64%  { transform: translateY(calc(-4 * clamp(80px, 11vw, 160px))); }
+    72%  { transform: translateY(calc(-5 * clamp(80px, 11vw, 160px))); }
+    88%  { transform: translateY(calc(-5 * clamp(80px, 11vw, 160px))); }
+    100% { transform: translateY(0); }
+  }
+
+  @keyframes scroll-up {
+    0%   { transform: translateY(calc(-5 * clamp(80px, 11vw, 160px))); }
+    8%   { transform: translateY(calc(-4 * clamp(80px, 11vw, 160px))); }
+    16%  { transform: translateY(calc(-4 * clamp(80px, 11vw, 160px))); }
+    24%  { transform: translateY(calc(-3 * clamp(80px, 11vw, 160px))); }
+    32%  { transform: translateY(calc(-3 * clamp(80px, 11vw, 160px))); }
+    40%  { transform: translateY(calc(-2 * clamp(80px, 11vw, 160px))); }
+    48%  { transform: translateY(calc(-2 * clamp(80px, 11vw, 160px))); }
+    56%  { transform: translateY(calc(-1 * clamp(80px, 11vw, 160px))); }
+    64%  { transform: translateY(calc(-1 * clamp(80px, 11vw, 160px))); }
+    72%  { transform: translateY(0); }
+    88%  { transform: translateY(0); }
+    100% { transform: translateY(calc(-5 * clamp(80px, 11vw, 160px))); }
+  }
 
   .nav-strip { display: flex; border-bottom: 3px solid var(--black); }
   .nav-strip a { flex: 1; text-align: center; padding: 12px; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; text-decoration: none; color: var(--black); border-right: 1px solid var(--black); transition: background 0.15s, color 0.15s; }
@@ -105,20 +137,24 @@
     <div class="header-left">Issue 01<br>A5 Format<br>16 Pages<br>B&amp;W</div>
     <h1>
       <div class="title-word" id="word-flat">
-        <img src="flat1.png" alt="FLAT">
-        <img src="flat2.png" alt="FLAT">
-        <img src="flat3.png" alt="FLAT">
-        <img src="flat4.png" alt="FLAT">
-        <img src="flat5.png" alt="FLAT">
-        <img src="flat6.png" alt="FLAT">
+        <div class="reel">
+          <img src="flat1.png" alt="FLAT">
+          <img src="flat2.png" alt="FLAT">
+          <img src="flat3.png" alt="FLAT">
+          <img src="flat4.png" alt="FLAT">
+          <img src="flat5.png" alt="FLAT">
+          <img src="flat6.png" alt="FLAT">
+        </div>
       </div>
       <div class="title-word" id="word-stick">
-        <img src="stick1.png" alt="STICK">
-        <img src="stick2.png" alt="STICK">
-        <img src="stick3.png" alt="STICK">
-        <img src="stick4.png" alt="STICK">
-        <img src="stick5.png" alt="STICK">
-        <img src="stick6.png" alt="STICK">
+        <div class="reel">
+          <img src="stick1.png" alt="STICK">
+          <img src="stick2.png" alt="STICK">
+          <img src="stick3.png" alt="STICK">
+          <img src="stick4.png" alt="STICK">
+          <img src="stick5.png" alt="STICK">
+          <img src="stick6.png" alt="STICK">
+        </div>
       </div>
     </h1>
     <div class="header-right">Hand<br>Made<br>Zine<br><span class="issue-badge">Est. 2026</span></div>
@@ -188,49 +224,8 @@
   <span>flatstickzine [at] gmail</span>
 </footer>
 
-<script>
-var f = document.querySelectorAll('#word-flat img');
-var s = document.querySelectorAll('#word-stick img');
-var n = f.length;
-var fi = 0;
-var si = 0;
-var REST = 5000;
-var FAST = 220;
-var SLOW = 600;
-var STEPS = 10;
 
-function show(imgs, idx) {
-  for (var i = 0; i < imgs.length; i++) imgs[i].classList.remove('visible');
-  imgs[idx].classList.add('visible');
-}
 
-function spin() {
-  var step = 0;
-  var target = Math.floor(Math.random() * n);
-  function tick() {
-    var delay = step < STEPS - 3 ? FAST : SLOW;
-    fi = (fi + 1) % n;
-    si = (si + n - 1) % n;
-    show(f, fi);
-    show(s, si);
-    step++;
-    if (step < STEPS) {
-      setTimeout(tick, delay);
-    } else {
-      fi = target;
-      si = target;
-      show(f, fi);
-      show(s, si);
-      setTimeout(spin, REST);
-    }
-  }
-  tick();
-}
-
-show(f, 0);
-show(s, 0);
-setTimeout(spin, REST);
-</script>
 
 </body>
 </html>
