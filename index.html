@@ -27,7 +27,7 @@
 
   .title-word { position: relative; width: clamp(150px, 25vw, 380px); height: clamp(80px, 14vw, 180px); overflow: hidden; }
 
-  .title-word img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; object-position: bottom; opacity: 0; transition: opacity 0.3s; }
+  .title-word img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; object-position: bottom; opacity: 0; transition: opacity 0.25s; }
 
   .title-word img.visible { opacity: 1; }
 
@@ -72,9 +72,11 @@
   .about-content p { font-size: 15px; line-height: 2; color: var(--mid); margin-bottom: 20px; max-width: 560px; }
   .about-content p:first-child { font-family: 'Special Elite', cursive; font-size: 20px; color: var(--black); }
 
+  #contact { border-bottom: 3px solid var(--black); padding: 50px 40px; text-align: center; }
+  #contact .contact-label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--grey); margin-bottom: 12px; }
+  #contact .contact-addr { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 4px; }
+
   footer { background: var(--black); color: var(--white); padding: 30px 40px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
-  footer a { color: var(--white); text-decoration: none; opacity: 0.6; }
-  footer a:hover { opacity: 1; }
 
   .ruled { border-top: 1px solid var(--black); border-bottom: 1px solid var(--black); padding: 8px 40px; font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--grey); overflow: hidden; white-space: nowrap; }
 
@@ -98,7 +100,7 @@
 <body>
 
 <header>
-  <div class="header-tape">★ handmade zine ★ printed on a4 ★ made in a van ★ outback australia ★ fold and staple ★</div>
+  <div class="header-tape">&#9733; handmade zine &#9733; printed on a4 &#9733; made in a van &#9733; outback australia &#9733; fold and staple &#9733;</div>
   <div class="header-main">
     <div class="header-left">Issue 01<br>A5 Format<br>16 Pages<br>B&amp;W</div>
     <h1>
@@ -124,25 +126,25 @@
   <nav class="nav-strip">
     <a href="#shop">Shop</a>
     <a href="#about">About</a>
-    <a href="mailto:flatstickzine@gmail.com">Contact</a>
+    <a href="#contact">Contact</a>
   </nav>
 </header>
 
-<div class="ruled">░░░ flat stick zine ░░░ outback australia ░░░ handmade ░░░ independent ░░░ flat stick zine ░░░ outback australia ░░░ handmade ░░░ independent ░░░</div>
+<div class="ruled">&#9617;&#9617;&#9617; flat stick zine &#9617;&#9617;&#9617; outback australia &#9617;&#9617;&#9617; handmade &#9617;&#9617;&#9617; independent &#9617;&#9617;&#9617; flat stick zine &#9617;&#9617;&#9617; outback australia &#9617;&#9617;&#9617; handmade &#9617;&#9617;&#9617; independent &#9617;&#9617;&#9617;</div>
 
 <section class="hero">
   <div class="hero-image"><div class="zine-mockup"></div></div>
   <div class="hero-content">
     <p class="tagline">A zine made <em>on the road</em><br>somewhere out west.</p>
     <p class="description">Flat Stick is a hand-drawn zine made in a van somewhere in outback Australia. Black and white. Folded and stapled. No frills.</p>
-    <a href="#shop" class="get-copy">Get a copy ↓</a>
+    <a href="#shop" class="get-copy">Get a copy &#8595;</a>
   </div>
 </section>
 
 <section id="shop">
   <div class="section-header">
     <span class="section-title">Shop</span>
-    <span class="section-sub">— coming soon</span>
+    <span class="section-sub">&#8212; coming soon</span>
   </div>
   <div class="shop-grid">
     <div class="product-card">
@@ -164,68 +166,69 @@
   </div>
 </section>
 
-<div class="ruled">░░░ handmade in a van ░░░ outback australia ░░░ black and white ░░░ fold and staple ░░░ no frills ░░░</div>
+<div class="ruled">&#9617;&#9617;&#9617; handmade in a van &#9617;&#9617;&#9617; outback australia &#9617;&#9617;&#9617; black and white &#9617;&#9617;&#9617; fold and staple &#9617;&#9617;&#9617; no frills &#9617;&#9617;&#9617;</div>
 
 <section id="about">
   <div class="about-label"><span class="section-title">About</span></div>
   <div class="about-content">
     <p>Flat Stick is a zine made in a van, somewhere in outback Australia.</p>
     <p>Each issue is hand-drawn in Procreate, printed on A4, folded in half and stapled. No fancy equipment. No studio. Just the road, some ideas, and whatever's around.</p>
-    <p>Questions or just want to say g'day — <a href="mailto:flatstickzine@gmail.com" style="color:var(--black);font-weight:700;">shoot us an email.</a></p>
+    <p>Questions or just want to say g'day &#8212; find us below.</p>
   </div>
 </section>
 
+<section id="contact">
+  <p class="contact-label">Get in touch</p>
+  <p class="contact-addr">flatstickzine [at] gmail [dot] com</p>
+</section>
+
 <footer>
-  <span>© 2026 Flat Stick Zine</span>
-  <span>Made in a van — outback Australia</span>
-  <a href="mailto:flatstickzine@gmail.com">flatstickzine@gmail.com</a>
+  <span>&#169; 2026 Flat Stick Zine</span>
+  <span>Made in a van &#8212; outback Australia</span>
+  <span>flatstickzine [at] gmail</span>
 </footer>
 
 <script>
-var flatImgs = document.querySelectorAll('#word-flat img');
-var stickImgs = document.querySelectorAll('#word-stick img');
-var count = flatImgs.length;
-var flatIdx = 0;
-var stickIdx = 0;
-var spinning = false;
+var f = document.querySelectorAll('#word-flat img');
+var s = document.querySelectorAll('#word-stick img');
+var n = f.length;
+var fi = 0;
+var si = 0;
 var REST = 4000;
-var SPIN_STEPS = 8;
-var SPIN_FAST = 120;
-var SPIN_SLOW = 350;
+var FAST = 130;
+var SLOW = 380;
+var STEPS = 10;
 
 function show(imgs, idx) {
-  imgs.forEach(function(img) { img.classList.remove('visible'); });
+  for (var i = 0; i < imgs.length; i++) imgs[i].classList.remove('visible');
   imgs[idx].classList.add('visible');
 }
 
 function spin() {
-  spinning = true;
-  var steps = 0;
-  var target = Math.floor(Math.random() * count);
-
-  function step() {
-    var delay = steps < SPIN_STEPS - 3 ? SPIN_FAST : SPIN_SLOW;
-    flatIdx = (flatIdx + 1) % count;
-    stickIdx = (stickIdx + count - 1) % count;
-    show(flatImgs, flatIdx);
-    show(stickImgs, stickIdx);
-    steps++;
-    if (steps < SPIN_STEPS) {
-      setTimeout(step, delay);
+  var step = 0;
+  var target = Math.floor(Math.random() * n);
+  function tick() {
+    var delay = step < STEPS - 3 ? FAST : SLOW;
+    fi = (fi + 1) % n;
+    si = (si + n - 1) % n;
+    show(f, fi);
+    show(s, si);
+    step++;
+    if (step < STEPS) {
+      setTimeout(tick, delay);
     } else {
-      flatIdx = target;
-      stickIdx = target;
-      show(flatImgs, flatIdx);
-      show(stickImgs, stickIdx);
-      spinning = false;
+      fi = target;
+      si = target;
+      show(f, fi);
+      show(s, si);
       setTimeout(spin, REST);
     }
   }
-  step();
+  tick();
 }
 
-show(flatImgs, 0);
-show(stickImgs, 0);
+show(f, 0);
+show(s, 0);
 setTimeout(spin, REST);
 </script>
 
