@@ -30,11 +30,8 @@
   .reel { display: flex; flex-direction: column; }
   .reel img { width: 100%; height: clamp(80px, 11vw, 160px); object-fit: contain; flex-shrink: 0; }
 
-  /* Both reels: 30s total. Spins for ~3s, then static for ~27s */
-  /* FLAT scrolls down through all 6, lands back on #1 */
   #word-flat .reel  { animation: reel-down 30s ease-in-out infinite; }
-  /* STICK scrolls down through all 6 at same rate — always matches */
-  #word-stick .reel { animation: reel-down 30s ease-in-out infinite; }
+  #word-stick .reel { animation: reel-up 30s ease-in-out infinite; }
 
   @keyframes reel-down {
     0%   { transform: translateY(0); }
@@ -43,9 +40,19 @@
     6%   { transform: translateY(calc(-3 * clamp(80px, 11vw, 160px))); }
     8%   { transform: translateY(calc(-4 * clamp(80px, 11vw, 160px))); }
     10%  { transform: translateY(calc(-5 * clamp(80px, 11vw, 160px))); }
-    12%  { transform: translateY(calc(-6 * clamp(80px, 11vw, 160px))); }
-    95%  { transform: translateY(calc(-6 * clamp(80px, 11vw, 160px))); }
+    95%  { transform: translateY(calc(-5 * clamp(80px, 11vw, 160px))); }
     100% { transform: translateY(0); }
+  }
+
+  @keyframes reel-up {
+    0%   { transform: translateY(calc(-5 * clamp(80px, 11vw, 160px))); }
+    2%   { transform: translateY(calc(-4 * clamp(80px, 11vw, 160px))); }
+    4%   { transform: translateY(calc(-3 * clamp(80px, 11vw, 160px))); }
+    6%   { transform: translateY(calc(-2 * clamp(80px, 11vw, 160px))); }
+    8%   { transform: translateY(calc(-1 * clamp(80px, 11vw, 160px))); }
+    10%  { transform: translateY(0); }
+    95%  { transform: translateY(0); }
+    100% { transform: translateY(calc(-5 * clamp(80px, 11vw, 160px))); }
   }
 
   .nav-strip { display: flex; border-bottom: 3px solid var(--black); }
