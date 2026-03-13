@@ -30,37 +30,22 @@
   .reel { display: flex; flex-direction: column; }
   .reel img { width: 100%; height: clamp(80px, 11vw, 160px); object-fit: contain; flex-shrink: 0; }
 
-  #word-flat .reel { animation: scroll-down 22s cubic-bezier(0.25, 0.1, 0.25, 1) infinite; }
-  #word-stick .reel { animation: scroll-up 17s cubic-bezier(0.25, 0.1, 0.25, 1) infinite; }
+  /* Both reels: 30s total. Spins for ~3s, then static for ~27s */
+  /* FLAT scrolls down through all 6, lands back on #1 */
+  #word-flat .reel  { animation: reel-down 30s ease-in-out infinite; }
+  /* STICK scrolls down through all 6 at same rate — always matches */
+  #word-stick .reel { animation: reel-down 30s ease-in-out infinite; }
 
-  @keyframes scroll-down {
+  @keyframes reel-down {
     0%   { transform: translateY(0); }
-    8%   { transform: translateY(calc(-1 * clamp(80px, 11vw, 160px))); }
-    16%  { transform: translateY(calc(-1 * clamp(80px, 11vw, 160px))); }
-    24%  { transform: translateY(calc(-2 * clamp(80px, 11vw, 160px))); }
-    32%  { transform: translateY(calc(-2 * clamp(80px, 11vw, 160px))); }
-    40%  { transform: translateY(calc(-3 * clamp(80px, 11vw, 160px))); }
-    48%  { transform: translateY(calc(-3 * clamp(80px, 11vw, 160px))); }
-    56%  { transform: translateY(calc(-4 * clamp(80px, 11vw, 160px))); }
-    64%  { transform: translateY(calc(-4 * clamp(80px, 11vw, 160px))); }
-    72%  { transform: translateY(calc(-5 * clamp(80px, 11vw, 160px))); }
-    88%  { transform: translateY(calc(-5 * clamp(80px, 11vw, 160px))); }
-    100% { transform: translateY(0); }
-  }
-
-  @keyframes scroll-up {
-    0%   { transform: translateY(calc(-5 * clamp(80px, 11vw, 160px))); }
+    2%   { transform: translateY(calc(-1 * clamp(80px, 11vw, 160px))); }
+    4%   { transform: translateY(calc(-2 * clamp(80px, 11vw, 160px))); }
+    6%   { transform: translateY(calc(-3 * clamp(80px, 11vw, 160px))); }
     8%   { transform: translateY(calc(-4 * clamp(80px, 11vw, 160px))); }
-    16%  { transform: translateY(calc(-4 * clamp(80px, 11vw, 160px))); }
-    24%  { transform: translateY(calc(-3 * clamp(80px, 11vw, 160px))); }
-    32%  { transform: translateY(calc(-3 * clamp(80px, 11vw, 160px))); }
-    40%  { transform: translateY(calc(-2 * clamp(80px, 11vw, 160px))); }
-    48%  { transform: translateY(calc(-2 * clamp(80px, 11vw, 160px))); }
-    56%  { transform: translateY(calc(-1 * clamp(80px, 11vw, 160px))); }
-    64%  { transform: translateY(calc(-1 * clamp(80px, 11vw, 160px))); }
-    72%  { transform: translateY(0); }
-    88%  { transform: translateY(0); }
-    100% { transform: translateY(calc(-5 * clamp(80px, 11vw, 160px))); }
+    10%  { transform: translateY(calc(-5 * clamp(80px, 11vw, 160px))); }
+    12%  { transform: translateY(calc(-6 * clamp(80px, 11vw, 160px))); }
+    95%  { transform: translateY(calc(-6 * clamp(80px, 11vw, 160px))); }
+    100% { transform: translateY(0); }
   }
 
   .nav-strip { display: flex; border-bottom: 3px solid var(--black); }
