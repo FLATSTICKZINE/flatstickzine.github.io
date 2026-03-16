@@ -185,9 +185,7 @@ nav a:hover { background: #333; }
   z-index: 2;
 }
 
-.issue-panel:hover .preview-strip {
-  transform: translateY(0);
-}
+
 
 .preview-strip img {
   flex: 1;
@@ -630,10 +628,6 @@ footer {
   <a href="issue.html?i=01" class="issue-panel" style="text-decoration:none;color:inherit;">
     <div class="issue-cover">
       <img src="issue1.webp" alt="Flat Stick Issue 1">
-      <div class="preview-strip">
-        <img src="issue1contents.webp" alt="Issue 1 interior">
-        <img src="issue1mid.webp" alt="Issue 1 interior">
-      </div>
     </div>
     <div class="issue-label">
       <span class="issue-num">01</span>
@@ -647,10 +641,6 @@ footer {
   <a href="issue.html?i=02" class="issue-panel" style="text-decoration:none;color:inherit;">
     <div class="issue-cover">
       <img src="issue2.webp" alt="Flat Stick Issue 2">
-      <div class="preview-strip">
-        <img src="issue2contents.webp" alt="Issue 2 interior">
-        <img src="issue2mid.webp" alt="Issue 2 interior">
-      </div>
     </div>
     <div class="issue-label">
       <span class="issue-num">02</span>
@@ -720,6 +710,19 @@ const issues = [
     edition: 50,
   },
   {
+    label: "03",
+    title: "???",
+    date: "Coming Soon",
+    location: "Somewhere out west",
+    cover: "issue3.webp",
+    pdf_price: 3,
+    print_price: 10,
+    available: false,
+    pdf_url: "",
+    print_url: "",
+    edition: 50,
+  },
+  {
     label: "01",
     title: "Leaving Victoria",
     date: "February 2026",
@@ -740,15 +743,21 @@ issues.forEach(issue => {
   const card = document.createElement('div');
   card.className = 'shop-card';
 
+  const coverImg = issue.available
+    ? `<a href="issue.html?i=${issue.label}" style="display:block;text-decoration:none;"><img src="${issue.cover}" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block;filter:grayscale(100%);"></a>`
+    : `<div style="width:100%;aspect-ratio:3/4;background:#111;display:flex;align-items:center;justify-content:center;"><span style="font-size:48px;color:#333;">?</span></div>`;
+
+  const actions = issue.available
+    ? `<button class="btn-add-cart" data-issue="${issue.label}" data-type="print">+ Add Print to Cart — $10</button>
+       <a href="${issue.pdf_url}" class="pdf-btn" target="_blank">Buy PDF — $3</a>
+       <a href="issue.html?i=${issue.label}" class="pdf-btn">View Issue →</a>`
+    : `<div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--grey);text-align:center;padding:8px 0;">Coming Soon</div>`;
+
   card.innerHTML = `
-    <a href="issue.html?i=${issue.label}" style="display:block;text-decoration:none;color:inherit;">
-      <img src="${issue.cover}" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block;filter:grayscale(100%);">
-    </a>
+    ${coverImg}
     <div class="issue-actions">
       <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--grey);margin-bottom:8px;">Issue ${issue.label} — ${issue.title}</div>
-      <button class="btn-add-cart" data-issue="${issue.label}" data-type="print">+ Add Print to Cart — $10</button>
-      <a href="${issue.pdf_url}" class="pdf-btn" target="_blank">Buy PDF — $3</a>
-      <a href="issue.html?i=${issue.label}" class="pdf-btn">View Issue →</a>
+      ${actions}
     </div>
   `;
 
@@ -824,8 +833,9 @@ document.getElementById('cart-checkout').addEventListener('click', () => {
   if (cart.length === 0) return;
   const { total } = getTotal();
   const issueList = cart.map(i => `Issue ${i.issue} ${i.type}`).join(', ');
-  window.open(PAYPAL_PRINT_URL, '_blank');
-  alert(`Please add a note in PayPal with your order:\n${issueList}\nTotal: $${total}`);
+  // Build PayPal URL with custom amount
+  const note = encodeURIComponent(`Order: ${issueList}`);
+  window.location.href = PAYPAL_PRINT_URL;
 });
 
 // ─────────────────────────────────────────────
