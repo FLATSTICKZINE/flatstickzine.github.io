@@ -420,106 +420,7 @@ footer {
   .shop-card { padding: 24px 20px; }
 }
 
-/* ── CART ── */
-.cart-bar {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  background: var(--black);
-  color: var(--white);
-  padding: 16px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 1000;
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
-  border-top: 2px solid #333;
-}
 
-.cart-bar.visible { transform: translateY(0); }
-
-.cart-items {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  flex-wrap: wrap;
-  flex: 1;
-}
-
-.cart-item {
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  background: #222;
-  padding: 6px 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.cart-item-remove {
-  cursor: pointer;
-  opacity: 0.5;
-  font-size: 14px;
-  line-height: 1;
-}
-.cart-item-remove:hover { opacity: 1; }
-
-.cart-right {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  flex-shrink: 0;
-}
-
-.cart-total {
-  font-size: 13px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.cart-total strong {
-  font-size: 20px;
-  font-weight: 700;
-}
-
-.cart-saving {
-  font-size: 9px;
-  letter-spacing: 2px;
-  color: #aaa;
-  margin-top: 2px;
-}
-
-.cart-checkout {
-  padding: 12px 24px;
-  background: var(--white);
-  color: var(--black);
-  font-family: 'Courier Prime', monospace;
-  font-size: 10px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  transition: background 0.12s;
-}
-.cart-checkout:hover { background: #ddd; }
-
-.cart-clear {
-  font-size: 9px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #666;
-  cursor: pointer;
-  text-decoration: none;
-  background: none;
-  border: none;
-  font-family: 'Courier Prime', monospace;
-}
-.cart-clear:hover { color: #999; }
-
-/* Add to cart / buy now buttons */
 .issue-actions {
   padding: 16px 20px;
   border-top: 1px solid var(--black);
@@ -582,6 +483,200 @@ footer {
   transition: background 0.12s;
 }
 .pdf-btn:hover { background: #f0f0f0; }
+
+/* ── ORDER MODAL ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: #fff;
+  max-width: 560px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 3px solid #0a0a0a;
+}
+
+.modal-header {
+  background: #0a0a0a;
+  color: #fff;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0.7;
+  font-family: monospace;
+}
+.modal-close:hover { opacity: 1; }
+
+.modal-body { padding: 24px; }
+
+.pricing-guide {
+  background: #f5f2ee;
+  border: 1px solid #ddd;
+  padding: 16px;
+  margin-bottom: 24px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  line-height: 2;
+}
+
+.pricing-guide strong {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  color: #999;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid #0a0a0a;
+  font-family: 'Courier Prime', monospace;
+  font-size: 13px;
+  background: #fff;
+  outline: none;
+}
+
+.form-group textarea { height: 80px; resize: vertical; }
+
+.issues-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.issue-check {
+  border: 2px solid #ddd;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.issue-check input { width: auto; margin: 0; }
+.issue-check:has(input:checked) { border-color: #0a0a0a; background: #f5f2ee; }
+
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 2px solid #0a0a0a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-total {
+  font-size: 13px;
+  letter-spacing: 2px;
+}
+
+.order-total strong { font-size: 22px; font-weight: 700; }
+.order-saving { font-size: 10px; color: #999; letter-spacing: 1px; }
+
+.btn-order {
+  padding: 14px 28px;
+  background: #0a0a0a;
+  color: #fff;
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.12s;
+}
+.btn-order:hover { opacity: 0.8; }
+
+/* Issue card order button */
+.issue-actions {
+  padding: 14px 16px;
+  border-top: 1px solid #0a0a0a;
+  background: #fff;
+}
+
+.btn-place-order {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border: 2px solid #0a0a0a;
+  background: #0a0a0a;
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  transition: opacity 0.12s;
+  margin-bottom: 6px;
+}
+.btn-place-order:hover { opacity: 0.8; }
+
+.pdf-btn {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #444;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  transition: background 0.12s;
+  margin-bottom: 6px;
+}
+.pdf-btn:hover { background: #f0f0f0; }
+
 </style>
 </head>
 <body>
@@ -748,15 +843,15 @@ issues.forEach(issue => {
     : `<div style="width:100%;aspect-ratio:3/4;background:#111;display:flex;align-items:center;justify-content:center;"><span style="font-size:48px;color:#333;">?</span></div>`;
 
   const actions = issue.available
-    ? `<button class="btn-add-cart" data-issue="${issue.label}" data-type="print">+ Add Print to Cart — $10</button>
+    ? `<button class="btn-place-order" onclick="openOrder('${issue.label}')">Order →</button>
        <a href="${issue.pdf_url}" class="pdf-btn" target="_blank">Buy PDF — $3</a>
        <a href="issue.html?i=${issue.label}" class="pdf-btn">View Issue →</a>`
-    : `<div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--grey);text-align:center;padding:8px 0;">Coming Soon</div>`;
+    : `<div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#999;text-align:center;padding:8px 0;">Coming Soon</div>`;
 
   card.innerHTML = `
     ${coverImg}
     <div class="issue-actions">
-      <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--grey);margin-bottom:8px;">Issue ${issue.label} — ${issue.title}</div>
+      <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#999;margin-bottom:8px;">Issue ${issue.label} — ${issue.title}</div>
       ${actions}
     </div>
   `;
@@ -764,78 +859,89 @@ issues.forEach(issue => {
   grid.appendChild(card);
 });
 
-// ── CART JS ──
-const BUNDLE_PRICES = { 1: 10, 2: 17, 3: 24, 4: 30 };
-const PAYPAL_PRINT_URL = "https://www.paypal.com/ncp/payment/TF2WBPUNLG8X2";
-let cart = [];
-
-function getTotal() {
-  const printCount = cart.filter(i => i.type === 'print').length;
-  const pdfCount   = cart.filter(i => i.type === 'pdf').length;
-  const printTotal = BUNDLE_PRICES[Math.min(printCount, 4)] || (printCount * 10);
-  const pdfTotal   = pdfCount * 3;
-  return { printTotal, pdfTotal, total: printTotal + pdfTotal, printCount, pdfCount };
-}
-
-function updateCart() {
-  const cartBar    = document.getElementById('cart-bar');
-  const cartItems  = document.getElementById('cart-items');
-  const cartTotal  = document.getElementById('cart-total');
-  const cartSaving = document.getElementById('cart-saving');
-
-  if (cart.length === 0) { cartBar.classList.remove('visible'); return; }
-  cartBar.classList.add('visible');
-  cartItems.innerHTML = '';
-
-  cart.forEach((item, idx) => {
-    const div = document.createElement('div');
-    div.className = 'cart-item';
-    div.innerHTML = `Issue ${item.issue} ${item.type === 'pdf' ? 'PDF' : 'Print'} <span class="cart-item-remove" data-idx="${idx}">✕</span>`;
-    cartItems.appendChild(div);
-  });
-
-  const { total, printCount } = getTotal();
-  const saving = (printCount * 10) - BUNDLE_PRICES[Math.min(printCount, 4)];
-  cartTotal.textContent = `$${total}`;
-  cartSaving.textContent = saving > 0 ? `saving $${saving}` : '';
-
-  document.querySelectorAll('.btn-add-cart').forEach(btn => {
-    const inCart = cart.some(i => i.issue === btn.dataset.issue && i.type === btn.dataset.type);
-    btn.textContent = inCart ? '✓ In Cart — $10' : '+ Add Print to Cart — $10';
-    btn.classList.toggle('in-cart', inCart);
-  });
-}
-
-document.addEventListener('click', e => {
-  if (e.target.classList.contains('btn-add-cart')) {
-    const issue = e.target.dataset.issue;
-    const type  = e.target.dataset.type;
-    const exists = cart.findIndex(i => i.issue === issue && i.type === type);
-    if (exists >= 0) {
-      cart.splice(exists, 1);
-    } else {
-      if (type === 'print' && cart.filter(i => i.type === 'print').length >= 4) {
-        alert('Maximum 4 print copies per order'); return;
-      }
-      cart.push({ issue, type });
-    }
-    updateCart();
-  }
-  if (e.target.classList.contains('cart-item-remove')) {
-    cart.splice(parseInt(e.target.dataset.idx), 1);
-    updateCart();
-  }
+// Populate modal issue checkboxes
+const modalIssues = document.getElementById('modal-issues');
+issues.filter(i => i.available).forEach(issue => {
+  const label = document.createElement('label');
+  label.className = 'issue-check';
+  label.innerHTML = `<input type="checkbox" name="issues" value="${issue.label}"> Issue ${issue.label} — ${issue.title}`;
+  modalIssues.appendChild(label);
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('cart-clear').addEventListener('click', () => { cart = []; updateCart(); });
+// ── ORDER MODAL JS ──
+const BUNDLE_PRICES = { 1: 10, 2: 17, 3: 24, 4: 30 };
+const FORMSPREE_URL = "https://formspree.io/f/xzdjjwzy"; // replace with your Formspree ID
 
-  document.getElementById('cart-checkout').addEventListener('click', () => {
-    if (cart.length === 0) return;
-    const { total } = getTotal();
-    const issueList = cart.map(i => `Issue ${i.issue} ${i.type}`).join(', ');
-    const url = `https://paypal.me/flatstickzine/${total}AUD`;
-    window.location.href = url;
+function calcTotal(printCount) {
+  return BUNDLE_PRICES[Math.min(printCount, 4)] || (printCount * 10);
+}
+
+function openOrder(preselect) {
+  const overlay = document.getElementById('order-overlay');
+  overlay.classList.add('open');
+  // Preselect the issue they clicked
+  if (preselect) {
+    const cb = document.querySelector(`input[name="issues"][value="${preselect}"]`);
+    if (cb) cb.checked = true;
+  }
+  updateOrderTotal();
+}
+
+function closeOrder() {
+  document.getElementById('order-overlay').classList.remove('open');
+}
+
+function updateOrderTotal() {
+  const checked = document.querySelectorAll('input[name="issues"]:checked');
+  const count = checked.length;
+  const total = calcTotal(count);
+  const saving = (count * 10) - total;
+  document.getElementById('order-total-val').textContent = count > 0 ? `$${total}` : '$0';
+  document.getElementById('order-saving').textContent = saving > 0 ? `saving $${saving} on postage` : count > 1 ? '' : '';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Close on overlay click
+  document.getElementById('order-overlay').addEventListener('click', e => {
+    if (e.target === document.getElementById('order-overlay')) closeOrder();
+  });
+
+  // Update total when issues selected
+  document.querySelectorAll('input[name="issues"]').forEach(cb => {
+    cb.addEventListener('change', updateOrderTotal);
+  });
+
+  // Form submit
+  document.getElementById('order-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const form = e.target;
+    const name    = form.querySelector('[name="name"]').value.trim();
+    const address = form.querySelector('[name="address"]').value.trim();
+    const checked = [...form.querySelectorAll('input[name="issues"]:checked')];
+
+    if (!name || !address) { alert('Please fill in your name and address.'); return; }
+    if (checked.length === 0) { alert('Please select at least one issue.'); return; }
+
+    const issueList = checked.map(c => `Issue ${c.value}`).join(', ');
+    const total = calcTotal(checked.length);
+    const saving = (checked.length * 10) - total;
+
+    // Send to Formspree
+    const btn = form.querySelector('.btn-order');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    try {
+      await fetch(FORMSPREE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ name, address, issues: issueList, total: `$${total}`, saving: saving > 0 ? `$${saving}` : 'none' })
+      });
+    } catch(err) { console.log('Formspree error', err); }
+
+    // Redirect to PayPal
+    closeOrder();
+    window.location.href = `https://paypal.me/flatstickzine/${total}AUD`;
   });
 });
 
@@ -901,16 +1007,44 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 </script>
 
-<!-- CART BAR -->
-<div class="cart-bar" id="cart-bar">
-  <div class="cart-items" id="cart-items"></div>
-  <div class="cart-right">
-    <div>
-      <div class="cart-total">Total: <strong id="cart-total">$0</strong></div>
-      <div class="cart-saving" id="cart-saving"></div>
+<!-- ORDER MODAL -->
+<div class="modal-overlay" id="order-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Place an Order</h2>
+      <button class="modal-close" onclick="closeOrder()">✕</button>
     </div>
-    <button class="cart-clear" id="cart-clear">Clear</button>
-    <button class="cart-checkout" id="cart-checkout">Checkout via PayPal →</button>
+    <div class="modal-body">
+      <div class="pricing-guide">
+        <strong>Pricing — Print Copies (posted anywhere in Australia)</strong>
+        1 issue — $10 &nbsp;&nbsp; 2 issues — $17 (save $3)<br>
+        3 issues — $24 (save $6) &nbsp;&nbsp; 4 issues — $30 (save $10)<br>
+        <span style="color:#999;font-size:10px;">PDF download — $3 each (buy separately below)</span>
+      </div>
+      <form id="order-form">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" name="name" placeholder="Full name" required>
+        </div>
+        <div class="form-group">
+          <label>Postal Address</label>
+          <textarea name="address" placeholder="Street, suburb, state, postcode" required></textarea>
+        </div>
+        <div class="form-group">
+          <label>Which issues? (select all you want)</label>
+          <div class="issues-grid" id="modal-issues">
+            <!-- populated by JS -->
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div>
+            <div class="order-total">Total: <strong id="order-total-val">$0</strong></div>
+            <div class="order-saving" id="order-saving"></div>
+          </div>
+          <button type="submit" class="btn-order">Pay with PayPal →</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 
