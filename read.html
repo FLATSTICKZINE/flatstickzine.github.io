@@ -383,24 +383,17 @@ function render(animate) {
     const spreadPage = leftPage.isSpread ? leftPage : rightPage;
     setPage(pageLeft, spreadPage, true);
   } else if (isSingle) {
-    // Single page — show on right for first page, left for last page
+    // Single page — spans full width, no blank page next to it
     const singlePage = (leftPage && leftPage.isSingle) ? leftPage : rightPage;
-    const isFirst = leftIdx === 0;
-    pageLeft.style.gridColumn = '';
+    pageLeft.style.gridColumn = '1 / -1';
     pageLeft.style.aspectRatio = '';
-    pageRight.style.display = '';
-    if (isFirst) {
-      setPage(pageLeft, null, false);
-      setPage(pageRight, singlePage, false);
-    } else {
-      setPage(pageLeft, singlePage, false);
-      setPage(pageRight, null, false);
-    }
+    pageRight.style.display = 'none';
+    setPage(pageLeft, singlePage, false);
   } else {
     pageLeft.style.gridColumn = '';
     pageLeft.style.aspectRatio = '';
     pageRight.style.display = '';
-    setPage(pageLeft,  leftPage,  false);
+    setPage(pageLeft, leftPage, false);
     setPage(pageRight, rightPage, false);
   }
 
