@@ -96,7 +96,13 @@ body {
   transform: translateX(-50%);
   z-index: 2;
   pointer-events: none;
+  opacity: calc(1 - var(--hide-divider, 0));
 }
+
+.page-blank {
+  background: var(--white);
+}
+.page-blank::after { display: none; }
 
 .page {
   background: var(--paper);
@@ -346,9 +352,13 @@ pages.forEach((page, i) => {
 
 function setPage(el, page, isFullSpread) {
   if (!page) {
-    el.innerHTML = '<div class="page-blank"></div>';
+    el.innerHTML = '';
+    el.style.background = 'transparent';
+    el.style.boxShadow = 'none';
     return;
   }
+  el.style.background = '';
+  el.style.boxShadow = '';
   if (isFullSpread) {
     // Full width centre spread
     el.innerHTML = `<img src="${page.src}" loading="eager" style="width:100%;height:100%;object-fit:cover;border:4px solid #ddd;">`;
@@ -375,24 +385,39 @@ function render(animate) {
   const isCentreSpread = leftPage && rightPage && (leftPage.isSpread || rightPage.isSpread);
   const isSingle = (leftPage && leftPage.isSingle) || (rightPage && rightPage.isSingle);
 
+  document.querySelector('.spread').style.removeProperty('--hide-divider');
   if (isCentreSpread) {
     // Display as landscape A4 spanning full width
     pageLeft.style.gridColumn = '1 / -1';
     pageLeft.style.aspectRatio = '1.414 / 1';
+    pageLeft.style.background = '';
+    pageLeft.style.boxShadow = '';
     pageRight.style.display = 'none';
     const spreadPage = leftPage.isSpread ? leftPage : rightPage;
     setPage(pageLeft, spreadPage, true);
   } else if (isSingle) {
-    // Single page — spans full width, no blank page next to it
+    // Single page — centred, other side white, no divider line
     const singlePage = (leftPage && leftPage.isSingle) ? leftPage : rightPage;
-    pageLeft.style.gridColumn = '1 / -1';
-    pageLeft.style.aspectRatio = '';
-    pageRight.style.display = 'none';
-    setPage(pageLeft, singlePage, false);
-  } else {
+    const isFirst = pages.indexOf(leftPage) === 0 || !leftPage;
     pageLeft.style.gridColumn = '';
     pageLeft.style.aspectRatio = '';
     pageRight.style.display = '';
+    document.querySelector('.spread').style.setProperty('--hide-divider', '1');
+    if (isFirst) {
+      setPage(pageLeft, null, false);
+      setPage(pageRight, singlePage, false);
+    } else {
+      setPage(pageLeft, singlePage, false);
+      setPage(pageRight, null, false);
+    }
+  } else {
+    pageLeft.style.gridColumn = '';
+    pageLeft.style.aspectRatio = '';
+    pageLeft.style.background = '';
+    pageLeft.style.boxShadow = '';
+    pageRight.style.display = '';
+    pageRight.style.background = '';
+    pageRight.style.boxShadow = '';
     setPage(pageLeft, leftPage, false);
     setPage(pageRight, rightPage, false);
   }
