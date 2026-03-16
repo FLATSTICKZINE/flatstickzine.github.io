@@ -140,20 +140,27 @@ const spreadTurnPages = [];
 let turnIdx = 1;
 
 pages.forEach(page => {
-  const div = document.createElement('div');
-
   if (page.isSpread) {
-    div.className = 'page';
-    div.innerHTML = `<img src="${page.src}" style="width:100%;height:100%;object-fit:cover;">`;
+    // Add TWO divs for the spread — left half and right half
+    const divL = document.createElement('div');
+    divL.className = 'page';
+    divL.innerHTML = `<img src="${page.src}" style="width:200%;height:100%;object-fit:cover;object-position:left center;">`;
+    book.appendChild(divL);
+
+    const divR = document.createElement('div');
+    divR.className = 'page';
+    divR.innerHTML = `<img src="${page.src}" style="width:200%;height:100%;object-fit:cover;object-position:right center;margin-left:-100%;">`;
+    book.appendChild(divR);
+
     spreadTurnPages.push(turnIdx);
-    turnIdx += 2; // spread occupies 2 slots
+    turnIdx += 2;
   } else {
+    const div = document.createElement('div');
     div.className = 'page';
     div.innerHTML = `<img src="${page.src}">`;
+    book.appendChild(div);
     turnIdx++;
   }
-
-  book.appendChild(div);
 });
 
 // Pad to even
@@ -179,10 +186,7 @@ $(document).ready(function() {
     }
   });
 
-  // Tell Turn.js which pages are double-page spreads
-  spreadTurnPages.forEach(p => {
-    $('#book').turn('pages', p, [p, p + 1]);
-  });
+  // Spreads are handled by two divs showing left/right halves
 
   updateUI(1);
 
