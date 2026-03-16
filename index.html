@@ -686,7 +686,7 @@ footer {
 .pdf-btn:hover { background: #f0f0f0; }
 
 </style>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDW_EBBVfmxcBxQ327bRR17WNabdpmELCo&libraries=places"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDW_EBBVfmxcBxQ327bRR17WNabdpmELCo&libraries=places&callback=initAutocomplete" async defer></script>
 </head>
 <body>
 
@@ -915,25 +915,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target === document.getElementById('order-overlay')) closeOrder();
   });
 
-  // Google Places autocomplete
-  if (typeof google !== 'undefined') {
-    const autocomplete = new google.maps.places.Autocomplete(
-      document.getElementById('address-autocomplete'),
-      { componentRestrictions: { country: 'au' }, types: ['address'] }
-    );
-    autocomplete.addListener('place_changed', () => {
-      const place = autocomplete.getPlace();
-      document.getElementById('field-full-address').value = place.formatted_address || '';
-      place.address_components.forEach(c => {
-        if (c.types.includes('street_number') || c.types.includes('route')) {
-          // handled by main input
-        }
-        if (c.types.includes('locality')) document.getElementById('field-suburb').value = c.long_name;
-        if (c.types.includes('administrative_area_level_1')) document.getElementById('field-state').value = c.short_name;
-        if (c.types.includes('postal_code')) document.getElementById('field-postcode').value = c.long_name;
-      });
-    });
-  }
+  // autocomplete set up via global callback below
 
   // Update total when issues selected
   document.querySelectorAll('input[name="issues"]').forEach(cb => {
@@ -1035,6 +1017,26 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(spin, 4000);
   });
 })();
+
+window.initAutocomplete = function() {
+  const input = document.getElementById('address-autocomplete');
+  if (!input) return;
+  const autocomplete = new google.maps.places.Autocomplete(input, {
+    componentRestrictions: { country: 'au' },
+    types: ['address']
+  });
+  autocomplete.addListener('place_changed', () => {
+    const place = autocomplete.getPlace();
+    document.getElementById('field-full-address').value = place.formatted_address || '';
+    if (place.address_components) {
+      place.address_components.forEach(c => {
+        if (c.types.includes('locality')) document.getElementById('field-suburb').value = c.long_name;
+        if (c.types.includes('administrative_area_level_1')) document.getElementById('field-state').value = c.short_name;
+        if (c.types.includes('postal_code')) document.getElementById('field-postcode').value = c.long_name;
+      });
+    }
+  });
+};
 </script>
 
 <!-- ORDER MODAL -->
