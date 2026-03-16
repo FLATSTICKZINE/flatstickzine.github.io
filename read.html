@@ -289,6 +289,7 @@ const issues = {
     // Centre spread — page 8 is a full width image, page 9 is skipped
     spreads: [8],
     skipPages: [9],
+    singlePages: [1, 16],  // first and last display alone
   },
   "02": {
     label: "02",
@@ -296,6 +297,7 @@ const issues = {
     folder: "issue2",
     totalPages: 20,
     spreads: [10, 11],
+    singlePages: [1, 20],  // first and last display alone
   },
   // Add new issues here each week:
   // "03": { label: "03", title: "Title", folder: "issue3", totalPages: 16, spreads: [] },
@@ -309,6 +311,7 @@ const issue = issues[issueKey] || issues['01'];
 const pages = Array.from({length: issue.totalPages}, (_, i) => ({
   src: `${issue.folder}/${i+1}.PNG`,
   isSpread: issue.spreads.includes(i+1),
+  isSingle: (issue.singlePages || []).includes(i+1),
   skip: (issue.skipPages || []).includes(i+1),
 })).filter(p => !p.skip);
 const total = pages.length;
@@ -369,6 +372,7 @@ function render(animate) {
   const leftPage  = pages[leftIdx];
   const rightPage = pages[rightIdx];
   const isCentreSpread = leftPage && rightPage && (leftPage.isSpread || rightPage.isSpread);
+  const isSingle = (leftPage && leftPage.isSingle) || (rightPage && rightPage.isSingle);
 
   if (isCentreSpread) {
     // Display as landscape A4 spanning full width
@@ -377,6 +381,20 @@ function render(animate) {
     pageRight.style.display = 'none';
     const spreadPage = leftPage.isSpread ? leftPage : rightPage;
     setPage(pageLeft, spreadPage, true);
+  } else if (isSingle) {
+    // Single page — show on right for first page, left for last page
+    const singlePage = (leftPage && leftPage.isSingle) ? leftPage : rightPage;
+    const isFirst = leftIdx === 0;
+    pageLeft.style.gridColumn = '';
+    pageLeft.style.aspectRatio = '';
+    pageRight.style.display = '';
+    if (isFirst) {
+      setPage(pageLeft, null, false);
+      setPage(pageRight, singlePage, false);
+    } else {
+      setPage(pageLeft, singlePage, false);
+      setPage(pageRight, null, false);
+    }
   } else {
     pageLeft.style.gridColumn = '';
     pageLeft.style.aspectRatio = '';
