@@ -166,7 +166,7 @@ nav a:hover { background: #333; }
   object-fit: cover;
   display: block;
   transition: transform 0.5s ease;
-  filter: grayscale(20%);
+  filter: grayscale(100%);
 }
 
 .issue-panel:hover .issue-cover > img {
@@ -281,16 +281,23 @@ nav a:hover { background: #333; }
 }
 
 .shop-issues {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  display: flex;
+  overflow-x: auto;
+  gap: 0;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 
+.shop-issues::-webkit-scrollbar { display: none; }
+
 .shop-card {
-  padding: 36px 32px;
+  flex-shrink: 0;
+  width: 260px;
   border-right: 2px solid var(--black);
-  border-bottom: 2px solid var(--black);
   position: relative;
 }
+
+.shop-card:last-child { border-right: none; }
 
 .shop-card-cover {
   width: 100%;
@@ -733,33 +740,92 @@ issues.forEach(issue => {
   const card = document.createElement('div');
   card.className = 'shop-card';
 
-  const pdfBtn = (issue.available && issue.pdf_url)
-    ? `<a href="${issue.pdf_url}" class="btn">PDF — $${issue.pdf_price}</a>`
-    : `<span class="btn btn-ghost">PDF — $${issue.pdf_price}</span>`;
-
-  const printBtn = (issue.available && issue.print_url)
-    ? `<a href="${issue.print_url}" class="btn">Print — $${issue.print_price}</a>`
-    : `<span class="btn btn-ghost">Print — $${issue.print_price}</span>`;
-
-  const status = issue.available
-    ? ''
-    : `<div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--grey);margin-bottom:14px;">Coming soon</div>`;
-
   card.innerHTML = `
-    <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--grey);margin-bottom:6px;">Issue ${issue.label}</div>
-    <div style="font-weight:700;letter-spacing:2px;font-size:13px;margin-bottom:4px;">${issue.title}</div>
-    <div style="font-size:10px;color:var(--grey);letter-spacing:2px;margin-bottom:6px;">${issue.date} — ${issue.location}</div>
-    <div style="font-size:10px;color:var(--grey);letter-spacing:2px;margin-bottom:18px;">Ed. of ${issue.edition}</div>
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding:12px;border:1px solid #ddd;">
-      <img src="stickers.webp" alt="Bonus sticker" style="width:56px;height:56px;object-fit:cover;border:1px solid #ccc;filter:grayscale(20%);">
-      <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;line-height:1.8;color:var(--mid);">Bonus sticker<br>included with<br>every print copy</div>
+    <a href="issue.html?i=${issue.label}" style="display:block;text-decoration:none;color:inherit;">
+      <img src="${issue.cover}" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block;filter:grayscale(100%);">
+    </a>
+    <div class="issue-actions">
+      <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--grey);margin-bottom:8px;">Issue ${issue.label} — ${issue.title}</div>
+      <button class="btn-add-cart" data-issue="${issue.label}" data-type="print">+ Add Print to Cart — $10</button>
+      <a href="${issue.pdf_url}" class="pdf-btn" target="_blank">Buy PDF — $3</a>
+      <a href="issue.html?i=${issue.label}" class="pdf-btn">View Issue →</a>
     </div>
-    ${status}
-    <div>${pdfBtn}${printBtn}</div>
-    <div style="margin-top:10px;"><a href="issue.html?i=${issue.label}" class="btn" style="margin-right:0;">View Issue &#8594;</a></div>
   `;
 
   grid.appendChild(card);
+});
+
+// ── CART JS ──
+const BUNDLE_PRICES = { 1: 10, 2: 17, 3: 24, 4: 30 };
+const PAYPAL_PRINT_URL = "https://www.paypal.com/ncp/payment/TF2WBPUNLG8X2";
+let cart = [];
+
+function getTotal() {
+  const printCount = cart.filter(i => i.type === 'print').length;
+  const pdfCount   = cart.filter(i => i.type === 'pdf').length;
+  const printTotal = BUNDLE_PRICES[Math.min(printCount, 4)] || (printCount * 10);
+  const pdfTotal   = pdfCount * 3;
+  return { printTotal, pdfTotal, total: printTotal + pdfTotal, printCount, pdfCount };
+}
+
+function updateCart() {
+  const cartBar    = document.getElementById('cart-bar');
+  const cartItems  = document.getElementById('cart-items');
+  const cartTotal  = document.getElementById('cart-total');
+  const cartSaving = document.getElementById('cart-saving');
+
+  if (cart.length === 0) { cartBar.classList.remove('visible'); return; }
+  cartBar.classList.add('visible');
+  cartItems.innerHTML = '';
+
+  cart.forEach((item, idx) => {
+    const div = document.createElement('div');
+    div.className = 'cart-item';
+    div.innerHTML = `Issue ${item.issue} ${item.type === 'pdf' ? 'PDF' : 'Print'} <span class="cart-item-remove" data-idx="${idx}">✕</span>`;
+    cartItems.appendChild(div);
+  });
+
+  const { total, printCount } = getTotal();
+  const saving = (printCount * 10) - BUNDLE_PRICES[Math.min(printCount, 4)];
+  cartTotal.textContent = `$${total}`;
+  cartSaving.textContent = saving > 0 ? `saving $${saving}` : '';
+
+  document.querySelectorAll('.btn-add-cart').forEach(btn => {
+    const inCart = cart.some(i => i.issue === btn.dataset.issue && i.type === btn.dataset.type);
+    btn.textContent = inCart ? '✓ In Cart — $10' : '+ Add Print to Cart — $10';
+    btn.classList.toggle('in-cart', inCart);
+  });
+}
+
+document.addEventListener('click', e => {
+  if (e.target.classList.contains('btn-add-cart')) {
+    const issue = e.target.dataset.issue;
+    const type  = e.target.dataset.type;
+    const exists = cart.findIndex(i => i.issue === issue && i.type === type);
+    if (exists >= 0) {
+      cart.splice(exists, 1);
+    } else {
+      if (type === 'print' && cart.filter(i => i.type === 'print').length >= 4) {
+        alert('Maximum 4 print copies per order'); return;
+      }
+      cart.push({ issue, type });
+    }
+    updateCart();
+  }
+  if (e.target.classList.contains('cart-item-remove')) {
+    cart.splice(parseInt(e.target.dataset.idx), 1);
+    updateCart();
+  }
+});
+
+document.getElementById('cart-clear').addEventListener('click', () => { cart = []; updateCart(); });
+
+document.getElementById('cart-checkout').addEventListener('click', () => {
+  if (cart.length === 0) return;
+  const { total } = getTotal();
+  const issueList = cart.map(i => `Issue ${i.issue} ${i.type}`).join(', ');
+  window.open(PAYPAL_PRINT_URL, '_blank');
+  alert(`Please add a note in PayPal with your order:\n${issueList}\nTotal: $${total}`);
 });
 
 // ─────────────────────────────────────────────
