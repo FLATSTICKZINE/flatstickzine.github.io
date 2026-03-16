@@ -827,15 +827,16 @@ document.addEventListener('click', e => {
   }
 });
 
-document.getElementById('cart-clear').addEventListener('click', () => { cart = []; updateCart(); });
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('cart-clear').addEventListener('click', () => { cart = []; updateCart(); });
 
-document.getElementById('cart-checkout').addEventListener('click', () => {
-  if (cart.length === 0) return;
-  const { total } = getTotal();
-  const issueList = cart.map(i => `Issue ${i.issue} ${i.type}`).join(', ');
-  // Use PayPal.me with amount — most reliable approach
-  const url = `https://paypal.me/flatstickzine/${total}AUD`;
-  window.location.href = url;
+  document.getElementById('cart-checkout').addEventListener('click', () => {
+    if (cart.length === 0) return;
+    const { total } = getTotal();
+    const issueList = cart.map(i => `Issue ${i.issue} ${i.type}`).join(', ');
+    const url = `https://paypal.me/flatstickzine/${total}AUD`;
+    window.location.href = url;
+  });
 });
 
 // ─────────────────────────────────────────────
@@ -893,17 +894,10 @@ document.getElementById('cart-checkout').addEventListener('click', () => {
     tick();
   }
 
-  // Wait for images to load before starting
-  var firstImg = document.querySelector('#word-flat .reel img');
-  if (firstImg.complete) {
+  window.addEventListener('load', function() {
     goTo(0);
     setTimeout(spin, 4000);
-  } else {
-    firstImg.addEventListener('load', function() {
-      goTo(0);
-      setTimeout(spin, 4000);
-    });
-  }
+  });
 })();
 </script>
 
