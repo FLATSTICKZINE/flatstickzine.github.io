@@ -738,8 +738,8 @@ issues.forEach(issue => {
     : `<span class="btn btn-ghost">PDF — $${issue.pdf_price}</span>`;
 
   const printBtn = (issue.available && issue.print_url)
-    ? `<a href="${issue.print_url}" class="btn">Print + sticker — $${issue.print_price}</a>`
-    : `<span class="btn btn-ghost">Print + sticker — $${issue.print_price}</span>`;
+    ? `<a href="${issue.print_url}" class="btn">Print — $${issue.print_price}</a>`
+    : `<span class="btn btn-ghost">Print — $${issue.print_price}</span>`;
 
   const status = issue.available
     ? ''

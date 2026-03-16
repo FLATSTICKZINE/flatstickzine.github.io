@@ -450,7 +450,7 @@ const pdfBtn = (issue.available && issue.pdf_url)
   ? `<a href="${issue.pdf_url}" class="btn btn-primary" target="_blank">Buy PDF — $${issue.pdf_price}</a>`
   : `<span class="btn btn-ghost">PDF — Coming Soon</span>`;
 const printBtn = (issue.available && issue.print_url)
-  ? `<a href="${issue.print_url}" class="btn" target="_blank">Print + sticker — $${issue.print_price}</a>`
+  ? `<a href="${issue.print_url}" class="btn" target="_blank">Print — $${issue.print_price}</a>`
   : `<span class="btn btn-ghost">Print — Coming Soon</span>`;
 
 hero.innerHTML = `
@@ -472,8 +472,8 @@ hero.innerHTML = `
     <div class="buy-block">
       <div class="buy-label">Get a copy</div>
       ${pdfBtn}${printBtn}
-      <div class="sticker-note">&#9617; bonus sticker included with every print copy</div>
-      <div class="sticker-note" style="margin-top:6px;">&#9617; PDF buyers get access to read online</div>
+      
+      
     </div>
   </div>
 `;
