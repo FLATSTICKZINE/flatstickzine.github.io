@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLAT STICK — Read Online</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --black: #0a0a0a;
+  --white: #ffffff;
+  --grey: #999;
+  --paper: #f8f5f0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #1a1a1a;
+  color: var(--white);
+  font-family: 'Courier Prime', monospace;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── TOP BAR ── */
+.topbar {
+  background: var(--black);
+  border-bottom: 2px solid #333;
+  padding: 12px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.topbar-title {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.topbar-issue {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.topbar-back {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--grey);
+  text-decoration: none;
+}
+.topbar-back:hover { color: var(--white); }
+
+/* ── MAIN VIEWER ── */
+.viewer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  position: relative;
+}
+
+/* Book container */
+.book-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+}
+
+/* Two-page spread on desktop */
+.spread {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  box-shadow: 0 20px 80px rgba(0,0,0,0.7);
+  position: relative;
+}
+
+.spread::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to right, rgba(0,0,0,0.3), rgba(0,0,0,0.1), rgba(0,0,0,0.3));
+  transform: translateX(-50%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.page {
+  background: var(--paper);
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1/1.414; /* A4 ratio */
+}
+
+.page img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+.page-blank {
+  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-blank::after {
+  content: 'FLAT STICK';
+  font-size: 11px;
+  letter-spacing: 6px;
+  color: #ccc;
+  text-transform: uppercase;
+}
+
+/* Page turn animation */
+.page.turning {
+  animation: pageTurn 0.4s ease forwards;
+}
+
+@keyframes pageTurn {
+  0%   { opacity: 1; transform: perspective(1000px) rotateY(0deg); }
+  50%  { opacity: 0.5; transform: perspective(1000px) rotateY(-15deg); }
+  100% { opacity: 1; transform: perspective(1000px) rotateY(0deg); }
+}
+
+/* ── CONTROLS ── */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 24px;
+  flex-shrink: 0;
+}
+
+.ctrl-btn {
+  width: 44px;
+  height: 44px;
+  border: 1px solid #444;
+  background: #222;
+  color: var(--white);
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s, border-color 0.12s;
+  font-family: monospace;
+}
+
+.ctrl-btn:hover:not(:disabled) { background: #444; border-color: #666; }
+.ctrl-btn:disabled { opacity: 0.25; cursor: default; }
+
+.page-counter {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--grey);
+  min-width: 80px;
+  text-align: center;
+}
+
+/* Progress bar */
+.progress-wrap {
+  width: 100%;
+  max-width: 900px;
+  margin-top: 14px;
+  height: 2px;
+  background: #333;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  background: #666;
+  transition: width 0.3s ease;
+}
+
+/* Page thumbnails strip */
+.thumb-strip {
+  display: flex;
+  gap: 6px;
+  margin-top: 16px;
+  overflow-x: auto;
+  max-width: 900px;
+  width: 100%;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+
+.thumb-strip::-webkit-scrollbar { display: none; }
+
+.thumb {
+  flex-shrink: 0;
+  width: 40px;
+  height: 56px;
+  background: #333;
+  cursor: pointer;
+  overflow: hidden;
+  border: 1px solid transparent;
+  transition: border-color 0.12s;
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumb.active { border-color: #888; }
+
+/* ── MOBILE — single page ── */
+@media (max-width: 600px) {
+  .spread {
+    grid-template-columns: 1fr;
+  }
+  .spread::after { display: none; }
+  .page-right { display: none; }
+  .viewer { padding: 16px 12px; }
+  .topbar { padding: 10px 16px; }
+}
+
+/* ── FULLSCREEN HINT ── */
+.hint {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #555;
+  margin-top: 10px;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="topbar-title">Flat Stick</span>
+  <span class="topbar-issue" id="topbar-issue">Issue —</span>
+  <a href="index.html" class="topbar-back">&#8592; Back</a>
+</div>
+
+<div class="viewer">
+  <div class="book-wrap">
+    <div class="spread">
+      <div class="page page-left" id="page-left"><div class="page-blank"></div></div>
+      <div class="page page-right" id="page-right"><div class="page-blank"></div></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="ctrl-btn" id="btn-prev" disabled>&#8592;</button>
+    <span class="page-counter" id="page-counter">— / —</span>
+    <button class="ctrl-btn" id="btn-next">&#8594;</button>
+  </div>
+
+  <div class="thumb-strip" id="thumb-strip"></div>
+  <div class="hint">Use arrow keys or swipe to turn pages</div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// ISSUE DATA — add pages array for each issue
+// To add more pages: just add more filenames
+// ─────────────────────────────────────────────
+const issues = {
+  "01": {
+    label: "01",
+    title: "Oil Crisis",
+    folder: "issue1",
+    totalPages: 16,
+    // Centre spreads — these display full width
+    spreads: [8, 9],
+  },
+  "02": {
+    label: "02",
+    title: "Latest Issue",
+    folder: "issue2",
+    totalPages: 20,
+    spreads: [10, 11],
+  },
+  // Add new issues here each week:
+  // "03": { label: "03", title: "Title", folder: "issue3", totalPages: 16, spreads: [] },
+};
+
+// Get issue from URL — read.html?i=01
+const params = new URLSearchParams(window.location.search);
+const issueKey = params.get('i') || '01';
+const issue = issues[issueKey] || issues['01'];
+// Build pages array from folder + totalPages
+const pages = Array.from({length: issue.totalPages}, (_, i) => ({
+  src: `${issue.folder}/${i+1}.png`,
+  isSpread: issue.spreads.includes(i+1),
+}));
+const total = pages.length;
+
+document.getElementById('topbar-issue').textContent = `Issue ${issue.label} — ${issue.title}`;
+document.title = `FLAT STICK — Issue ${issue.label}`;
+
+// Current spread index (0 = pages 1-2, 1 = pages 3-4, etc.)
+let spreadIndex = 0;
+const spreads = Math.ceil(total / 2);
+
+const pageLeft  = document.getElementById('page-left');
+const pageRight = document.getElementById('page-right');
+const btnPrev   = document.getElementById('btn-prev');
+const btnNext   = document.getElementById('btn-next');
+const counter   = document.getElementById('page-counter');
+const progress  = document.getElementById('progress-bar');
+const thumbStrip = document.getElementById('thumb-strip');
+
+// Build thumbnails
+pages.forEach((page, i) => {
+  const thumb = document.createElement('div');
+  thumb.className = 'thumb';
+  thumb.innerHTML = `<img src="${page.src}" loading="lazy">`;
+  thumb.addEventListener('click', () => {
+    spreadIndex = Math.floor(i / 2);
+    render();
+  });
+  thumbStrip.appendChild(thumb);
+});
+
+function setPage(el, page, isFullSpread) {
+  if (!page) {
+    el.innerHTML = '<div class="page-blank"></div>';
+    return;
+  }
+  if (isFullSpread) {
+    // Full width centre spread
+    el.innerHTML = `<img src="${page.src}" loading="eager" style="width:100%;height:100%;object-fit:cover;border:4px solid #ddd;">`;
+  } else {
+    el.innerHTML = `<img src="${page.src}" loading="eager">`;
+  }
+}
+
+function render(animate) {
+  const leftIdx  = spreadIndex * 2;
+  const rightIdx = spreadIndex * 2 + 1;
+
+  if (animate) {
+    pageLeft.classList.add('turning');
+    pageRight.classList.add('turning');
+    setTimeout(() => {
+      pageLeft.classList.remove('turning');
+      pageRight.classList.remove('turning');
+    }, 400);
+  }
+
+  const leftPage  = pages[leftIdx];
+  const rightPage = pages[rightIdx];
+  const isCentreSpread = leftPage && rightPage && (leftPage.isSpread || rightPage.isSpread);
+
+  if (isCentreSpread) {
+    // Hide right page, make left span full width with the spread image
+    pageLeft.style.gridColumn = '1 / -1';
+    pageRight.style.display = 'none';
+    const spreadPage = leftPage.isSpread ? leftPage : rightPage;
+    setPage(pageLeft, spreadPage, true);
+  } else {
+    pageLeft.style.gridColumn = '';
+    pageRight.style.display = '';
+    setPage(pageLeft,  leftPage,  false);
+    setPage(pageRight, rightPage, false);
+  }
+
+  // Counter
+  const p1 = leftIdx + 1;
+  const p2 = rightIdx < total ? rightIdx + 1 : null;
+  counter.textContent = p2 ? `${p1}–${p2} / ${total}` : `${p1} / ${total}`;
+
+  // Progress
+  progress.style.width = `${((spreadIndex + 1) / spreads) * 100}%`;
+
+  // Buttons
+  btnPrev.disabled = spreadIndex === 0;
+  btnNext.disabled = spreadIndex >= spreads - 1;
+
+  // Thumbnails
+  document.querySelectorAll('.thumb').forEach((t, i) => {
+    t.classList.toggle('active', Math.floor(i / 2) === spreadIndex);
+  });
+
+  // Scroll active thumb into view
+  const activeThumbs = thumbStrip.querySelectorAll('.thumb.active');
+  if (activeThumbs.length) {
+    activeThumbs[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
+}
+
+btnPrev.addEventListener('click', () => {
+  if (spreadIndex > 0) { spreadIndex--; render(true); }
+});
+
+btnNext.addEventListener('click', () => {
+  if (spreadIndex < spreads - 1) { spreadIndex++; render(true); }
+});
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') btnNext.click();
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   btnPrev.click();
+});
+
+// Swipe
+let touchStartX = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+document.addEventListener('touchend', e => {
+  const diff = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 60) {
+    if (diff > 0) btnNext.click();
+    else btnPrev.click();
+  }
+});
+
+// Preload next spread
+function preload(idx) {
+  [idx * 2, idx * 2 + 1].forEach(i => {
+    if (pages[i]) { const img = new Image(); img.src = pages[i].src; }
+  });
+}
+
+btnNext.addEventListener('click', () => preload(spreadIndex + 1));
+btnPrev.addEventListener('click', () => preload(spreadIndex - 1));
+
+render();
+preload(1);
+</script>
+</body>
+</html>
