@@ -66,20 +66,20 @@ header {
   color: var(--mid);
 }
 
-/* Title */
+/* Title reel system */
 h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 18px 0 32px;
-  font-family: 'Courier Prime', monospace;
-  font-size: clamp(52px, 12vw, 140px);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1;
+  gap: 40px;
+  padding: 10px 0 28px;
 }
 
-.title-word { display: none; }
+.title-word {
+  width: clamp(240px, 34vw, 560px);
+  height: clamp(72px, 10vw, 148px);
+  overflow: hidden;
+}
 
 .reel {
   display: flex;
@@ -426,7 +426,22 @@ footer {
     <div class="header-meta">Est. 2026<br>Outback NSW</div>
     <div class="header-meta" style="text-align:right">Weekly<br>Print + Digital</div>
   </div>
-  <h1>FLAT STICK</h1>
+  <h1>
+    <div class="title-word" id="word-flat">
+      <div class="reel">
+        <img src="flat1.png" alt="FLAT"><img src="flat2.png" alt="FLAT">
+        <img src="flat3.png" alt="FLAT"><img src="flat4.png" alt="FLAT">
+        <img src="flat5.png" alt="FLAT"><img src="flat6.png" alt="FLAT">
+      </div>
+    </div>
+    <div class="title-word" id="word-stick">
+      <div class="reel">
+        <img src="stick1.png" alt="STICK"><img src="stick2.png" alt="STICK">
+        <img src="stick3.png" alt="STICK"><img src="stick4.png" alt="STICK">
+        <img src="stick5.png" alt="STICK"><img src="stick6.png" alt="STICK">
+      </div>
+    </div>
+  </h1>
   <nav>
     <a href="#shop">Shop</a>
     <a href="#about">About</a>
@@ -456,7 +471,7 @@ footer {
   </div>
   <div class="issue-panel">
     <div class="issue-cover">
-      <img src="issue2_.webp" alt="Flat Stick Issue 2">
+      <img src="issue2.webp" alt="Flat Stick Issue 2">
       <div class="preview-strip">
         <img src="issue2contents.webp" alt="Issue 2 interior">
         <img src="issue2mid.webp" alt="Issue 2 interior">
@@ -521,7 +536,7 @@ const issues = [
     title: "Latest Issue",
     date: "March 2026",
     location: "Broken Hill, NSW",
-    cover: "issue2_.webp",
+    cover: "issue2.webp",
     pdf_price: 3,
     print_price: 10,
     available: true,   // set to true + add urls when shop goes live
@@ -563,7 +578,6 @@ issues.forEach(issue => {
     : `<div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--grey);margin-bottom:14px;">Coming soon</div>`;
 
   card.innerHTML = `
-    <img class="shop-card-cover" src="${issue.cover}" alt="Issue ${issue.label}">
     <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--grey);margin-bottom:6px;">Issue ${issue.label}</div>
     <div style="font-weight:700;letter-spacing:2px;font-size:13px;margin-bottom:4px;">${issue.title}</div>
     <div style="font-size:10px;color:var(--grey);letter-spacing:2px;margin-bottom:6px;">${issue.date} — ${issue.location}</div>
