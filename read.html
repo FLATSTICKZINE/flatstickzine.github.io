@@ -286,8 +286,9 @@ const issues = {
     title: "Leaving Victoria",
     folder: "issue1",
     totalPages: 16,
-    // Centre spreads — these display full width
-    spreads: [8, 9],
+    // Centre spread — page 8 is a full width image, page 9 is skipped
+    spreads: [8],
+    skipPages: [9],
   },
   "02": {
     label: "02",
@@ -308,7 +309,8 @@ const issue = issues[issueKey] || issues['01'];
 const pages = Array.from({length: issue.totalPages}, (_, i) => ({
   src: `${issue.folder}/${i+1}.PNG`,
   isSpread: issue.spreads.includes(i+1),
-}));
+  skip: (issue.skipPages || []).includes(i+1),
+})).filter(p => !p.skip);
 const total = pages.length;
 
 document.getElementById('topbar-issue').textContent = `Issue ${issue.label} — ${issue.title}`;
@@ -369,13 +371,15 @@ function render(animate) {
   const isCentreSpread = leftPage && rightPage && (leftPage.isSpread || rightPage.isSpread);
 
   if (isCentreSpread) {
-    // Hide right page, make left span full width with the spread image
+    // Display as landscape A4 spanning full width
     pageLeft.style.gridColumn = '1 / -1';
+    pageLeft.style.aspectRatio = '1.414 / 1';
     pageRight.style.display = 'none';
     const spreadPage = leftPage.isSpread ? leftPage : rightPage;
     setPage(pageLeft, spreadPage, true);
   } else {
     pageLeft.style.gridColumn = '';
+    pageLeft.style.aspectRatio = '';
     pageRight.style.display = '';
     setPage(pageLeft,  leftPage,  false);
     setPage(pageRight, rightPage, false);
