@@ -802,10 +802,9 @@ issues.forEach(issue => {
   card.innerHTML = `
     ${coverImg}
     <div class="issue-actions">
-      <div style="margin-bottom:8px;display:flex;align-items:center;gap:8px;">
-        <img src="${numberMap[issue.label]}.png" alt="Issue ${issue.label}" style="height:28px;width:auto;">
-<img src="${issue.titleImg || ''}" alt="${issue.title}" style="height:22px;width:auto;display:${issue.titleImg ? 'block' : 'none'};">
-        <span style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#999;display:${issue.titleImg ? 'none' : 'block'}">${issue.title}</span>
+      <div style="margin-bottom:8px;">
+        <span style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Issue ${issue.label}</span>
+        <span style="display:block;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#999;">${issue.title}</span>
       </div>
       ${actions}
     </div>
