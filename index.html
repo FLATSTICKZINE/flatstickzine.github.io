@@ -9,7 +9,7 @@
 
 :root {
   --black: #0a0a0a;
-  --white: #f5f2ee;
+  --white: #ffffff;
   --grey: #999;
   --mid: #444;
   --border: 2px solid var(--black);
@@ -66,20 +66,20 @@ header {
   color: var(--mid);
 }
 
-/* Title reel system */
+/* Title */
 h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 40px;
-  padding: 10px 0 28px;
+  padding: 18px 0 32px;
+  font-family: 'Courier Prime', monospace;
+  font-size: clamp(52px, 12vw, 140px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
 }
 
-.title-word {
-  width: clamp(240px, 34vw, 560px);
-  height: clamp(72px, 10vw, 148px);
-  overflow: hidden;
-}
+.title-word { display: none; }
 
 .reel {
   display: flex;
@@ -426,22 +426,7 @@ footer {
     <div class="header-meta">Est. 2026<br>Outback NSW</div>
     <div class="header-meta" style="text-align:right">Weekly<br>Print + Digital</div>
   </div>
-  <h1>
-    <div class="title-word" id="word-flat">
-      <div class="reel">
-        <img src="flat1.png" alt="FLAT"><img src="flat2.png" alt="FLAT">
-        <img src="flat3.png" alt="FLAT"><img src="flat4.png" alt="FLAT">
-        <img src="flat5.png" alt="FLAT"><img src="flat6.png" alt="FLAT">
-      </div>
-    </div>
-    <div class="title-word" id="word-stick">
-      <div class="reel">
-        <img src="stick1.png" alt="STICK"><img src="stick2.png" alt="STICK">
-        <img src="stick3.png" alt="STICK"><img src="stick4.png" alt="STICK">
-        <img src="stick5.png" alt="STICK"><img src="stick6.png" alt="STICK">
-      </div>
-    </div>
-  </h1>
+  <h1>FLAT STICK</h1>
   <nav>
     <a href="#shop">Shop</a>
     <a href="#about">About</a>
@@ -539,9 +524,9 @@ const issues = [
     cover: "issue2_.jpg",
     pdf_price: 3,
     print_price: 10,
-    available: false,   // set to true + add urls when shop goes live
-    pdf_url: "",
-    print_url: "",
+    available: true,   // set to true + add urls when shop goes live
+    pdf_url: "https://www.paypal.com/ncp/payment/YS5BMKLK25SMG",
+    print_url: "https://www.paypal.com/ncp/payment/TF2WBPUNLG8X2",
     edition: 50,
   },
   {
@@ -552,9 +537,9 @@ const issues = [
     cover: "issue1.jpg",
     pdf_price: 3,
     print_price: 10,
-    available: false,
-    pdf_url: "",
-    print_url: "",
+    available: true,
+    pdf_url: "https://www.paypal.com/ncp/payment/YS5BMKLK25SMG",
+    print_url: "https://www.paypal.com/ncp/payment/TF2WBPUNLG8X2",
     edition: 50,
   },
 ];
@@ -570,8 +555,8 @@ issues.forEach(issue => {
     : `<span class="btn btn-ghost">PDF — $${issue.pdf_price}</span>`;
 
   const printBtn = (issue.available && issue.print_url)
-    ? `<a href="${issue.print_url}" class="btn">Print — $${issue.print_price}</a>`
-    : `<span class="btn btn-ghost">Print — $${issue.print_price}</span>`;
+    ? `<a href="${issue.print_url}" class="btn">Print + sticker — $${issue.print_price}</a>`
+    : `<span class="btn btn-ghost">Print + sticker — $${issue.print_price}</span>`;
 
   const status = issue.available
     ? ''
@@ -583,6 +568,10 @@ issues.forEach(issue => {
     <div style="font-weight:700;letter-spacing:2px;font-size:13px;margin-bottom:4px;">${issue.title}</div>
     <div style="font-size:10px;color:var(--grey);letter-spacing:2px;margin-bottom:6px;">${issue.date} — ${issue.location}</div>
     <div style="font-size:10px;color:var(--grey);letter-spacing:2px;margin-bottom:18px;">Ed. of ${issue.edition}</div>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding:12px;border:1px solid #ddd;">
+      <img src="stickers.jpg" alt="Bonus sticker" style="width:56px;height:56px;object-fit:cover;border:1px solid #ccc;filter:grayscale(20%);">
+      <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;line-height:1.8;color:var(--mid);">Bonus sticker<br>included with<br>every print copy</div>
+    </div>
     ${status}
     <div>${pdfBtn}${printBtn}</div>
   `;
