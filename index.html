@@ -414,6 +414,169 @@ footer {
   .section-header { padding: 14px 20px; }
   .shop-card { padding: 24px 20px; }
 }
+
+/* ── CART ── */
+.cart-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--black);
+  color: var(--white);
+  padding: 16px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  border-top: 2px solid #333;
+}
+
+.cart-bar.visible { transform: translateY(0); }
+
+.cart-items {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.cart-item {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: #222;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cart-item-remove {
+  cursor: pointer;
+  opacity: 0.5;
+  font-size: 14px;
+  line-height: 1;
+}
+.cart-item-remove:hover { opacity: 1; }
+
+.cart-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.cart-total {
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.cart-total strong {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.cart-saving {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #aaa;
+  margin-top: 2px;
+}
+
+.cart-checkout {
+  padding: 12px 24px;
+  background: var(--white);
+  color: var(--black);
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.12s;
+}
+.cart-checkout:hover { background: #ddd; }
+
+.cart-clear {
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #666;
+  cursor: pointer;
+  text-decoration: none;
+  background: none;
+  border: none;
+  font-family: 'Courier Prime', monospace;
+}
+.cart-clear:hover { color: #999; }
+
+/* Add to cart / buy now buttons */
+.issue-actions {
+  padding: 16px 20px;
+  border-top: 1px solid var(--black);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--white);
+}
+
+.btn-add-cart {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border: 2px solid var(--black);
+  background: var(--white);
+  color: var(--black);
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+  text-align: center;
+}
+.btn-add-cart:hover { background: var(--black); color: var(--white); }
+.btn-add-cart.in-cart { background: var(--black); color: var(--white); }
+
+.btn-buy-now {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border: 2px solid var(--black);
+  background: var(--black);
+  color: var(--white);
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  transition: opacity 0.12s;
+}
+.btn-buy-now:hover { opacity: 0.8; }
+
+.pdf-btn {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: 1px solid #ccc;
+  background: var(--white);
+  color: var(--mid);
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  transition: background 0.12s;
+}
+.pdf-btn:hover { background: #f0f0f0; }
 </style>
 </head>
 <body>
@@ -658,5 +821,19 @@ issues.forEach(issue => {
   setTimeout(spin, 4000);
 })();
 </script>
+
+<!-- CART BAR -->
+<div class="cart-bar" id="cart-bar">
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-right">
+    <div>
+      <div class="cart-total">Total: <strong id="cart-total">$0</strong></div>
+      <div class="cart-saving" id="cart-saving"></div>
+    </div>
+    <button class="cart-clear" id="cart-clear">Clear</button>
+    <button class="cart-checkout" id="cart-checkout">Checkout via PayPal →</button>
+  </div>
+</div>
+
 </body>
 </html>
