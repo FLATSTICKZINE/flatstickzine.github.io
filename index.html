@@ -628,16 +628,19 @@ footer {
 
 .van-img {
   position: absolute;
-  bottom: 20px;
+  bottom: -80px;
   left: 50%;
   transform: translateX(-50%) rotate(-90deg);
   width: 56px;
-  animation: van-drive 4s ease-in-out infinite alternate;
+  animation: van-drive 5s linear infinite;
 }
 
 @keyframes van-drive {
-  0%   { bottom: 10%; }
-  100% { bottom: 80%; }
+  0%   { bottom: -80px; opacity: 1; }
+  80%  { bottom: 110%; opacity: 1; }
+  81%  { bottom: 110%; opacity: 0; }
+  99%  { bottom: -80px; opacity: 0; }
+  100% { bottom: -80px; opacity: 1; }
 }
 
 .about-content-wrap {
