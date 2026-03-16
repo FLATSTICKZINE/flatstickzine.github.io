@@ -833,9 +833,9 @@ document.getElementById('cart-checkout').addEventListener('click', () => {
   if (cart.length === 0) return;
   const { total } = getTotal();
   const issueList = cart.map(i => `Issue ${i.issue} ${i.type}`).join(', ');
-  // Build PayPal URL with custom amount
-  const note = encodeURIComponent(`Order: ${issueList}`);
-  window.location.href = PAYPAL_PRINT_URL;
+  // Use PayPal.me with amount — most reliable approach
+  const url = `https://paypal.me/flatstickzine/${total}AUD`;
+  window.location.href = url;
 });
 
 // ─────────────────────────────────────────────
@@ -893,8 +893,17 @@ document.getElementById('cart-checkout').addEventListener('click', () => {
     tick();
   }
 
-  goTo(0);
-  setTimeout(spin, 4000);
+  // Wait for images to load before starting
+  var firstImg = document.querySelector('#word-flat .reel img');
+  if (firstImg.complete) {
+    goTo(0);
+    setTimeout(spin, 4000);
+  } else {
+    firstImg.addEventListener('load', function() {
+      goTo(0);
+      setTimeout(spin, 4000);
+    });
+  }
 })();
 </script>
 
