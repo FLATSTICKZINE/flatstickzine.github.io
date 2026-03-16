@@ -652,6 +652,50 @@ footer {
   text-align: center;
 }
 
+
+/* ── HORIZONTAL VAN ── */
+.van-road-h {
+  border-bottom: 3px solid var(--black);
+  position: relative;
+  height: 70px;
+  overflow: hidden;
+  background: var(--white);
+}
+
+.van-line-h {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--black) 0px,
+    var(--black) 20px,
+    transparent 20px,
+    transparent 40px
+  );
+  transform: translateY(-50%);
+}
+
+.van-img-h {
+  position: absolute;
+  top: 50%;
+  left: -80px;
+  transform: translateY(-50%);
+  height: 50px;
+  width: auto;
+  animation: van-drive-h 5s linear infinite; animation-delay: -2.5s;
+}
+
+@keyframes van-drive-h {
+  0%   { left: -80px; opacity: 0; }
+  2%   { opacity: 1; }
+  88%  { opacity: 1; }
+  90%  { left: 110%; opacity: 0; }
+  100% { left: -80px; opacity: 0; }
+}
+
 </style>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDW_EBBVfmxcBxQ327bRR17WNabdpmELCo&libraries=places&callback=initAutocomplete" async defer></script>
 </head>

@@ -96,9 +96,40 @@ body {
 .progress-wrap { width: 100%; margin-top: 10px; height: 2px; background: #333; }
 .progress-bar  { height: 100%; background: #666; transition: width 0.3s ease; }
 .hint { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: #444; margin-top: 8px; }
+
+/* ── TICKER ── */
+.ticker {
+  background: #0a0a0a;
+  color: #fff;
+  font-size: 10px;
+  letter-spacing: 4px;
+  padding: 7px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+.ticker-inner {
+  display: inline-block;
+  animation: ticker 22s linear infinite;
+}
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
 </style>
 </head>
 <body>
+
+<div class="ticker">
+  <span class="ticker-inner">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;">
+  </span>
+</div>
 
 <div class="topbar">
   <span class="topbar-title">Flat Stick</span>
@@ -113,8 +144,12 @@ body {
     <button class="ctrl-btn" id="btn-prev">&#8592;</button>
     <span class="page-counter" id="page-counter">— / —</span>
     <button class="ctrl-btn" id="btn-next">&#8594;</button>
+    <a id="btn-download" class="ctrl-btn" style="font-size:14px;text-decoration:none;" title="Download PDF">&#8595;</a>
   </div>
-  <div class="hint">Arrow keys or swipe to turn pages</div>
+  <div class="hint">Arrow keys or swipe to turn — ↓ to download PDF</div>
+  <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#444;margin-top:6px;text-align:center;">
+    To print at home: download PDF, print double-sided, flip on short edge
+  </div>
 </div>
 
 <script>
@@ -137,6 +172,8 @@ const issue = issues[issueKey] || issues['01'];
 
 document.getElementById('topbar-issue').textContent = `Issue ${issue.label} — ${issue.title}`;
 document.title = `FLAT STICK — Issue ${issue.label}`;
+document.getElementById('btn-download').href = `issue${issueKey}.pdf`;
+document.getElementById('btn-download').download = `FlatStick_Issue${issueKey}.pdf`;
 
 const pages = Array.from({length: issue.totalPages}, (_, i) => ({
   num: i + 1,
