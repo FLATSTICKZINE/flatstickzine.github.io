@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLAT STICK</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --black: #0a0a0a;
+  --white: #ffffff;
+  --grey: #999;
+  --mid: #444;
+  --border: 2px solid var(--black);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--white);
+  color: var(--black);
+  font-family: 'Courier Prime', monospace;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* ── TICKER ── */
+.ticker {
+  background: var(--black);
+  color: var(--white);
+  font-size: 10px;
+  letter-spacing: 4px;
+  padding: 7px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+.ticker-inner {
+  display: inline-block;
+  animation: ticker 22s linear infinite;
+}
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── HEADER ── */
+.site-header {
+  border-bottom: 3px solid var(--black);
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-title {
+  font-size: clamp(28px, 5vw, 52px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  color: var(--black);
+}
+
+.back-link {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--black);
+  border-bottom: 1px solid var(--black);
+  padding-bottom: 2px;
+}
+
+.back-link:hover { opacity: 0.5; }
+
+/* ── ISSUE HERO ── */
+.issue-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 3px solid var(--black);
+  min-height: 60vh;
+}
+
+.issue-hero-cover {
+  border-right: 3px solid var(--black);
+  overflow: hidden;
+}
+
+.issue-hero-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.issue-hero-info {
+  padding: 50px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.issue-number {
+  font-size: 120px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -6px;
+  color: var(--black);
+  opacity: 0.08;
+  margin-bottom: -20px;
+}
+
+.issue-title-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.issue-label {
+  font-size: 9px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: 10px;
+}
+
+.issue-title {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.issue-meta {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--mid);
+  line-height: 2;
+  margin-bottom: 32px;
+  border-left: 2px solid var(--black);
+  padding-left: 14px;
+}
+
+.issue-about {
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--mid);
+  margin-bottom: 40px;
+  max-width: 420px;
+}
+
+/* Buy buttons */
+.buy-block {
+  border-top: 2px solid var(--black);
+  padding-top: 24px;
+}
+
+.buy-label {
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: 14px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: var(--border);
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+  background: var(--white);
+  color: var(--black);
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.btn:hover { background: var(--black); color: var(--white); }
+.btn-primary { background: var(--black); color: var(--white); }
+.btn-primary:hover { opacity: 0.8; }
+.btn-ghost { opacity: 0.4; cursor: default; }
+.btn-ghost:hover { background: var(--white); color: var(--black); }
+
+.sticker-note {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-top: 10px;
+}
+
+/* ── CAROUSEL ── */
+.carousel-section {
+  border-bottom: 3px solid var(--black);
+}
+
+.carousel-header {
+  border-bottom: 2px solid var(--black);
+  padding: 14px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-title {
+  font-size: 11px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.carousel-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.carousel-btn {
+  width: 36px;
+  height: 36px;
+  border: var(--border);
+  background: var(--white);
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s, color 0.12s;
+  font-family: monospace;
+}
+
+.carousel-btn:hover { background: var(--black); color: var(--white); }
+
+.carousel-track-wrap {
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.4s ease;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0ede8;
+  padding: 40px;
+  min-height: 70vh;
+}
+
+.carousel-slide img {
+  max-width: 100%;
+  max-height: 75vh;
+  object-fit: contain;
+  display: block;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+}
+
+.carousel-counter {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--grey);
+  padding: 12px 40px;
+  border-top: 1px solid var(--black);
+  text-align: center;
+}
+
+/* ── PREV/NEXT ISSUES ── */
+.issue-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 3px solid var(--black);
+}
+
+.issue-nav-item {
+  padding: 28px 40px;
+  text-decoration: none;
+  color: var(--black);
+  border-right: 2px solid var(--black);
+  transition: background 0.12s;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.issue-nav-item:last-child { border-right: none; }
+.issue-nav-item:hover { background: var(--black); color: var(--white); }
+
+.issue-nav-dir {
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+.issue-nav-title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.issue-nav-item.next { text-align: right; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--black);
+  color: var(--white);
+  padding: 28px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 680px) {
+  .site-header { padding: 16px 20px; }
+  .issue-hero { grid-template-columns: 1fr; }
+  .issue-hero-cover { border-right: none; border-bottom: 3px solid var(--black); min-height: 60vw; }
+  .issue-hero-info { padding: 32px 20px; }
+  .issue-number { font-size: 72px; }
+  .carousel-slide { padding: 20px; min-height: 50vw; }
+  .issue-nav { grid-template-columns: 1fr; }
+  .issue-nav-item { border-right: none; border-bottom: 2px solid var(--black); }
+  .issue-nav-item.next { text-align: left; }
+  footer { flex-direction: column; gap: 10px; text-align: center; padding: 20px; }
+  .carousel-header, .carousel-counter { padding-left: 20px; padding-right: 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="ticker">
+  <span class="ticker-inner">
+    &#9617;&#9617;&#9617; flat stick zine &nbsp;&nbsp; outback australia &nbsp;&nbsp; 35mm film &nbsp;&nbsp; handmade &nbsp;&nbsp; fold and staple &nbsp;&nbsp; no frills &nbsp;&nbsp;
+    &#9617;&#9617;&#9617; flat stick zine &nbsp;&nbsp; outback australia &nbsp;&nbsp; 35mm film &nbsp;&nbsp; handmade &nbsp;&nbsp; fold and staple &nbsp;&nbsp; no frills &nbsp;&nbsp;
+  </span>
+</div>
+
+<header class="site-header">
+  <a href="index.html" class="site-title">FLAT STICK</a>
+  <a href="index.html" class="back-link">&#8592; All Issues</a>
+</header>
+
+<!-- HERO -->
+<section class="issue-hero" id="issue-hero">
+  <!-- populated by JS -->
+</section>
+
+<!-- CAROUSEL -->
+<section class="carousel-section">
+  <div class="carousel-header">
+    <span class="section-title">Inside this issue</span>
+    <div class="carousel-nav">
+      <button class="carousel-btn" id="prev-slide">&#8592;</button>
+      <button class="carousel-btn" id="next-slide">&#8594;</button>
+    </div>
+  </div>
+  <div class="carousel-track-wrap">
+    <div class="carousel-track" id="carousel-track">
+      <!-- slides populated by JS -->
+    </div>
+  </div>
+  <div class="carousel-counter" id="carousel-counter">1 / 1</div>
+</section>
+
+<!-- PREV / NEXT -->
+<nav class="issue-nav" id="issue-nav">
+  <!-- populated by JS -->
+</nav>
+
+<footer>
+  <span>© 2026 Flat Stick Zine</span>
+  <span>Made in a van — outback Australia</span>
+  <span>flatstickzine [at] gmail</span>
+</footer>
+
+<script>
+// ─────────────────────────────────────────────
+// ISSUE DATA — keep in sync with index.html
+// ─────────────────────────────────────────────
+const issues = [
+  {
+    label: "02",
+    title: "Latest Issue",
+    date: "March 2026",
+    location: "Broken Hill, NSW",
+    cover: "issue2.webp",
+    pages: ["issue2.webp", "issue2contents.webp", "issue2mid.webp"],
+    about: "Shot on 35mm somewhere near Broken Hill. Developed in the van, printed at the library. Limited to 50 copies.",
+    pdf_price: 3,
+    print_price: 10,
+    available: true,
+    pdf_url: "https://www.paypal.com/ncp/payment/YS5BMKLK25SMG",
+    print_url: "https://www.paypal.com/ncp/payment/TF2WBPUNLG8X2",
+    edition: 50,
+  },
+  {
+    label: "01",
+    title: "Oil Crisis",
+    date: "February 2026",
+    location: "Melbourne → Broken Hill",
+    cover: "issue1.webp",
+    pages: ["issue1.webp", "issue1contents.webp", "issue1mid.webp"],
+    about: "The first issue. Left Melbourne as the oil crisis started, drove north. Shot on 35mm, developed in the van.",
+    pdf_price: 3,
+    print_price: 10,
+    available: true,
+    pdf_url: "https://www.paypal.com/ncp/payment/YS5BMKLK25SMG",
+    print_url: "https://www.paypal.com/ncp/payment/TF2WBPUNLG8X2",
+    edition: 50,
+  },
+];
+
+// Get issue from URL param e.g. issue.html?i=01
+const params = new URLSearchParams(window.location.search);
+const issueLabel = params.get('i') || issues[0].label;
+const issueIndex = issues.findIndex(i => i.label === issueLabel);
+const issue = issues[issueIndex] || issues[0];
+
+// Set page title
+document.title = `FLAT STICK — Issue ${issue.label}`;
+
+// ── Build hero ──
+const hero = document.getElementById('issue-hero');
+const pdfBtn = (issue.available && issue.pdf_url)
+  ? `<a href="${issue.pdf_url}" class="btn btn-primary" target="_blank">Buy PDF — $${issue.pdf_price}</a>`
+  : `<span class="btn btn-ghost">PDF — Coming Soon</span>`;
+const printBtn = (issue.available && issue.print_url)
+  ? `<a href="${issue.print_url}" class="btn" target="_blank">Print + sticker — $${issue.print_price}</a>`
+  : `<span class="btn btn-ghost">Print — Coming Soon</span>`;
+
+hero.innerHTML = `
+  <div class="issue-hero-cover">
+    <img src="${issue.cover}" alt="Flat Stick Issue ${issue.label}">
+  </div>
+  <div class="issue-hero-info">
+    <div class="issue-number">${issue.label}</div>
+    <div class="issue-title-block">
+      <div class="issue-label">Issue ${issue.label}</div>
+      <h1 class="issue-title">${issue.title}</h1>
+      <div class="issue-meta">
+        ${issue.date}<br>
+        ${issue.location}<br>
+        Ed. of ${issue.edition}
+      </div>
+      <p class="issue-about">${issue.about}</p>
+    </div>
+    <div class="buy-block">
+      <div class="buy-label">Get a copy</div>
+      ${pdfBtn}${printBtn}
+      <div class="sticker-note">&#9617; bonus sticker included with every print copy</div>
+    </div>
+  </div>
+`;
+
+// ── Build carousel ──
+const track = document.getElementById('carousel-track');
+const counter = document.getElementById('carousel-counter');
+let current = 0;
+
+issue.pages.forEach((src, i) => {
+  const slide = document.createElement('div');
+  slide.className = 'carousel-slide';
+  slide.innerHTML = `<img src="${src}" alt="Issue ${issue.label} page ${i+1}">`;
+  track.appendChild(slide);
+});
+
+function goTo(idx) {
+  current = Math.max(0, Math.min(idx, issue.pages.length - 1));
+  track.style.transform = `translateX(-${current * 100}%)`;
+  counter.textContent = `${current + 1} / ${issue.pages.length}`;
+}
+
+document.getElementById('prev-slide').addEventListener('click', () => goTo(current - 1));
+document.getElementById('next-slide').addEventListener('click', () => goTo(current + 1));
+
+// Swipe support
+let touchStartX = 0;
+track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+track.addEventListener('touchend', e => {
+  const diff = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 50) goTo(diff > 0 ? current + 1 : current - 1);
+});
+
+goTo(0);
+
+// ── Build prev/next nav ──
+const nav = document.getElementById('issue-nav');
+const prev = issues[issueIndex + 1]; // older
+const next = issues[issueIndex - 1]; // newer
+
+nav.innerHTML = `
+  ${prev
+    ? `<a href="issue.html?i=${prev.label}" class="issue-nav-item">
+        <span class="issue-nav-dir">&#8592; Previous issue</span>
+        <span class="issue-nav-title">Issue ${prev.label} — ${prev.title}</span>
+       </a>`
+    : `<div class="issue-nav-item" style="opacity:0.3;cursor:default;">
+        <span class="issue-nav-dir">&#8592; Previous issue</span>
+        <span class="issue-nav-title">No earlier issues</span>
+       </div>`
+  }
+  ${next
+    ? `<a href="issue.html?i=${next.label}" class="issue-nav-item next">
+        <span class="issue-nav-dir">Next issue &#8594;</span>
+        <span class="issue-nav-title">Issue ${next.label} — ${next.title}</span>
+       </a>`
+    : `<div class="issue-nav-item next" style="opacity:0.3;cursor:default;">
+        <span class="issue-nav-dir">Next issue &#8594;</span>
+        <span class="issue-nav-title">Check back next week</span>
+       </div>`
+  }
+`;
+</script>
+</body>
+</html>

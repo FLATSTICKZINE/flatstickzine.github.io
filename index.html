@@ -452,7 +452,7 @@ footer {
 <div class="ruled">&#9617;&#9617;&#9617; handmade in a van &nbsp;&nbsp; outback australia &nbsp;&nbsp; black and white &nbsp;&nbsp; 35mm film &nbsp;&nbsp; fold and staple &nbsp;&nbsp; no frills &#9617;&#9617;&#9617;</div>
 
 <section class="hero" id="issues">
-  <div class="issue-panel">
+  <a href="issue.html?i=01" class="issue-panel" style="text-decoration:none;color:inherit;">
     <div class="issue-cover">
       <img src="issue1.webp" alt="Flat Stick Issue 1">
       <div class="preview-strip">
@@ -469,7 +469,7 @@ footer {
       </div>
     </div>
   </div>
-  <div class="issue-panel">
+  <a href="issue.html?i=02" class="issue-panel" style="text-decoration:none;color:inherit;">
     <div class="issue-cover">
       <img src="issue2.webp" alt="Flat Stick Issue 2">
       <div class="preview-strip">
@@ -588,6 +588,7 @@ issues.forEach(issue => {
     </div>
     ${status}
     <div>${pdfBtn}${printBtn}</div>
+    <div style="margin-top:10px;"><a href="issue.html?i=${issue.label}" class="btn" style="margin-right:0;">View Issue &#8594;</a></div>
   `;
 
   grid.appendChild(card);
