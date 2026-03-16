@@ -686,27 +686,6 @@ footer {
 .pdf-btn:hover { background: #f0f0f0; }
 
 </style>
-<script>
-function initAutocomplete() {
-  var input = document.getElementById('address-autocomplete');
-  if (!input) return;
-  var autocomplete = new google.maps.places.Autocomplete(input, {
-    componentRestrictions: { country: 'au' },
-    types: ['address']
-  });
-  autocomplete.addListener('place_changed', function() {
-    var place = autocomplete.getPlace();
-    document.getElementById('field-full-address').value = place.formatted_address || '';
-    if (place.address_components) {
-      place.address_components.forEach(function(c) {
-        if (c.types.includes('locality')) document.getElementById('field-suburb').value = c.long_name;
-        if (c.types.includes('administrative_area_level_1')) document.getElementById('field-state').value = c.short_name;
-        if (c.types.includes('postal_code')) document.getElementById('field-postcode').value = c.long_name;
-      });
-    }
-  });
-}
-</script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDW_EBBVfmxcBxQ327bRR17WNabdpmELCo&libraries=places&callback=initAutocomplete" async defer></script>
 </head>
 <body>
@@ -946,7 +925,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target === document.getElementById('order-overlay')) closeOrder();
   });
 
-  // autocomplete set up via global callback below
 
 
 
@@ -955,14 +933,16 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     const form = e.target;
     const name     = form.querySelector('[name="name"]').value.trim();
-    const fullAddress = form.querySelector('[name="full_address"]').value.trim();
-    const street      = form.querySelector('[name="street"]').value.trim();
-    const checked     = [...form.querySelectorAll('input[name="issues"]:checked')];
+    const street   = form.querySelector('[name="street"]').value.trim();
+    const suburb   = form.querySelector('[name="suburb"]').value.trim();
+    const state    = form.querySelector('[name="state"]').value;
+    const postcode = form.querySelector('[name="postcode"]').value.trim();
+    const checked  = [...form.querySelectorAll('input[name="issues"]:checked')];
 
-    if (!name || !street) { alert('Please fill in your name and address.'); return; }
+    if (!name || !street || !suburb || !state || !postcode) { alert('Please fill in all address fields.'); return; }
     if (checked.length === 0) { alert('Please select at least one issue.'); return; }
 
-    const address = fullAddress || street;
+    const address = `${street}, ${suburb} ${state} ${postcode}`;
     const issueList = checked.map(c => `Issue ${c.value}`).join(', ');
     const total = calcTotal(checked.length);
     const saving = (checked.length * 10) - total;
@@ -1070,11 +1050,31 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <div class="form-group">
           <label>Street Address</label>
-          <input type="text" id="address-autocomplete" name="street" placeholder="Start typing your address..." required autocomplete="off">
-          <input type="hidden" name="suburb" id="field-suburb">
-          <input type="hidden" name="state" id="field-state">
-          <input type="hidden" name="postcode" id="field-postcode">
-          <input type="hidden" name="full_address" id="field-full-address">
+          <input type="text" name="street" placeholder="123 Example St" required>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1fr;gap:10px;">
+          <div class="form-group">
+            <label>Suburb</label>
+            <input type="text" name="suburb" placeholder="Broken Hill" required>
+          </div>
+          <div class="form-group">
+            <label>State</label>
+            <select name="state" required>
+              <option value="">—</option>
+              <option>NSW</option>
+              <option>VIC</option>
+              <option>QLD</option>
+              <option>SA</option>
+              <option>WA</option>
+              <option>TAS</option>
+              <option>NT</option>
+              <option>ACT</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Postcode</label>
+          <input type="text" name="postcode" placeholder="2880" maxlength="4" pattern="[0-9]{4}" required>
         </div>
         <div class="form-group">
           <label>Which issues? (tick all you want)</label>
