@@ -152,27 +152,23 @@ book.style.width = bookW + 'px';
 book.style.height = bookH + 'px';
 
 // Build Turn.js page elements
-// Turn.js uses sequential divs — page 1 = right of spread 1, page 2 = left of spread 2, etc.
-// To get cover on right: insert blank as page 1, cover as page 2
+// Turn.js: page 1 is always on the RIGHT (front cover)
+// Even total pages needed for proper book
 const bookPages = [];
 
 pages.forEach((page) => {
-  if (page.isSingle && page.num === pages[0].num) {
-    // Cover: prepend blank + cover
-    bookPages.push({ blank: true });
-    bookPages.push({ src: page.src });
-  } else if (page.isSingle) {
-    // Back cover: push back cover + blank
-    bookPages.push({ src: page.src });
-    bookPages.push({ blank: true });
-  } else if (page.isSpread) {
-    // Spread: show left half on left page, right half on right page
+  if (page.isSpread) {
     bookPages.push({ src: page.src, half: 'left' });
     bookPages.push({ src: page.src, half: 'right' });
   } else {
     bookPages.push({ src: page.src });
   }
 });
+
+// Pad to even number with blank at end if needed
+if (bookPages.length % 2 !== 0) {
+  bookPages.push({ blank: true });
+}
 
 bookPages.forEach(p => {
   const div = document.createElement('div');
@@ -202,9 +198,17 @@ $(document).ready(function() {
     gradients: true,
     elevation: 50,
     when: {
-      turned: function(e, page) { updateUI(page); }
+      turned: function(e, page) { updateUI(page); },
+      start: function(e, pageObj, corner) {
+        // prevent turning back past cover
+        if (pageObj.page === 1 && (corner === 'tl' || corner === 'bl')) {
+          e.preventDefault();
+        }
+      }
     }
   });
+
+
 
   updateUI(1);
 
