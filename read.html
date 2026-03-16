@@ -116,6 +116,48 @@ body {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+
+/* ── HEY DOWNLOAD OVERLAY ── */
+.hey-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 500;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 24px;
+}
+.hey-overlay.open { display: flex; }
+.hey-overlay img { max-width: 340px; width: 80%; }
+.hey-download-btn {
+  padding: 16px 36px;
+  background: #fff;
+  color: #0a0a0a;
+  font-family: 'Courier Prime', monospace;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+}
+.hey-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  opacity: 0.6;
+  background: none;
+  border: none;
+  font-family: monospace;
+}
+.hey-close:hover { opacity: 1; }
+
 </style>
 </head>
 <body>
@@ -151,7 +193,7 @@ body {
     <button class="ctrl-btn" id="btn-prev">&#8592;</button>
     <span class="page-counter" id="page-counter">— / —</span>
     <button class="ctrl-btn" id="btn-next">&#8594;</button>
-    <a id="btn-download" class="ctrl-btn" style="font-size:14px;text-decoration:none;" title="Download PDF">&#8595;</a>
+    <button class="ctrl-btn" style="font-size:14px;" title="Download PDF" onclick="openHeyOverlay()">&#8595;</button>
   </div>
   <div class="hint">Arrow keys or swipe to turn — ↓ to download PDF</div>
   <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#666;margin-top:8px;text-align:center;padding-bottom:16px;">
@@ -179,8 +221,13 @@ const issue = issues[issueKey] || issues['01'];
 
 document.getElementById('topbar-issue').textContent = `Issue ${issue.label} — ${issue.title}`;
 document.title = `FLAT STICK — Issue ${issue.label}`;
-document.getElementById('btn-download').href = `issue${issueKey}.pdf`;
-document.getElementById('btn-download').download = `FlatStick_Issue${issueKey}.pdf`;
+
+function openHeyOverlay() {
+  const link = document.getElementById('hey-download-link');
+  link.href = `issue${issueKey}.pdf`;
+  link.download = `FlatStick_Issue${issueKey}.pdf`;
+  document.getElementById('hey-overlay').classList.add('open');
+}
 
 const pages = Array.from({length: issue.totalPages}, (_, i) => ({
   num: i + 1,
@@ -200,6 +247,8 @@ const counter  = document.getElementById('page-counter');
 const progress = document.getElementById('progress-bar');
 const btnPrev  = document.getElementById('btn-prev');
 const btnNext  = document.getElementById('btn-next');
+
+const isMobile = () => window.innerWidth <= 600;
 
 function render() {
   const page = pages[current];
@@ -239,6 +288,17 @@ function render() {
       spreadEl.appendChild(single);
       spreadEl.appendChild(blank);
     }
+  } else if (isMobile()) {
+    // Mobile — single page only
+    spreadEl.style.width = (window.innerWidth - 24) + 'px';
+    spreadEl.style.height = Math.round((window.innerWidth - 24) * 1.414) + 'px';
+
+    const single = document.createElement('div');
+    single.className = 'page';
+    single.style.width = '100%';
+    single.style.height = '100%';
+    single.innerHTML = `<img src="${page.src}">`;
+    spreadEl.appendChild(single);
   } else {
     // Normal two-page spread
     const next = pages[current + 1];
@@ -273,7 +333,9 @@ function render() {
 
 function next() {
   const page = pages[current];
-  if (page.isSpread || page.isSingle) {
+  if (isMobile()) {
+    current = Math.min(current + 1, total - 1);
+  } else if (page.isSpread || page.isSingle) {
     current++;
   } else {
     current = Math.min(current + 2, total - 1);
@@ -282,14 +344,17 @@ function next() {
 }
 
 function prev() {
-  const page = pages[current];
   if (current === 0) return;
-  // Go back 2 unless previous was a spread/single
-  const prevPage = pages[current - 1];
-  if (prevPage && (prevPage.isSpread || prevPage.isSingle)) {
-    current--;
+  if (isMobile()) {
+    current = Math.max(current - 1, 0);
   } else {
-    current = Math.max(current - 2, 0);
+    const page = pages[current];
+    const prevPage = pages[current - 1];
+    if (prevPage && (prevPage.isSpread || prevPage.isSingle)) {
+      current--;
+    } else {
+      current = Math.max(current - 2, 0);
+    }
   }
   render();
 }
@@ -323,5 +388,12 @@ render();
     </span>
   </div>
 </footer>
+
+<!-- HEY DOWNLOAD OVERLAY -->
+<div class="hey-overlay" id="hey-overlay">
+  <button class="hey-close" onclick="document.getElementById('hey-overlay').classList.remove('open')">✕</button>
+  <img src="hey.png" alt="Hey!">
+  <a id="hey-download-link" class="hey-download-btn" download>Download PDF ↓</a>
+</div>
 </body>
 </html>

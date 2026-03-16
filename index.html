@@ -736,7 +736,7 @@ footer {
       </div>
     </div>
   </h1>
-  <div style="height:12px;background:var(--black);border-bottom:3px solid var(--black);"></div>
+  <div style="height:12px;background:var(--black);margin:0 -40px;"></div>
 </header>
 
 
@@ -907,10 +907,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Close on overlay click
-  document.getElementById('order-overlay').addEventListener('click', e => {
-    if (e.target === document.getElementById('order-overlay')) closeOrder();
-  });
+
 
 
 
