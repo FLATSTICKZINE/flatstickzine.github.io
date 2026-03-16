@@ -755,7 +755,7 @@ function initAutocomplete() {
       <img src="issue1.webp" alt="Flat Stick Issue 1">
     </div>
     <div class="issue-label">
-      <span class="issue-num">01</span>
+      <img src="one.png" alt="01" style="height:56px;width:auto;display:block;">
       <div class="issue-info">
         <strong>Leaving Victoria</strong>
         Feb 2026<br>
@@ -768,7 +768,7 @@ function initAutocomplete() {
       <img src="issue2.webp" alt="Flat Stick Issue 2">
     </div>
     <div class="issue-label">
-      <span class="issue-num">02</span>
+      <img src="two.png" alt="02" style="height:56px;width:auto;display:block;">
       <div class="issue-info">
         <strong>Stuck in Broken Hill</strong>
         Mar 2026<br>
@@ -807,13 +807,13 @@ function initAutocomplete() {
 
 <section id="contact">
   <img src="contact.png" alt="Contact" style="height:36px;display:block;margin:0 auto 16px;filter:invert(1);">
-  <p class="contact-addr">flatstickzine [at] gmail [dot] com</p>
+  <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:36px;width:auto;display:block;margin:0 auto;">
 </section>
 
 <footer>
   <span>© 2026 Flat Stick Zine</span>
   <span>Made in a van — outback Australia</span>
-  <span>flatstickzine [at] gmail</span>
+  <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:16px;width:auto;display:block;filter:invert(1);">
 </footer>
 
 <script>
@@ -865,7 +865,7 @@ const issues = [
 const numberMap = {'01':'one','02':'two','03':'three','04':'four','05':'five'};
 const grid = document.getElementById('shop-grid');
 
-issues.forEach(issue => {
+[...issues].reverse().forEach(issue => {
   const card = document.createElement('div');
   card.className = 'shop-card';
 
