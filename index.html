@@ -598,9 +598,17 @@ footer {
   gap: 8px;
   font-size: 11px;
   letter-spacing: 1px;
+  user-select: none;
 }
 
-.issue-check input { width: auto; margin: 0; }
+.issue-check input[type="checkbox"] { 
+  width: 16px; 
+  height: 16px;
+  min-width: 16px;
+  margin: 0; 
+  cursor: pointer;
+  accent-color: #0a0a0a;
+}
 .issue-check:has(input:checked) { border-color: #0a0a0a; background: #f5f2ee; }
 
 .modal-footer {
@@ -678,6 +686,7 @@ footer {
 .pdf-btn:hover { background: #f0f0f0; }
 
 </style>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDW_EBBVfmxcBxQ327bRR17WNabdpmELCo&libraries=places"></script>
 </head>
 <body>
 
@@ -906,6 +915,26 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target === document.getElementById('order-overlay')) closeOrder();
   });
 
+  // Google Places autocomplete
+  if (typeof google !== 'undefined') {
+    const autocomplete = new google.maps.places.Autocomplete(
+      document.getElementById('address-autocomplete'),
+      { componentRestrictions: { country: 'au' }, types: ['address'] }
+    );
+    autocomplete.addListener('place_changed', () => {
+      const place = autocomplete.getPlace();
+      document.getElementById('field-full-address').value = place.formatted_address || '';
+      place.address_components.forEach(c => {
+        if (c.types.includes('street_number') || c.types.includes('route')) {
+          // handled by main input
+        }
+        if (c.types.includes('locality')) document.getElementById('field-suburb').value = c.long_name;
+        if (c.types.includes('administrative_area_level_1')) document.getElementById('field-state').value = c.short_name;
+        if (c.types.includes('postal_code')) document.getElementById('field-postcode').value = c.long_name;
+      });
+    });
+  }
+
   // Update total when issues selected
   document.querySelectorAll('input[name="issues"]').forEach(cb => {
     cb.addEventListener('change', updateOrderTotal);
@@ -915,18 +944,19 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('order-form').addEventListener('submit', async e => {
     e.preventDefault();
     const form = e.target;
-    const name    = form.querySelector('[name="name"]').value.trim();
-    const address = form.querySelector('[name="address"]').value.trim();
-    const checked = [...form.querySelectorAll('input[name="issues"]:checked')];
+    const name     = form.querySelector('[name="name"]').value.trim();
+    const fullAddress = form.querySelector('[name="full_address"]').value.trim();
+    const street      = form.querySelector('[name="street"]').value.trim();
+    const checked     = [...form.querySelectorAll('input[name="issues"]:checked')];
 
-    if (!name || !address) { alert('Please fill in your name and address.'); return; }
+    if (!name || !street) { alert('Please fill in your name and address.'); return; }
     if (checked.length === 0) { alert('Please select at least one issue.'); return; }
 
+    const address = fullAddress || street;
     const issueList = checked.map(c => `Issue ${c.value}`).join(', ');
     const total = calcTotal(checked.length);
     const saving = (checked.length * 10) - total;
 
-    // Send to Formspree
     const btn = form.querySelector('.btn-order');
     btn.textContent = 'Sending...';
     btn.disabled = true;
@@ -1027,11 +1057,15 @@ document.addEventListener('DOMContentLoaded', () => {
           <input type="text" name="name" placeholder="Full name" required>
         </div>
         <div class="form-group">
-          <label>Postal Address</label>
-          <textarea name="address" placeholder="Street, suburb, state, postcode" required></textarea>
+          <label>Street Address</label>
+          <input type="text" id="address-autocomplete" name="street" placeholder="Start typing your address..." required autocomplete="off">
+          <input type="hidden" name="suburb" id="field-suburb">
+          <input type="hidden" name="state" id="field-state">
+          <input type="hidden" name="postcode" id="field-postcode">
+          <input type="hidden" name="full_address" id="field-full-address">
         </div>
         <div class="form-group">
-          <label>Which issues? (select all you want)</label>
+          <label>Which issues? (tick all you want)</label>
           <div class="issues-grid" id="modal-issues">
             <!-- populated by JS -->
           </div>
