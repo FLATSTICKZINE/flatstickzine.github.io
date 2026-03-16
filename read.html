@@ -173,17 +173,18 @@ $(document).ready(function() {
     gradients: true,
     elevation: 50,
     when: {
-      turning: function(e, page) {
-        // Switch to single display for spread pages
-        if (spreadTurnPages.includes(page) || spreadTurnPages.includes(page - 1)) {
+      turned: function(e, page) {
+        const isSpread = spreadTurnPages.includes(page);
+        const wasSpread = spreadTurnPages.includes(page - 1) || spreadTurnPages.includes(page - 2);
+        if (isSpread) {
           $(this).turn('display', 'single');
           $(this).turn('size', bookW, bookH);
-        } else {
+        } else if (wasSpread) {
           $(this).turn('display', 'double');
           $(this).turn('size', bookW, bookH);
         }
-      },
-      turned: function(e, page) { updateUI(page); }
+        updateUI(page);
+      }
     }
   });
 
