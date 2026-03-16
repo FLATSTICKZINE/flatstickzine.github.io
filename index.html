@@ -594,6 +594,60 @@ footer {
 }
 .pdf-btn:hover { background: #f0f0f0; }
 
+
+/* ── VAN ANIMATION ── */
+.about-van-wrap {
+  display: flex;
+  border-bottom: 3px solid var(--black);
+}
+
+.van-road {
+  width: 80px;
+  flex-shrink: 0;
+  border-right: 3px solid var(--black);
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
+}
+
+.van-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--black) 0px,
+    var(--black) 20px,
+    transparent 20px,
+    transparent 40px
+  );
+  transform: translateX(-50%);
+}
+
+.van-img {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-90deg);
+  width: 56px;
+  animation: van-drive 4s ease-in-out infinite alternate;
+}
+
+@keyframes van-drive {
+  0%   { bottom: 10%; }
+  100% { bottom: 80%; }
+}
+
+.about-content-wrap {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 </style>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDW_EBBVfmxcBxQ327bRR17WNabdpmELCo&libraries=places&callback=initAutocomplete" async defer></script>
 </head>
@@ -601,12 +655,12 @@ footer {
 
 <div class="ticker">
   <span class="ticker-inner">
-    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;">
-    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;">
-    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;">
-    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;">
-    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;">
-    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-20px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-20px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-20px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-20px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-20px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-20px;">
   </span>
 </div>
 
@@ -651,8 +705,14 @@ footer {
 
 
 
-<section id="about" style="padding:40px;display:flex;justify-content:center;border-bottom:3px solid var(--black);">
-  <img src="about2.png" alt="About Flat Stick" style="max-width:400px;width:100%;display:block;">
+<section id="about" class="about-van-wrap">
+  <div class="van-road">
+    <div class="van-line"></div>
+    <img src="van.png" alt="van" class="van-img">
+  </div>
+  <div class="about-content-wrap">
+    <img src="about2.png" alt="About Flat Stick" style="max-width:400px;width:100%;display:block;">
+  </div>
 </section>
 
 
@@ -660,12 +720,12 @@ footer {
 <footer style="padding:0;overflow:hidden;background:#0a0a0a;">
   <div style="white-space:nowrap;overflow:hidden;">
     <span style="display:inline-block;animation:ticker 22s linear infinite;">
-      <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);">
-      <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);">
-      <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);">
-      <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);">
-      <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);">
-      <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);">
+      <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-20px;">
+      <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-20px;">
+      <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-20px;">
+      <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-20px;">
+      <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-20px;">
+      <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-20px;">
     </span>
   </div>
 </footer>
