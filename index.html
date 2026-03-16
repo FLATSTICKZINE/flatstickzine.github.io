@@ -862,6 +862,7 @@ const issues = [
   },
 ];
 
+const numberMap = {'01':'one','02':'two','03':'three','04':'four','05':'five'};
 const grid = document.getElementById('shop-grid');
 
 issues.forEach(issue => {
@@ -881,7 +882,10 @@ issues.forEach(issue => {
   card.innerHTML = `
     ${coverImg}
     <div class="issue-actions">
-      <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#999;margin-bottom:8px;">Issue ${issue.label} — ${issue.title}</div>
+      <div style="margin-bottom:8px;display:flex;align-items:center;gap:8px;">
+        <img src="${numberMap[issue.label]}.png" alt="Issue ${issue.label}" style="height:28px;width:auto;">
+        <span style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#999;">${issue.title}</span>
+      </div>
       ${actions}
     </div>
   `;
