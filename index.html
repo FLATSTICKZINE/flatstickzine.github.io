@@ -66,28 +66,32 @@ header {
   color: var(--mid);
 }
 
-/* Title scrolling banner */
-.title-banner {
-  overflow: hidden;
+/* Title reel system */
+h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
   padding: 10px 0 28px;
-  white-space: nowrap;
 }
 
-.title-banner-inner {
-  display: inline-block;
-  animation: title-scroll 18s linear infinite;
-  white-space: nowrap;
+.title-word {
+  width: clamp(240px, 34vw, 560px);
+  height: clamp(72px, 10vw, 148px);
+  overflow: hidden;
 }
 
-.title-banner-inner img {
-  height: clamp(60px, 9vw, 140px);
-  width: auto;
-  display: inline-block;
+.reel {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease-in-out;
 }
 
-@keyframes title-scroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+.reel img {
+  width: 100%;
+  height: clamp(72px, 10vw, 148px);
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 /* ── NAV ── */
@@ -412,8 +416,8 @@ footer {
 
 <div class="ticker">
   <span class="ticker-inner">
-    &#9617;&#9617;&#9617; flat stick zine &nbsp;&nbsp; outback australia &nbsp;&nbsp; 35mm film &nbsp;&nbsp; handmade &nbsp;&nbsp; fold and staple &nbsp;&nbsp; no frills &nbsp;&nbsp;
-    &#9617;&#9617;&#9617; flat stick zine &nbsp;&nbsp; outback australia &nbsp;&nbsp; 35mm film &nbsp;&nbsp; handmade &nbsp;&nbsp; fold and staple &nbsp;&nbsp; no frills &nbsp;&nbsp;
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;">
   </span>
 </div>
 
@@ -422,12 +426,22 @@ footer {
     <div class="header-meta">Est. 2026<br>Outback NSW</div>
     <div class="header-meta" style="text-align:right">Weekly<br>Print + Digital</div>
   </div>
-  <div class="title-banner">
-    <div class="title-banner-inner">
-      <img src="flatstickzineheader.png" alt="FLAT STICK">
-      <img src="flatstickzineheader.png" alt="FLAT STICK">
+  <h1>
+    <div class="title-word" id="word-flat">
+      <div class="reel">
+        <img src="flat1.png" alt="FLAT"><img src="flat2.png" alt="FLAT">
+        <img src="flat3.png" alt="FLAT"><img src="flat4.png" alt="FLAT">
+        <img src="flat5.png" alt="FLAT"><img src="flat6.png" alt="FLAT">
+      </div>
     </div>
-  </div>
+    <div class="title-word" id="word-stick">
+      <div class="reel">
+        <img src="stick1.png" alt="STICK"><img src="stick2.png" alt="STICK">
+        <img src="stick3.png" alt="STICK"><img src="stick4.png" alt="STICK">
+        <img src="stick5.png" alt="STICK"><img src="stick6.png" alt="STICK">
+      </div>
+    </div>
+  </h1>
   <nav>
     <a href="#shop"><img src="shop.png" alt="Shop" style="height:20px;display:block;filter:invert(0);"></a>
     <a href="#about"><img src="about.png" alt="About" style="height:20px;display:block;"></a>
