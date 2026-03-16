@@ -680,6 +680,20 @@ footer {
 // ─────────────────────────────────────────────
 const issues = [
   {
+    label: "01",
+    title: "Leaving Victoria",
+    titleImg: "leavingvic.png",
+    date: "February 2026",
+    location: "Melbourne → Broken Hill",
+    cover: "issue1.webp",
+    pdf_price: 3,
+    print_price: 10,
+    available: true,
+    pdf_url: "https://www.paypal.com/ncp/payment/YS5BMKLK25SMG",
+    print_url: "https://www.paypal.com/ncp/payment/TF2WBPUNLG8X2",
+    edition: 50,
+  },
+  {
     label: "02",
     title: "Stuck in Broken Hill",
     titleImg: "Stuck.png",
@@ -688,7 +702,7 @@ const issues = [
     cover: "issue2.webp",
     pdf_price: 3,
     print_price: 10,
-    available: true,   // set to true + add urls when shop goes live
+    available: true,
     pdf_url: "https://www.paypal.com/ncp/payment/YS5BMKLK25SMG",
     print_url: "https://www.paypal.com/ncp/payment/TF2WBPUNLG8X2",
     edition: 50,
@@ -706,26 +720,12 @@ const issues = [
     print_url: "",
     edition: 50,
   },
-  {
-    label: "01",
-    title: "Leaving Victoria",
-    titleImg: "leavingvic.png",
-    date: "February 2026",
-    location: "Melbourne → Broken Hill",
-    cover: "issue1.webp",
-    pdf_price: 3,
-    print_price: 10,
-    available: true,
-    pdf_url: "https://www.paypal.com/ncp/payment/YS5BMKLK25SMG",
-    print_url: "https://www.paypal.com/ncp/payment/TF2WBPUNLG8X2",
-    edition: 50,
-  },
 ];
 
 const numberMap = {'01':'one','02':'two','03':'three','04':'four','05':'five'};
 const grid = document.getElementById('shop-grid');
 
-[...issues].reverse().forEach(issue => {
+issues.forEach(issue => {
   const card = document.createElement('div');
   card.className = 'shop-card';
 
