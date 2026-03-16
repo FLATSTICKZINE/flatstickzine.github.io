@@ -341,6 +341,164 @@ footer {
   footer { flex-direction: column; gap: 10px; text-align: center; padding: 20px; }
   .carousel-header, .carousel-counter { padding-left: 20px; padding-right: 20px; }
 }
+/* ── ORDER MODAL ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: #fff;
+  max-width: 560px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 3px solid #0a0a0a;
+}
+
+.modal-header {
+  background: #0a0a0a;
+  color: #fff;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0.7;
+  font-family: monospace;
+}
+.modal-close:hover { opacity: 1; }
+
+.modal-body { padding: 24px; }
+
+.pricing-guide {
+  background: #f5f2ee;
+  border: 1px solid #ddd;
+  padding: 16px;
+  margin-bottom: 24px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  line-height: 2;
+}
+
+.pricing-guide strong {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  color: #999;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid #0a0a0a;
+  font-family: 'Courier Prime', monospace;
+  font-size: 13px;
+  background: #fff;
+  outline: none;
+}
+
+.form-group textarea { height: 80px; resize: vertical; }
+
+.issues-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.issue-check {
+  border: 2px solid #ddd;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  user-select: none;
+}
+
+.issue-check input[type="checkbox"] { 
+  width: 16px; 
+  height: 16px;
+  min-width: 16px;
+  margin: 0; 
+  cursor: pointer;
+  accent-color: #0a0a0a;
+}
+.issue-check:has(input:checked) { border-color: #0a0a0a; background: #f5f2ee; }
+
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 2px solid #0a0a0a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-total {
+  font-size: 13px;
+  letter-spacing: 2px;
+}
+
+.order-total strong { font-size: 22px; font-weight: 700; }
+.order-saving { font-size: 10px; color: #999; letter-spacing: 1px; }
+
+.btn-order {
+  padding: 14px 28px;
+  background: #0a0a0a;
+  color: #fff;
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.12s;
+}
+.btn-order:hover { opacity: 0.8; }
+
+/* Issue card order button */
 </style>
 </head>
 <body>
@@ -390,6 +548,71 @@ footer {
 <nav class="issue-nav" id="issue-nav">
   <!-- populated by JS -->
 </nav>
+
+<!-- ORDER MODAL -->
+<div class="modal-overlay" id="order-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Place an Order</h2>
+      <button class="modal-close" onclick="closeOrder()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="pricing-guide">
+        <strong>Print copies — $10 each, posted anywhere in Australia</strong>
+        Discounts apply when ordering multiple issues.<br>
+        <span style="color:#999;font-size:10px;">PDF — $3 each, buy separately on each issue page</span>
+      </div>
+      <form id="order-form">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" name="name" placeholder="Full name" required>
+        </div>
+        <div class="form-group">
+          <label>Street Address</label>
+          <input type="text" name="street" placeholder="123 Example St" required>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1fr;gap:10px;">
+          <div class="form-group">
+            <label>Suburb</label>
+            <input type="text" name="suburb" placeholder="Broken Hill" required>
+          </div>
+          <div class="form-group">
+            <label>State</label>
+            <select name="state" required>
+              <option value="">—</option>
+              <option>NSW</option>
+              <option>VIC</option>
+              <option>QLD</option>
+              <option>SA</option>
+              <option>WA</option>
+              <option>TAS</option>
+              <option>NT</option>
+              <option>ACT</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Postcode</label>
+          <input type="text" name="postcode" placeholder="2880" maxlength="4" pattern="[0-9]{4}" required>
+        </div>
+        <div class="form-group">
+          <label>Which issues? (tick all you want)</label>
+          <div class="issues-grid" id="modal-issues">
+            <!-- populated by JS -->
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div>
+            <div class="order-total">Total: <strong id="order-total-val">$0</strong></div>
+            <div class="order-saving" id="order-saving"></div>
+          </div>
+          <button type="submit" class="btn-order">Pay with PayPal →</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 
 <footer style="padding:0;overflow:hidden;background:#0a0a0a;">
   <div style="white-space:nowrap;overflow:hidden;">
@@ -476,8 +699,8 @@ const hero = document.getElementById('issue-hero');
 const pdfBtn = (issue.available && issue.pdf_url)
   ? `<a href="${issue.pdf_url}" class="btn btn-primary" target="_blank">Buy PDF — $${issue.pdf_price}</a>`
   : `<span class="btn btn-ghost">PDF — Coming Soon</span>`;
-const printBtn = (issue.available && issue.print_url)
-  ? `<a href="${issue.print_url}" class="btn" target="_blank">Print — $${issue.print_price}</a>`
+const printBtn = issue.available
+  ? `<button class="btn" onclick="openOrder('${issue.label}')" style="cursor:pointer;">Order Print — $${issue.print_price}</button>`
   : `<span class="btn btn-ghost">Print — Coming Soon</span>`;
 
 hero.innerHTML = `
@@ -564,6 +787,98 @@ nav.innerHTML = `
        </div>`
   }
 `;
+// ── ORDER MODAL JS ──
+const BUNDLE_PRICES = { 1: 10, 2: 17, 3: 24, 4: 30 };
+const FORMSPREE_URL = "https://formspree.io/f/xzdjjwzy";
+
+function calcTotal(printCount) {
+  return BUNDLE_PRICES[Math.min(printCount, 4)] || (printCount * 10);
+}
+
+function openOrder(preselect) {
+  const overlay = document.getElementById('order-overlay');
+  overlay.classList.add('open');
+  if (preselect) {
+    const cb = document.querySelector(`input[name="issues"][value="${preselect}"]`);
+    if (cb) cb.checked = true;
+  }
+  updateOrderTotal();
+}
+
+function closeOrder() {
+  document.getElementById('order-overlay').classList.remove('open');
+}
+
+function updateOrderTotal() {
+  const checked = document.querySelectorAll('input[name="issues"]:checked');
+  const count = checked.length;
+  const total = calcTotal(count);
+  const saving = (count * 10) - total;
+  document.getElementById('order-total-val').textContent = count > 0 ? `$${total}` : '$0';
+  document.getElementById('order-saving').textContent = saving > 0 ? `saving $${saving} on postage` : '';
+}
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Populate modal issue checkboxes
+  const modalIssues = document.getElementById('modal-issues');
+  if (modalIssues) {
+    issues.filter(i => i.available).forEach(iss => {
+      const label = document.createElement('label');
+      label.className = 'issue-check';
+      label.innerHTML = `<input type="checkbox" name="issues" value="${iss.label}"> Issue ${iss.label} — ${iss.title}`;
+      modalIssues.appendChild(label);
+      label.querySelector('input').addEventListener('change', updateOrderTotal);
+    });
+  }
+
+  // Close on overlay click
+  document.getElementById('order-overlay').addEventListener('click', e => {
+    if (e.target === document.getElementById('order-overlay')) closeOrder();
+  });
+
+
+
+
+  // Form submit
+  document.getElementById('order-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const form = e.target;
+    const name     = form.querySelector('[name="name"]').value.trim();
+    const street   = form.querySelector('[name="street"]').value.trim();
+    const suburb   = form.querySelector('[name="suburb"]').value.trim();
+    const state    = form.querySelector('[name="state"]').value;
+    const postcode = form.querySelector('[name="postcode"]').value.trim();
+    const checked  = [...form.querySelectorAll('input[name="issues"]:checked')];
+
+    if (!name || !street || !suburb || !state || !postcode) { alert('Please fill in all address fields.'); return; }
+    if (checked.length === 0) { alert('Please select at least one issue.'); return; }
+
+    const address = `${street}, ${suburb} ${state} ${postcode}`;
+    const issueList = checked.map(c => `Issue ${c.value}`).join(', ');
+    const total = calcTotal(checked.length);
+    const saving = (checked.length * 10) - total;
+
+    const btn = form.querySelector('.btn-order');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    try {
+      await fetch(FORMSPREE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ name, address, issues: issueList, total: `$${total}`, saving: saving > 0 ? `$${saving}` : 'none' })
+      });
+    } catch(err) { console.log('Formspree error', err); }
+
+    // Redirect to PayPal
+    closeOrder();
+    window.location.href = `https://paypal.me/flatstickzine/${total}AUD`;
+  });
+});
+
+// ─────
 </script>
 </body>
 </html>
