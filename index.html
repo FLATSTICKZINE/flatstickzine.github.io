@@ -109,13 +109,17 @@ nav a {
   letter-spacing: 4px;
   text-transform: uppercase;
   text-decoration: none;
-  color: var(--black);
-  border-right: 1px solid var(--black);
+  color: var(--white);
+  border-right: 1px solid #333;
+  background: var(--black);
   transition: background 0.12s, color 0.12s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 nav a:last-child { border-right: none; }
-nav a:hover { background: var(--black); color: var(--white); }
+nav a:hover { background: #333; }
 
 /* ── RULED DIVIDER ── */
 .ruled {
@@ -444,9 +448,9 @@ footer {
     </div>
   </h1>
   <nav>
-    <a href="#shop"><img src="shop.png" alt="Shop" style="height:20px;display:block;filter:invert(0);"></a>
-    <a href="#about"><img src="about.png" alt="About" style="height:20px;display:block;"></a>
-    <a href="#contact"><img src="contact.png" alt="Contact" style="height:20px;display:block;"></a>
+    <a href="#shop" style="display:flex;align-items:center;justify-content:center;"><img src="shop.png" alt="Shop" style="height:20px;display:block;filter:invert(1);"></a>
+    <a href="#about" style="display:flex;align-items:center;justify-content:center;"><img src="about.png" alt="About" style="height:20px;display:block;filter:invert(1);"></a>
+    <a href="#contact" style="display:flex;align-items:center;justify-content:center;"><img src="contact.png" alt="Contact" style="height:20px;display:block;filter:invert(1);"></a>
   </nav>
 </header>
 
@@ -496,7 +500,7 @@ footer {
 
 <section id="shop">
   <div class="section-header">
-    <img src="shop.png" alt="Shop" style="height:28px;display:block;">
+    <img src="shop.png" alt="Shop" style="height:28px;display:block;filter:invert(1);">
     <span class="section-sub">— print + digital editions</span>
   </div>
   <div class="shop-issues" id="shop-grid"></div>
@@ -506,7 +510,7 @@ footer {
 
 <section id="about">
   <div class="about-sidebar">
-    <img src="about.png" alt="About" style="height:28px;display:block;">
+    <img src="about.png" alt="About" style="height:28px;display:block;filter:invert(1);">
   </div>
   <div class="about-body">
     <p>Flat Stick is a zine made in a van, somewhere in outback Australia.</p>
@@ -517,7 +521,7 @@ footer {
 </section>
 
 <section id="contact">
-  <img src="contact.png" alt="Contact" style="height:36px;display:block;margin:0 auto 16px;">
+  <img src="contact.png" alt="Contact" style="height:36px;display:block;margin:0 auto 16px;filter:invert(1);">
   <p class="contact-addr">flatstickzine [at] gmail [dot] com</p>
 </section>
 
