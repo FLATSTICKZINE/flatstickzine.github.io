@@ -140,27 +140,18 @@ const spreadTurnPages = [];
 let turnIdx = 1;
 
 pages.forEach(page => {
+  const div = document.createElement('div');
+  div.className = 'page';
   if (page.isSpread) {
-    // Add TWO divs for the spread — left half and right half
-    const divL = document.createElement('div');
-    divL.className = 'page';
-    divL.innerHTML = `<img src="${page.src}" style="width:200%;height:100%;object-fit:cover;object-position:left center;">`;
-    book.appendChild(divL);
-
-    const divR = document.createElement('div');
-    divR.className = 'page';
-    divR.innerHTML = `<img src="${page.src}" style="width:200%;height:100%;object-fit:cover;object-position:right center;margin-left:-100%;">`;
-    book.appendChild(divR);
-
+    // Mark as spread — will switch to single display mode
+    div.setAttribute('data-spread', 'true');
+    div.innerHTML = `<img src="${page.src}" style="width:100%;height:100%;object-fit:contain;background:#f8f5f0;">`;
     spreadTurnPages.push(turnIdx);
-    turnIdx += 2;
   } else {
-    const div = document.createElement('div');
-    div.className = 'page';
     div.innerHTML = `<img src="${page.src}">`;
-    book.appendChild(div);
-    turnIdx++;
   }
+  book.appendChild(div);
+  turnIdx++;
 });
 
 // Pad to even
@@ -182,6 +173,16 @@ $(document).ready(function() {
     gradients: true,
     elevation: 50,
     when: {
+      turning: function(e, page) {
+        // Switch to single display for spread pages
+        if (spreadTurnPages.includes(page) || spreadTurnPages.includes(page - 1)) {
+          $(this).turn('display', 'single');
+          $(this).turn('size', bookW, bookH);
+        } else {
+          $(this).turn('display', 'double');
+          $(this).turn('size', bookW, bookH);
+        }
+      },
       turned: function(e, page) { updateUI(page); }
     }
   });
