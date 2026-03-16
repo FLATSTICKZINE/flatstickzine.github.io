@@ -686,6 +686,27 @@ footer {
 .pdf-btn:hover { background: #f0f0f0; }
 
 </style>
+<script>
+function initAutocomplete() {
+  var input = document.getElementById('address-autocomplete');
+  if (!input) return;
+  var autocomplete = new google.maps.places.Autocomplete(input, {
+    componentRestrictions: { country: 'au' },
+    types: ['address']
+  });
+  autocomplete.addListener('place_changed', function() {
+    var place = autocomplete.getPlace();
+    document.getElementById('field-full-address').value = place.formatted_address || '';
+    if (place.address_components) {
+      place.address_components.forEach(function(c) {
+        if (c.types.includes('locality')) document.getElementById('field-suburb').value = c.long_name;
+        if (c.types.includes('administrative_area_level_1')) document.getElementById('field-state').value = c.short_name;
+        if (c.types.includes('postal_code')) document.getElementById('field-postcode').value = c.long_name;
+      });
+    }
+  });
+}
+</script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDW_EBBVfmxcBxQ327bRR17WNabdpmELCo&libraries=places&callback=initAutocomplete" async defer></script>
 </head>
 <body>
@@ -868,18 +889,11 @@ issues.forEach(issue => {
   grid.appendChild(card);
 });
 
-// Populate modal issue checkboxes
-const modalIssues = document.getElementById('modal-issues');
-issues.filter(i => i.available).forEach(issue => {
-  const label = document.createElement('label');
-  label.className = 'issue-check';
-  label.innerHTML = `<input type="checkbox" name="issues" value="${issue.label}"> Issue ${issue.label} — ${issue.title}`;
-  modalIssues.appendChild(label);
-});
+// Populate modal issue checkboxes — done in DOMContentLoaded below
 
 // ── ORDER MODAL JS ──
 const BUNDLE_PRICES = { 1: 10, 2: 17, 3: 24, 4: 30 };
-const FORMSPREE_URL = "https://formspree.io/f/xzdjjwzy"; // replace with your Formspree ID
+const FORMSPREE_URL = "https://formspree.io/f/xzdjjwzy";
 
 function calcTotal(printCount) {
   return BUNDLE_PRICES[Math.min(printCount, 4)] || (printCount * 10);
@@ -888,7 +902,6 @@ function calcTotal(printCount) {
 function openOrder(preselect) {
   const overlay = document.getElementById('order-overlay');
   overlay.classList.add('open');
-  // Preselect the issue they clicked
   if (preselect) {
     const cb = document.querySelector(`input[name="issues"][value="${preselect}"]`);
     if (cb) cb.checked = true;
@@ -906,10 +919,24 @@ function updateOrderTotal() {
   const total = calcTotal(count);
   const saving = (count * 10) - total;
   document.getElementById('order-total-val').textContent = count > 0 ? `$${total}` : '$0';
-  document.getElementById('order-saving').textContent = saving > 0 ? `saving $${saving} on postage` : count > 1 ? '' : '';
+  document.getElementById('order-saving').textContent = saving > 0 ? `saving $${saving} on postage` : '';
 }
 
+
+
 document.addEventListener('DOMContentLoaded', () => {
+  // Populate modal issue checkboxes
+  const modalIssues = document.getElementById('modal-issues');
+  if (modalIssues) {
+    issues.filter(i => i.available).forEach(iss => {
+      const label = document.createElement('label');
+      label.className = 'issue-check';
+      label.innerHTML = `<input type="checkbox" name="issues" value="${iss.label}"> Issue ${iss.label} — ${iss.title}`;
+      modalIssues.appendChild(label);
+      label.querySelector('input').addEventListener('change', updateOrderTotal);
+    });
+  }
+
   // Close on overlay click
   document.getElementById('order-overlay').addEventListener('click', e => {
     if (e.target === document.getElementById('order-overlay')) closeOrder();
@@ -917,10 +944,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // autocomplete set up via global callback below
 
-  // Update total when issues selected
-  document.querySelectorAll('input[name="issues"]').forEach(cb => {
-    cb.addEventListener('change', updateOrderTotal);
-  });
+
 
   // Form submit
   document.getElementById('order-form').addEventListener('submit', async e => {
@@ -1018,25 +1042,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 })();
 
-window.initAutocomplete = function() {
-  const input = document.getElementById('address-autocomplete');
-  if (!input) return;
-  const autocomplete = new google.maps.places.Autocomplete(input, {
-    componentRestrictions: { country: 'au' },
-    types: ['address']
-  });
-  autocomplete.addListener('place_changed', () => {
-    const place = autocomplete.getPlace();
-    document.getElementById('field-full-address').value = place.formatted_address || '';
-    if (place.address_components) {
-      place.address_components.forEach(c => {
-        if (c.types.includes('locality')) document.getElementById('field-suburb').value = c.long_name;
-        if (c.types.includes('administrative_area_level_1')) document.getElementById('field-state').value = c.short_name;
-        if (c.types.includes('postal_code')) document.getElementById('field-postcode').value = c.long_name;
-      });
-    }
-  });
-};
+
 </script>
 
 <!-- ORDER MODAL -->
