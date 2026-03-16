@@ -309,7 +309,7 @@ const issueKey = params.get('i') || '01';
 const issue = issues[issueKey] || issues['01'];
 // Build pages array from folder + totalPages
 const pages = Array.from({length: issue.totalPages}, (_, i) => ({
-  src: `${issue.folder}/${i+1}.PNG`,
+  src: `${issue.folder}/${i+1}.webp`,
   isSpread: issue.spreads.includes(i+1),
   isSingle: (issue.singlePages || []).includes(i+1),
   skip: (issue.skipPages || []).includes(i+1),
