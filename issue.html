@@ -352,7 +352,10 @@ footer {
 </div>
 
 <header class="site-header">
-  <a href="index.html" class="site-title">FLAT STICK</a>
+  <a href="index.html" class="site-title" id="site-title-link" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+    <img id="title-flat" src="" alt="FLAT" style="height:clamp(32px,5vw,56px);display:block;">
+    <img id="title-stick" src="" alt="STICK" style="height:clamp(32px,5vw,56px);display:block;">
+  </a>
   <a href="index.html" class="back-link">&#8592; All Issues</a>
 </header>
 
@@ -434,6 +437,12 @@ const issue = issues[issueIndex] || issues[0];
 
 // Set page title
 document.title = `FLAT STICK — Issue ${issue.label}`;
+
+// Random matching reel frame for title
+const frameCount = 6;
+const frame = Math.floor(Math.random() * frameCount) + 1;
+document.getElementById('title-flat').src = `flat${frame}.png`;
+document.getElementById('title-stick').src = `stick${frame}.png`;
 
 // ── Build hero ──
 const hero = document.getElementById('issue-hero');
