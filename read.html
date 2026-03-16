@@ -306,7 +306,7 @@ const issueKey = params.get('i') || '01';
 const issue = issues[issueKey] || issues['01'];
 // Build pages array from folder + totalPages
 const pages = Array.from({length: issue.totalPages}, (_, i) => ({
-  src: `${issue.folder}/${i+1}.png`,
+  src: `${issue.folder}/${i+1}.PNG`,
   isSpread: issue.spreads.includes(i+1),
 }));
 const total = pages.length;
