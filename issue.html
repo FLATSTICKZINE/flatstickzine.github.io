@@ -689,7 +689,7 @@ const issues = [
 // Get issue from URL param e.g. issue.html?i=01
 const params = new URLSearchParams(window.location.search);
 const issueLabel = params.get('i') || issues[0].label;
-const issueIndex = issues.findIndex(i => i.label === issueLabel);
+const issueIndex = issues.findIndex(iss => iss.label === issueLabel);
 const issue = issues[issueIndex] || issues[0];
 
 // Set page title
