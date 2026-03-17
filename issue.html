@@ -762,8 +762,8 @@ goTo(0);
 
 // ── Build prev/next nav ──
 const nav = document.getElementById('issue-nav');
-const prev = issues[issueIndex + 1]; // older
-const next = issues[issueIndex - 1]; // newer
+const prev = issues[issueIndex - 1]; // previous (lower number)
+const next = issues[issueIndex + 1]; // next (higher number)
 
 nav.innerHTML = `
   ${prev
