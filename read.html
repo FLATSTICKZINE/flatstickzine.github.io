@@ -272,7 +272,7 @@ function render() {
     single.className = 'page';
     single.style.width = '100%';
     single.style.height = '100%';
-    single.innerHTML = `<img src="${page.src}">`;
+    single.innerHTML = `<img src="${page.src}" loading="eager">`;
     spreadEl.appendChild(single);
   } else if (page.isSingle) {
     // Cover or back cover — show alone on correct side
@@ -326,8 +326,10 @@ function render() {
   btnPrev.disabled = current === 0;
   btnNext.disabled = current >= total - 1 || (!page.isSpread && !page.isSingle && current + 1 >= total - 1);
 
-  // Preload next
-  if (pages[current + 2]) { const img = new Image(); img.src = pages[current + 2].src; }
+  // Preload next 2 pages only
+  [current + 1, current + 2, current + 3].forEach(i => {
+    if (pages[i]) { const img = new Image(); img.src = pages[i].src; }
+  });
 }
 
 function next() {
