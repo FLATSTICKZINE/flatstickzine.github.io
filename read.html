@@ -196,7 +196,7 @@ body {
     <button class="ctrl-btn" style="font-size:14px;" title="Download PDF" onclick="openHeyOverlay()">&#8595;</button>
   </div>
   <div class="hint">Arrow keys or swipe to turn — ↓ to download PDF</div>
-  <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#666;margin-top:8px;text-align:center;padding-bottom:16px;">
+  <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#aaa;margin-top:8px;text-align:center;padding-bottom:16px;">
     To print at home: download PDF → print double-sided → flip on short edge
   </div>
 </div>
@@ -392,7 +392,7 @@ render();
 <!-- HEY DOWNLOAD OVERLAY -->
 <div class="hey-overlay" id="hey-overlay">
   <button class="hey-close" onclick="document.getElementById('hey-overlay').classList.remove('open')">✕</button>
-  <img src="hey.png" alt="Hey!">
+  <img src="hey.png" alt="Hey!" style="filter:invert(1);max-width:300px;width:90%;display:block;margin:0 auto 20px;">
   <a id="hey-download-link" class="hey-download-btn" download>Download PDF ↓</a>
 </div>
 </body>
