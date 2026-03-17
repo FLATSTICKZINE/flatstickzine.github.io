@@ -715,16 +715,9 @@ hero.innerHTML = `
     <img src="${issue.cover}" alt="Flat Stick Issue ${issue.label}">
   </div>
   <div class="issue-hero-info">
-    <div class="issue-number">${issue.label}</div>
     <div class="issue-title-block">
       <div class="issue-label">Issue ${issue.label}</div>
-      ${issue.titleImg ? `<img src="${issue.titleImg}" alt="${issue.title}" style="height:clamp(24px,4vw,44px);width:auto;display:block;margin-bottom:16px;">` : `<h1 class="issue-title">${issue.title}</h1>`}
-      <div class="issue-meta">
-        ${issue.date}<br>
-        ${issue.location}<br>
-        Ed. of ${issue.edition}
-      </div>
-      <p class="issue-about">${issue.about}</p>
+      <h1 class="issue-title">${issue.title}</h1>
     </div>
     <div class="buy-block">
       <div class="buy-label">Get a copy</div>
