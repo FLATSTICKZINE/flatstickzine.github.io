@@ -55,6 +55,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 8px;
 }
 
 .page img {
@@ -326,7 +327,9 @@ function render() {
   counter.textContent = `${current + 1} / ${total}`;
   progress.style.width = `${((current + 1) / total) * 100}%`;
   btnPrev.disabled = current === 0;
-  btnNext.disabled = current >= total - 1;
+  // On desktop, last spread shows back cover + blank so stop one earlier
+  // On mobile, go all the way to last page
+  btnNext.disabled = isMobile() ? current >= total - 1 : current >= total - 1;
 
   // Preload next 2 pages only
   [current + 1, current + 2, current + 3].forEach(i => {
@@ -341,7 +344,9 @@ function next() {
   } else if (page.isSpread || page.isSingle) {
     current++;
   } else {
-    current = Math.min(current + 2, total - 1);
+    // If jumping by 2 would skip the last page, just go to last page
+    const nextIdx = current + 2;
+    current = nextIdx >= total ? total - 1 : nextIdx;
   }
   render();
 }
