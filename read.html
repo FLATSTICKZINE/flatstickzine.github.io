@@ -264,6 +264,16 @@ function render() {
     div.style.height = pageH + 'px';
     div.innerHTML = `<img src="${page.src}">`;
     spreadEl.appendChild(div);
+  } else if (isMobile()) {
+    // Mobile — always single page regardless of cover/back cover
+    spreadEl.style.width = (window.innerWidth - 24) + 'px';
+    spreadEl.style.height = Math.round((window.innerWidth - 24) * 1.414) + 'px';
+    const single = document.createElement('div');
+    single.className = 'page';
+    single.style.width = '100%';
+    single.style.height = '100%';
+    single.innerHTML = `<img src="${page.src}">`;
+    spreadEl.appendChild(single);
   } else if (page.isSingle) {
     // Cover or back cover — show alone on correct side
     const isFirst = current === 0;
@@ -288,17 +298,6 @@ function render() {
       spreadEl.appendChild(single);
       spreadEl.appendChild(blank);
     }
-  } else if (isMobile()) {
-    // Mobile — single page only
-    spreadEl.style.width = (window.innerWidth - 24) + 'px';
-    spreadEl.style.height = Math.round((window.innerWidth - 24) * 1.414) + 'px';
-
-    const single = document.createElement('div');
-    single.className = 'page';
-    single.style.width = '100%';
-    single.style.height = '100%';
-    single.innerHTML = `<img src="${page.src}">`;
-    spreadEl.appendChild(single);
   } else {
     // Normal two-page spread
     const next = pages[current + 1];
