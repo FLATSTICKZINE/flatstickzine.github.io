@@ -49,6 +49,7 @@ body {
 header {
   border-bottom: 3px solid var(--black);
   padding: 28px 40px 0;
+  cursor: pointer;
 }
 
 .header-top {
@@ -133,11 +134,6 @@ nav a:hover { background: #333; }
   overflow: hidden;
   white-space: nowrap;
 }
-
-
-
-
-
 
 /* ── LATEST ISSUE BAND ── */
 .latest-band {
@@ -308,6 +304,11 @@ footer {
   font-size: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
+  cursor: pointer;
+}
+
+footer:hover {
+  opacity: 0.8;
 }
 
 /* ── MOBILE ── */
@@ -722,7 +723,7 @@ footer {
   </span>
 </div>
 
-<header>
+<header onclick="window.location.href='vip.html';">
 
   <h1>
     <div class="title-word" id="word-flat">
@@ -743,12 +744,6 @@ footer {
   <div style="height:12px;background:var(--black);margin:0 -40px;"></div>
 </header>
 
-
-
-
-
-
-
 <section id="shop">
   <div class="section-header">
     <img src="shop.png" alt="Shop" style="height:28px;display:block;filter:invert(1);">
@@ -756,8 +751,6 @@ footer {
   </div>
   <div class="shop-issues" id="shop-grid"></div>
 </section>
-
-
 
 <section id="about" class="about-van-wrap">
   <div class="van-road">
@@ -769,9 +762,7 @@ footer {
   </div>
 </section>
 
-
-
-<footer style="padding:0;overflow:hidden;background:#0a0a0a;display:block;width:100%;">
+<footer onclick="window.location.href='mailto:flatstickzine@gmail.com';">
   <div style="white-space:nowrap;overflow:hidden;width:100%;">
     <span style="display:inline-block;animation:ticker 22s linear infinite;">
       <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
@@ -906,8 +897,6 @@ function updateOrderTotal() {
   document.getElementById('order-saving').textContent = saving > 0 ? `saving $${saving} on postage` : '';
 }
 
-
-
 document.addEventListener('DOMContentLoaded', () => {
   // Populate modal issue checkboxes
   const modalIssues = document.getElementById('modal-issues');
@@ -920,11 +909,6 @@ document.addEventListener('DOMContentLoaded', () => {
       label.querySelector('input').addEventListener('change', updateOrderTotal);
     });
   }
-
-
-
-
-
 
   // Form submit
   document.getElementById('order-form').addEventListener('submit', async e => {
@@ -1023,7 +1007,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(spin, 4000);
   });
 })();
-
 
 </script>
 
