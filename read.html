@@ -217,23 +217,9 @@ const issues = {
   },
 };
 
-// Token-based access — tokens prevent URL guessing
-const tokenMap = {
-  '6801a92c7913': '01',
-  '6acb2f594059': '02',
-  'd211f2eea17c': '03',
-};
-
 const params = new URLSearchParams(window.location.search);
-const token = params.get('t');
-const issueKey = tokenMap[token] || null;
-
-if (!issueKey) {
-  document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;color:#fff;font-family:monospace;font-size:14px;letter-spacing:2px;text-transform:uppercase;">Access denied — purchase required</div>';
-  throw new Error('Invalid token');
-}
-
-const issue = issues[issueKey];
+const issueKey = params.get('i') || '01';
+const issue = issues[issueKey] || issues['01'];
 
 document.getElementById('topbar-issue').textContent = `Issue ${issue.label} — ${issue.title}`;
 document.title = `FLAT STICK — Issue ${issue.label}`;
