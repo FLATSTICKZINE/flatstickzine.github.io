@@ -651,7 +651,7 @@ const issues = [
     pdf_price: 3,
     print_price: 10,
     available: true,
-    pdf_url: "https://www.paypal.com/ncp/payment/ZVEVR7ZPAPC6Q",
+    pdf_url: "read.html?i=01",
     print_url: "https://www.paypal.com/ncp/payment/TF2WBPUNLG8X2",
     edition: 50,
   },
@@ -667,7 +667,7 @@ const issues = [
     pdf_price: 3,
     print_price: 10,
     available: true,
-    pdf_url: "https://www.paypal.com/ncp/payment/ZVEVR7ZPAPC6Q",
+    pdf_url: "read.html?i=01",
     print_url: "https://www.paypal.com/ncp/payment/TF2WBPUNLG8X2",
     edition: 50,
   },
@@ -704,7 +704,7 @@ document.getElementById('title-stick').src = `stick${frame}.png`;
 // ── Build hero ──
 const hero = document.getElementById('issue-hero');
 const pdfBtn = (issue.available && issue.pdf_url)
-  ? `<a href="${issue.pdf_url}" class="btn btn-primary" target="_blank">Buy PDF — $${issue.pdf_price}</a>`
+  ? `<a href="${issue.pdf_url}" class="btn btn-primary">Read Online — Free</a>`
   : `<span class="btn btn-ghost">PDF — Coming Soon</span>`;
 const printBtn = issue.available
   ? `<button class="btn" onclick="openOrder('${issue.label}')" style="cursor:pointer;">Order Print — $${issue.print_price}</button>`
