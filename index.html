@@ -855,7 +855,7 @@ issues.forEach(issue => {
 
   const actions = issue.available
     ? `<button class="btn-place-order" onclick="openOrder('${issue.label}')">Order →</button>
-       <a href="${issue.pdf_url}" class="pdf-btn" target="_blank">Buy PDF — $3</a>
+       <a href="${issue.pdf_url}" class="pdf-btn" target="_blank">Read Online — Free</a>
        <a href="issue.html?i=${issue.label}" class="pdf-btn">View Issue →</a>`
     : `<div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#999;text-align:center;padding:8px 0;">Coming Soon</div>`;
 
