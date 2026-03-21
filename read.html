@@ -245,7 +245,7 @@ const pages = Array.from({length: issue.totalPages}, (_, i) => ({
 })).filter(p => !p.skip);
 
 const total = pages.length;
-const pageH = Math.min(window.innerHeight - 160, 680);
+const pageH = Math.min(window.innerHeight - 300, 560);
 const pageW = Math.round(pageH / 1.414);
 
 let current = 0; // index into pages array
