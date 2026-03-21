@@ -28,7 +28,7 @@ body {
   align-items: center;
   flex-shrink: 0;
   position: sticky;
-  top: 0;
+  top: 36px;
   z-index: 100;
 }
 .topbar-title { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; }
@@ -41,15 +41,13 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 20px;
-  overflow: hidden;
+  justify-content: flex-start;
+  padding: 16px;
 }
 
 .spread {
   display: flex;
   box-shadow: 0 20px 80px rgba(0,0,0,0.8);
-  max-height: calc(100vh - 160px);
 }
 
 .page {
@@ -112,6 +110,9 @@ body {
   overflow: hidden;
   white-space: nowrap;
   text-transform: uppercase;
+  position: sticky;
+  top: 0;
+  z-index: 101;
 }
 .ticker-inner {
   display: inline-block;
@@ -283,29 +284,15 @@ function render() {
     single.innerHTML = `<img src="${page.src}" loading="eager">`;
     spreadEl.appendChild(single);
   } else if (page.isSingle) {
-    // Cover or back cover — show alone on correct side
-    const isFirst = current === 0;
-    spreadEl.style.width = (pageW * 2) + 'px';
+    // Cover or back cover — centred single page
+    spreadEl.style.width = pageW + 'px';
     spreadEl.style.height = pageH + 'px';
-
-    const blank = document.createElement('div');
-    blank.className = 'page blank';
-    blank.style.width = pageW + 'px';
-    blank.style.height = pageH + 'px';
-
     const single = document.createElement('div');
     single.className = 'page';
     single.style.width = pageW + 'px';
     single.style.height = pageH + 'px';
     single.innerHTML = `<img src="${page.src}">`;
-
-    if (isFirst) {
-      spreadEl.appendChild(blank);
-      spreadEl.appendChild(single);
-    } else {
-      spreadEl.appendChild(single);
-      spreadEl.appendChild(blank);
-    }
+    spreadEl.appendChild(single);
   } else {
     // Normal two-page spread
     const next = pages[current + 1];
