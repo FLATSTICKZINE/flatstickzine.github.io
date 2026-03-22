@@ -106,6 +106,7 @@ body {
 /* ── HEY DOWNLOAD OVERLAY ── */
 .hey-overlay {
   display: none;
+  visibility: hidden;
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.85);
@@ -115,7 +116,7 @@ body {
   flex-direction: column;
   gap: 24px;
 }
-.hey-overlay.open { display: flex; }
+.hey-overlay.open { display: flex; visibility: visible; }
 .hey-overlay img { max-width: 340px; width: 80%; }
 .hey-download-btn {
   padding: 16px 36px;
@@ -185,7 +186,7 @@ const issues = {
   },
   "03": {
     label: "03", title: "Race to the Border",
-    folder: "issue3", totalPages: 20,
+    folder: "Issue3", totalPages: 20,
     spreads: [10], skipPages: [11], singlePages: [1, 20],
   },
 };
