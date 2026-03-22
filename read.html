@@ -258,8 +258,8 @@ document.title = `FLAT STICK — Issue ${issue.label}`;
 
 function openHeyOverlay() {
   const link = document.getElementById('hey-download-link');
-  link.href = \`issue\${issueKey}.pdf\`;
-  link.download = \`FlatStick_Issue\${issueKey}.pdf\`;
+  link.href = 'issue' + parseInt(issueKey) + '.pdf';
+  link.download = 'FlatStick_Issue' + parseInt(issueKey) + '.pdf';
   document.getElementById('hey-overlay').classList.add('open');
 }
 
