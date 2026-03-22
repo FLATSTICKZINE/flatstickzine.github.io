@@ -233,11 +233,6 @@ if (dlLink) { dlLink.href = `issue${issueKey}.pdf`; dlLink.download = `FlatStick
 document.getElementById('topbar-issue').textContent = `Issue ${issue.label} — ${issue.title}`;
 document.title = `FLAT STICK — Issue ${issue.label}`;
 
-.pdf`;
-  link.download = `FlatStick_Issue${issueKey}.pdf`;
-  document.getElementById('hey-overlay').classList.add('open');
-}
-
 const pages = Array.from({length: issue.totalPages}, (_, i) => ({
   num: i + 1,
   src: `${issue.folder}/${i + 1}.webp`,
@@ -247,7 +242,7 @@ const pages = Array.from({length: issue.totalPages}, (_, i) => ({
 })).filter(p => !p.skip);
 
 const total = pages.length;
-const pageH = Math.min(window.innerHeight - 390, 500);
+const pageH = Math.max(Math.min(window.innerHeight - 280, 520), 300);
 const pageW = Math.round(pageH / 1.414);
 
 let current = 0; // index into pages array
