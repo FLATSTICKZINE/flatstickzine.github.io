@@ -100,26 +100,6 @@ body {
 .progress-bar  { height: 100%; background: #666; transition: width 0.3s ease; }
 .hint { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: #444; margin-top: 8px; }
 
-/* ── TICKER ── */
-.ticker {
-  background: #0a0a0a;
-  color: #fff;
-  font-size: 10px;
-  letter-spacing: 4px;
-  padding: 7px 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-transform: uppercase;
-  position: sticky;
-  top: 0;
-  z-index: 101;
-}
-.ticker-inner {
-  display: inline-block;
-  animation: ticker 22s linear infinite;
-}
-@keyframes ticker {
-  0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
@@ -168,23 +148,6 @@ body {
 </head>
 <body>
 
-<div class="ticker">
-  <span class="ticker-inner">
-    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
-    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
-    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
-    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
-    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
-    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
-    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
-    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
-    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
-    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
-    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
-    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
-    
-  </span>
-</div>
 
 <div class="topbar">
   <span class="topbar-title">Flat Stick</span>
