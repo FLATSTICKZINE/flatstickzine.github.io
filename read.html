@@ -111,11 +111,78 @@ body {
 
 .hey-close:hover { opacity: 1; }
 
+/* ── TICKER ── */
+.ticker {
+  background: #0a0a0a;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 7px 0;
+  flex-shrink: 0;
+}
+.ticker-inner {
+  display: inline-block;
+  animation: ticker 22s linear infinite;
+}
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── TICKER ── */
+.ticker {
+  background: #0a0a0a;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 7px 0;
+  flex-shrink: 0;
+}
+.ticker-inner {
+  display: inline-block;
+  animation: ticker 22s linear infinite;
+}
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
 </style>
 </head>
 <body>
 
 
+<div class="ticker">
+  <span class="ticker-inner">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+  </span>
+</div>
+
+<div class="ticker">
+  <span class="ticker-inner">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+  </span>
+</div>
 <div class="topbar">
   <span class="topbar-title">Flat Stick</span>
   <span class="topbar-issue" id="topbar-issue">Issue —</span>
@@ -180,7 +247,7 @@ const pages = Array.from({length: issue.totalPages}, (_, i) => ({
 })).filter(p => !p.skip);
 
 const total = pages.length;
-const pageH = Math.min(window.innerHeight - 350, 500);
+const pageH = Math.min(window.innerHeight - 390, 500);
 const pageW = Math.round(pageH / 1.414);
 
 let current = 0; // index into pages array
