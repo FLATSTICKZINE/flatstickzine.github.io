@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLAT STICK — Emu Footage</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #1a1a1a;
+  color: #fff;
+  font-family: 'Courier Prime', monospace;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.ticker {
+  background: #0a0a0a;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 7px 0;
+}
+.ticker-inner {
+  display: inline-block;
+  animation: ticker 22s linear infinite;
+}
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.topbar {
+  background: #0a0a0a;
+  border-bottom: 2px solid #333;
+  padding: 12px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.topbar-title { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; }
+.topbar-back { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #999; text-decoration: none; }
+.topbar-back:hover { color: #fff; }
+
+.viewer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.video-wrap {
+  width: 100%;
+  max-width: 900px;
+  aspect-ratio: 16/9;
+  background: #000;
+  box-shadow: 0 20px 80px rgba(0,0,0,0.8);
+}
+
+.video-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.video-label {
+  margin-top: 20px;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #555;
+  text-align: center;
+}
+
+footer {
+  background: #0a0a0a;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0;
+}
+footer span {
+  display: inline-block;
+  animation: ticker 22s linear infinite;
+}
+</style>
+</head>
+<body>
+
+<div class="ticker">
+  <span class="ticker-inner">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+  </span>
+</div>
+
+<div class="topbar">
+  <span class="topbar-title">Flat Stick</span>
+  <a href="index.html" class="topbar-back">&#8592; Back</a>
+</div>
+
+<div class="viewer">
+  <div class="video-wrap">
+    <iframe
+      src="https://www.youtube.com/embed/eastm0rWDwI?autoplay=1"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+  <div class="video-label">Outback Australia — Emu encounter</div>
+</div>
+
+<footer>
+  <span>
+    <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
+    <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
+    <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
+    <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
+    <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
+    <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
+    <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
+    <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
+    <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
+    <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
+    <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
+    <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
+    <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
+    <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
+    <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
+    <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
+  </span>
+</footer>
+
+</body>
+</html>
