@@ -396,8 +396,19 @@
   s.textContent='@keyframes pulse{0%{transform:translate(-50%,-50%) scale(1);opacity:.35;}60%{transform:translate(-50%,-50%) scale(2.8);opacity:0;}100%{transform:translate(-50%,-50%) scale(1);opacity:0;}}';
   document.head.appendChild(s);
 
-  // ── GPS LOCATE BUTTON ──
+  // ── GPS LOCATE BUTTON + TRAIL ──
   let locMarker = null, locCircle = null, locWatching = false, locWatchId = null;
+  let trailCoords = [], trailLine = null;
+
+  // Clear trail button
+  const clearBtn = document.createElement('button');
+  clearBtn.innerHTML = '🗑 Clear Trail';
+  clearBtn.style.cssText = 'position:absolute;top:84px;right:10px;z-index:1000;background:#1a1a1a;border:2px solid #ff8800;color:#ff8800;padding:7px 14px;font-size:0.78rem;font-weight:bold;border-radius:20px;cursor:pointer;letter-spacing:0.04em;box-shadow:0 2px 12px rgba(0,0,0,0.6);display:none;';
+  clearBtn.addEventListener('click', () => {
+    trailCoords = [];
+    if (trailLine) { map.removeLayer(trailLine); trailLine = null; }
+  });
+  document.getElementById('map').appendChild(clearBtn);
 
   const locBtn = document.createElement('button');
   locBtn.id = 'locBtn';
@@ -429,6 +440,14 @@
       iconSize:[22,22], iconAnchor:[11,11]
     })}).addTo(map).bindTooltip(`You are here<br>±${Math.round(acc)}m`, {permanent:false});
 
+    // ── TRAIL ──
+    trailCoords.push([lat, lon]);
+    if (trailLine) map.removeLayer(trailLine);
+    if (trailCoords.length > 1) {
+      trailLine = L.polyline(trailCoords, { color:'#ff6600', weight:3, opacity:0.8 }).addTo(map);
+      clearBtn.style.display = 'block';
+    }
+
     if (!locWatching) { map.setView([lat, lon], 16, {animate:true}); }
   }
 
@@ -441,6 +460,7 @@
     if (locWatchId !== null) { navigator.geolocation.clearWatch(locWatchId); locWatchId = null; }
     locWatching = false;
     updateLocStyle();
+    // Keep trail visible after stopping so you can see where you've been
   }
 
   locBtn.addEventListener('click', () => {
