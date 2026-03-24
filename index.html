@@ -851,13 +851,13 @@ issues.forEach(issue => {
   card.className = 'shop-card';
 
   const coverImg = issue.available
-    ? `<a href="issue.html?i=${issue.label}" style="display:block;text-decoration:none;"><img src="${issue.cover}" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block;filter:grayscale(100%);"></a>`
+    ? `<a href="read.html?i=${issue.label}" style="display:block;text-decoration:none;"><img src="${issue.cover}" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block;filter:grayscale(100%);"></a>`
     : `<div style="width:100%;aspect-ratio:3/4;background:#111;display:flex;align-items:center;justify-content:center;"><span style="font-size:48px;color:#333;">?</span></div>`;
 
   const actions = issue.available
     ? `<button class="btn-place-order" onclick="openOrder('${issue.label}')">Order →</button>
        <a href="${issue.pdf_url}" class="pdf-btn" target="_blank">Read Online — Free</a>
-       <a href="issue.html?i=${issue.label}" class="pdf-btn">View Issue →</a>`
+       <a href="read.html?i=${issue.label}" class="pdf-btn">Read Online →</a>`
     : `<div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#999;text-align:center;padding:8px 0;">Coming Soon</div>`;
 
   card.innerHTML = `
