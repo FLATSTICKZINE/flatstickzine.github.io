@@ -359,22 +359,8 @@ function render() {
   const page = pages[current];
   spreadEl.innerHTML = '';
 
-  if (page.isSpread) {
-    // Full landscape image — natural size, no cropping
-    const spreadW = isMobile() ? (window.innerWidth - 24) : (pageW * 2);
-    let spreadH = Math.round(spreadW / 1.5); // landscape ratio
-    // Cap spread height on mobile to allow scrolling
-    if (isMobile()) spreadH = Math.min(spreadH, 400);
-    spreadEl.style.width = spreadW + 'px';
-    spreadEl.style.height = spreadH + 'px';
-    const div = document.createElement('div');
-    div.className = 'page spread-img';
-    div.style.width = '100%';
-    div.style.height = spreadH + 'px';
-    div.innerHTML = `<img src="${page.src}" style="width:100%;height:100%;object-fit:contain;background:#f8f5f0;">`;
-    spreadEl.appendChild(div);
-  } else if (isMobile()) {
-    // Mobile — always single page regardless of cover/back cover
+  if (isMobile()) {
+    // Mobile — always single page regardless of spread/cover/anything
     spreadEl.style.width = (window.innerWidth - 24) + 'px';
     spreadEl.style.height = Math.round((window.innerWidth - 24) * 1.414) + 'px';
     const single = document.createElement('div');
@@ -383,8 +369,20 @@ function render() {
     single.style.height = '100%';
     single.innerHTML = `<img src="${page.src}" loading="eager">`;
     spreadEl.appendChild(single);
+  } else if (page.isSpread) {
+    // Desktop: Full landscape image
+    const spreadW = pageW * 2;
+    const spreadH = Math.round(spreadW / 1.5);
+    spreadEl.style.width = spreadW + 'px';
+    spreadEl.style.height = spreadH + 'px';
+    const div = document.createElement('div');
+    div.className = 'page spread-img';
+    div.style.width = '100%';
+    div.style.height = spreadH + 'px';
+    div.innerHTML = `<img src="${page.src}" style="width:100%;height:100%;object-fit:contain;background:#f8f5f0;">`;
+    spreadEl.appendChild(div);
   } else if (page.isSingle) {
-    // Cover or back cover — centred single page
+    // Desktop: Cover or back cover — centred single page
     spreadEl.style.width = pageW + 'px';
     spreadEl.style.height = pageH + 'px';
     const single = document.createElement('div');
@@ -394,7 +392,7 @@ function render() {
     single.innerHTML = `<img src="${page.src}">`;
     spreadEl.appendChild(single);
   } else {
-    // Normal two-page spread
+    // Desktop: Normal two-page spread
     const next = pages[current + 1];
     spreadEl.style.width = (pageW * 2) + 'px';
     spreadEl.style.height = pageH + 'px';
