@@ -13,10 +13,16 @@ body {
   background: #1a1a1a;
   color: #fff;
   font-family: 'Courier Prime', monospace;
-  height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-x: hidden;
+}
+
+@media (min-width: 601px) {
+  body {
+    height: 100vh;
+    overflow: hidden;
+  }
 }
 
 .topbar {
