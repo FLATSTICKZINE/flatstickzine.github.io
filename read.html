@@ -53,6 +53,23 @@ body {
 .issue-nav-btn:hover:not([disabled]) { color: #fff; border-color: #666; background: #333; }
 .issue-nav-btn[disabled] { opacity: 0.25; cursor: default; }
 
+@media (max-width: 600px) {
+  .issue-nav-btn {
+    padding: 8px 14px;
+    font-size: 10px;
+    min-width: 120px;
+  }
+  
+  body {
+    height: auto;
+    min-height: 100vh;
+  }
+  
+  .viewer {
+    min-height: auto;
+  }
+}
+
 .viewer {
   flex: 1;
   display: flex;
