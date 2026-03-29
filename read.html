@@ -362,7 +362,9 @@ function render() {
   if (page.isSpread) {
     // Full landscape image — natural size, no cropping
     const spreadW = isMobile() ? (window.innerWidth - 24) : (pageW * 2);
-    const spreadH = Math.round(spreadW / 1.5); // landscape ratio
+    let spreadH = Math.round(spreadW / 1.5); // landscape ratio
+    // Cap spread height on mobile to allow scrolling
+    if (isMobile()) spreadH = Math.min(spreadH, 400);
     spreadEl.style.width = spreadW + 'px';
     spreadEl.style.height = spreadH + 'px';
     const div = document.createElement('div');
