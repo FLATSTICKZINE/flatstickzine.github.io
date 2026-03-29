@@ -36,21 +36,22 @@ body {
 .topbar-back  { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #999; text-decoration: none; }
 .topbar-back:hover { color: #fff; }
 
-.topbar-nav-btn {
-  background: none;
+.issue-nav-btn {
+  background: #222;
   border: 1px solid #444;
   color: #999;
-  padding: 6px 12px;
+  padding: 10px 20px;
   font-family: 'Courier Prime', monospace;
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
   cursor: pointer;
-  transition: color 0.12s, border-color 0.12s;
+  transition: color 0.12s, border-color 0.12s, background 0.12s;
+  min-width: 140px;
 }
 
-.topbar-nav-btn:hover:not([disabled]) { color: #fff; border-color: #666; }
-.topbar-nav-btn[disabled] { opacity: 0.3; cursor: default; }
+.issue-nav-btn:hover:not([disabled]) { color: #fff; border-color: #666; background: #333; }
+.issue-nav-btn[disabled] { opacity: 0.25; cursor: default; }
 
 .viewer {
   flex: 1;
@@ -226,11 +227,7 @@ body {
 <div class="topbar">
   <span class="topbar-title">Flat Stick</span>
   <span class="topbar-issue" id="topbar-issue">Issue —</span>
-  <div style="display:flex;gap:12px;align-items:center;">
-    <button class="topbar-nav-btn" id="issue-prev" title="Previous issue">&#8592; Prev</button>
-    <button class="topbar-nav-btn" id="issue-next" title="Next issue">Next &#8594;</button>
-    <a href="index.html" class="topbar-back">&#8592; Back</a>
-  </div>
+  <a href="index.html" class="topbar-back">&#8592; Back</a>
 </div>
 
 <div class="viewer">
@@ -243,6 +240,10 @@ body {
     <button class="ctrl-btn" style="font-size:14px;" title="Download PDF" onclick="openHeyOverlay()">&#8595;</button>
   </div>
   <div class="hint">Arrow keys or swipe to turn — ↓ to download PDF</div>
+  <div style="margin-top:16px;display:flex;gap:12px;justify-content:center;">
+    <button class="issue-nav-btn" id="issue-prev" title="Previous issue"></button>
+    <button class="issue-nav-btn" id="issue-next" title="Next issue"></button>
+  </div>
   <a href="https://paypal.me/flatstickzine" target="_blank" style="display:inline-block;margin-top:10px;padding:10px 20px;background:#333;color:#fff;font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;text-decoration:none;">Donate ♥</a>
   <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#aaa;margin-top:8px;text-align:center;padding-bottom:16px;">
     To print at home: download PDF → print double-sided → flip on short edge
@@ -283,14 +284,19 @@ const currentIdx = issueKeys.indexOf(issueKey);
 const prevIssue = currentIdx > 0 ? issueKeys[currentIdx - 1] : null;
 const nextIssue = currentIdx < issueKeys.length - 1 ? issueKeys[currentIdx + 1] : null;
 
-document.getElementById('issue-prev').disabled = !prevIssue;
-document.getElementById('issue-next').disabled = !nextIssue;
+const prevBtn = document.getElementById('issue-prev');
+const nextBtn = document.getElementById('issue-next');
 
-document.getElementById('issue-prev').addEventListener('click', () => {
+prevBtn.textContent = prevIssue ? `← Issue ${prevIssue}` : '';
+prevBtn.disabled = !prevIssue;
+nextBtn.textContent = nextIssue ? `Issue ${nextIssue} →` : '';
+nextBtn.disabled = !nextIssue;
+
+prevBtn.addEventListener('click', () => {
   if (prevIssue) window.location.href = `read.html?i=${prevIssue}`;
 });
 
-document.getElementById('issue-next').addEventListener('click', () => {
+nextBtn.addEventListener('click', () => {
   if (nextIssue) window.location.href = `read.html?i=${nextIssue}`;
 });
 
