@@ -841,19 +841,6 @@ const issues = [
     print_url: "https://www.paypal.com/ncp/payment/TF2WBPUNLG8X2",
     edition: 50,
   },
-  {
-    label: "04",
-    title: "Crossing Capricorn",
-    date: "March 2026",
-    location: "Charters Towers, QLD",
-    cover: "issue4.webp",
-    pdf_price: 3,
-    print_price: 10,
-    available: true,
-    pdf_url: "read.html?i=04",
-    print_url: "https://www.paypal.com/ncp/payment/TF2WBPUNLG8X2",
-    edition: 50,
-  },
 ];
 
 const numberMap = {'01':'one','02':'two','03':'three','04':'four','05':'five'};
@@ -868,8 +855,7 @@ issues.forEach(issue => {
     : `<div style="width:100%;aspect-ratio:3/4;background:#111;display:flex;align-items:center;justify-content:center;"><span style="font-size:48px;color:#333;">?</span></div>`;
 
   const actions = issue.available
-    ? `<button class="btn-place-order" onclick="openOrder('${issue.label}')">Order →</button>
-       <a href="read.html?i=${issue.label}" class="pdf-btn">Read Online — Free →</a>`
+    ? `<a href="read.html?i=${issue.label}" class="pdf-btn">Read Online →</a>`
     : `<div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#999;text-align:center;padding:8px 0;">Coming Soon</div>`;
 
   card.innerHTML = `
