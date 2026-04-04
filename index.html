@@ -189,18 +189,15 @@ nav a:hover { background: #333; }
 
 .shop-issues {
   display: flex;
-  overflow-x: auto;
+  flex-wrap: wrap;
   gap: 0;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
 }
-
-.shop-issues::-webkit-scrollbar { display: none; }
 
 .shop-card {
   flex-shrink: 0;
   width: 260px;
   border-right: 2px solid var(--black);
+  border-bottom: 2px solid var(--black);
   position: relative;
 }
 
@@ -769,7 +766,7 @@ footer {
 </section>
 
 <div style="padding:40px;text-align:center;border-bottom:3px solid #0a0a0a;display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-  <a href="https://www.paypal.com/ncp/payment/TF2WBPUNLG8X2" target="_blank" style="display:inline-block;padding:14px 32px;background:#0a0a0a;color:#fff;font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;text-decoration:none;">Buy Paper Copy</a>
+  <button onclick="openOrder()" style="display:inline-block;padding:14px 32px;background:#0a0a0a;color:#fff;font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;border:none;cursor:crosshair;">Buy Paper Copy</button>
   <a href="https://paypal.me/flatstickzine" target="_blank" style="display:inline-block;padding:14px 32px;background:#0a0a0a;color:#fff;font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;text-decoration:none;">Donate ♥</a>
 </div>
 
@@ -797,7 +794,7 @@ footer {
 </footer>
 
 <script>
-// ──────────────────────────────
+// ─────────────────────────────────────────────
 // ISSUE DATA — add a new entry each week
 // ─────────────────────────────────────────────
 const issues = [
@@ -852,6 +849,19 @@ const issues = [
     print_price: 10,
     available: true,
     pdf_url: "read.html?i=04",
+    print_url: "https://www.paypal.com/ncp/payment/TF2WBPUNLG8X2",
+    edition: 50,
+  },
+  {
+    label: "05",
+    title: "Unlucky Strike",
+    date: "April 2026",
+    location: "QLD",
+    cover: "issue5.webp",
+    pdf_price: 3,
+    print_price: 10,
+    available: true,
+    pdf_url: "read.html?i=05",
     print_url: "https://www.paypal.com/ncp/payment/TF2WBPUNLG8X2",
     edition: 50,
   },

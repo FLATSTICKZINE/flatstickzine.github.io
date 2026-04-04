@@ -13,16 +13,10 @@ body {
   background: #1a1a1a;
   color: #fff;
   font-family: 'Courier Prime', monospace;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
-}
-
-@media (min-width: 601px) {
-  body {
-    height: 100vh;
-    overflow: hidden;
-  }
+  overflow: hidden;
 }
 
 .topbar {
@@ -33,61 +27,26 @@ body {
   justify-content: space-between;
   align-items: center;
   flex-shrink: 0;
-  position: sticky;
-  top: 36px;
-  z-index: 100;
 }
 .topbar-title { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; }
 .topbar-issue { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #999; }
 .topbar-back  { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #999; text-decoration: none; }
 .topbar-back:hover { color: #fff; }
 
-.issue-nav-btn {
-  background: #222;
-  border: 1px solid #444;
-  color: #999;
-  padding: 10px 20px;
-  font-family: 'Courier Prime', monospace;
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: color 0.12s, border-color 0.12s, background 0.12s;
-  min-width: 140px;
-}
-
-.issue-nav-btn:hover:not([disabled]) { color: #fff; border-color: #666; background: #333; }
-.issue-nav-btn[disabled] { opacity: 0.25; cursor: default; }
-
-@media (max-width: 600px) {
-  .issue-nav-btn {
-    padding: 8px 14px;
-    font-size: 10px;
-    min-width: 120px;
-  }
-  
-  body {
-    height: auto;
-    min-height: 100vh;
-  }
-  
-  .viewer {
-    min-height: auto;
-  }
-}
-
 .viewer {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding: 16px;
+  justify-content: center;
+  padding: 20px;
+  overflow: hidden;
 }
 
 .spread {
   display: flex;
   box-shadow: 0 20px 80px rgba(0,0,0,0.8);
+  max-height: calc(100vh - 160px);
 }
 
 .page {
@@ -140,24 +99,16 @@ body {
 .progress-bar  { height: 100%; background: #666; transition: width 0.3s ease; }
 .hint { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: #444; margin-top: 8px; }
 
-  100% { transform: translateX(-50%); }
-}
-
-/* ── HEY DOWNLOAD OVERLAY ── */
-
-
-
-
-
-.hey-close:hover { opacity: 1; }
-
 /* ── TICKER ── */
 .ticker {
   background: #0a0a0a;
+  color: #fff;
+  font-size: 10px;
+  letter-spacing: 4px;
+  padding: 7px 0;
   overflow: hidden;
   white-space: nowrap;
-  padding: 7px 0;
-  flex-shrink: 0;
+  text-transform: uppercase;
 }
 .ticker-inner {
   display: inline-block;
@@ -167,29 +118,10 @@ body {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-
-/* ── TICKER ── */
-.ticker {
-  background: #0a0a0a;
-  overflow: hidden;
-  white-space: nowrap;
-  padding: 7px 0;
-  flex-shrink: 0;
-}
-.ticker-inner {
-  display: inline-block;
-  animation: ticker 22s linear infinite;
-}
-@keyframes ticker {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
 
 /* ── HEY DOWNLOAD OVERLAY ── */
 .hey-overlay {
   display: none;
-  visibility: hidden;
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.85);
@@ -199,37 +131,38 @@ body {
   flex-direction: column;
   gap: 24px;
 }
-.hey-overlay.open { display: flex; visibility: visible; }
+.hey-overlay.open { display: flex; }
 .hey-overlay img { max-width: 340px; width: 80%; }
 .hey-download-btn {
-  display: inline-block;
-  padding: 14px 28px;
+  padding: 16px 36px;
   background: #fff;
   color: #0a0a0a;
   font-family: 'Courier Prime', monospace;
-  font-size: 11px;
-  letter-spacing: 3px;
+  font-size: 12px;
+  letter-spacing: 4px;
   text-transform: uppercase;
   text-decoration: none;
+  border: none;
   cursor: pointer;
+  display: inline-block;
 }
 .hey-close {
   position: absolute;
   top: 20px;
   right: 24px;
-  background: none;
-  border: none;
   color: #fff;
   font-size: 24px;
   cursor: pointer;
   opacity: 0.6;
+  background: none;
+  border: none;
+  font-family: monospace;
 }
 .hey-close:hover { opacity: 1; }
 
 </style>
 </head>
 <body>
-
 
 <div class="ticker">
   <span class="ticker-inner">
@@ -245,8 +178,10 @@ body {
     <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
     <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
     <img src="flatstickzineheader.png" alt="Flat Stick" style="height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:-8px;">
+    
   </span>
 </div>
+
 <div class="topbar">
   <span class="topbar-title">Flat Stick</span>
   <span class="topbar-issue" id="topbar-issue">Issue —</span>
@@ -263,11 +198,6 @@ body {
     <button class="ctrl-btn" style="font-size:14px;" title="Download PDF" onclick="openHeyOverlay()">&#8595;</button>
   </div>
   <div class="hint">Arrow keys or swipe to turn — ↓ to download PDF</div>
-  <div style="margin-top:16px;display:flex;gap:12px;justify-content:center;">
-    <button class="issue-nav-btn" id="issue-prev" title="Previous issue"></button>
-    <button class="issue-nav-btn" id="issue-next" title="Next issue"></button>
-  </div>
-  <a href="https://paypal.me/flatstickzine" target="_blank" style="display:inline-block;margin-top:10px;padding:10px 20px;background:#333;color:#fff;font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;text-decoration:none;">Donate ♥</a>
   <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#aaa;margin-top:8px;text-align:center;padding-bottom:16px;">
     To print at home: download PDF → print double-sided → flip on short edge
   </div>
@@ -295,42 +225,30 @@ const issues = {
     folder: "issue4", totalPages: 16,
     spreads: [8], skipPages: [9], singlePages: [1, 16],
   },
+  "05": {
+    label: "05", title: "Unlucky Strike",
+    folder: "issue5", totalPages: 20,
+    spreads: [10], skipPages: [11], singlePages: [1, 20],
+  },
 };
 
 const params = new URLSearchParams(window.location.search);
-const issueKey = params.get('i') || '01';
-const issue = issues[issueKey] || issues['01'];
+const issueKey = params.get('i') || null;
 
-// Issue navigation
-const issueKeys = Object.keys(issues).sort();
-const currentIdx = issueKeys.indexOf(issueKey);
-const prevIssue = currentIdx > 0 ? issueKeys[currentIdx - 1] : null;
-const nextIssue = currentIdx < issueKeys.length - 1 ? issueKeys[currentIdx + 1] : null;
+if (!issueKey || !issues[issueKey]) {
+  document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;color:#fff;font-family:monospace;font-size:14px;letter-spacing:2px;text-transform:uppercase;">Issue not found</div>';
+  throw new Error('Invalid issue');
+}
 
-const prevBtn = document.getElementById('issue-prev');
-const nextBtn = document.getElementById('issue-next');
-
-prevBtn.textContent = prevIssue ? `← Issue ${prevIssue}` : '';
-prevBtn.disabled = !prevIssue;
-nextBtn.textContent = nextIssue ? `Issue ${nextIssue} →` : '';
-nextBtn.disabled = !nextIssue;
-
-prevBtn.addEventListener('click', () => {
-  if (prevIssue) window.location.href = `read.html?i=${prevIssue}`;
-});
-
-nextBtn.addEventListener('click', () => {
-  if (nextIssue) window.location.href = `read.html?i=${nextIssue}`;
-});
+const issue = issues[issueKey];
 
 document.getElementById('topbar-issue').textContent = `Issue ${issue.label} — ${issue.title}`;
 document.title = `FLAT STICK — Issue ${issue.label}`;
 
-
 function openHeyOverlay() {
   const link = document.getElementById('hey-download-link');
-  link.href = 'issue' + parseInt(issueKey) + '.pdf';
-  link.download = 'FlatStick_Issue' + parseInt(issueKey) + '.pdf';
+  link.href = `issue${issueKey}.pdf`;
+  link.download = `FlatStick_Issue${issueKey}.pdf`;
   document.getElementById('hey-overlay').classList.add('open');
 }
 
@@ -343,7 +261,7 @@ const pages = Array.from({length: issue.totalPages}, (_, i) => ({
 })).filter(p => !p.skip);
 
 const total = pages.length;
-const pageH = Math.max(Math.min(window.innerHeight - 280, 520), 300);
+const pageH = Math.min(window.innerHeight - 160, 680);
 const pageW = Math.round(pageH / 1.414);
 
 let current = 0; // index into pages array
@@ -359,42 +277,54 @@ function render() {
   const page = pages[current];
   spreadEl.innerHTML = '';
 
-  if (isMobile()) {
-    // Mobile — always fit to screen width, scroll vertically
-    const imgW = window.innerWidth - 24;
-    const imgH = Math.round(imgW * (page.isSpread ? 0.67 : 1.414)); // landscape or portrait
-    spreadEl.style.width = imgW + 'px';
-    spreadEl.style.height = imgH + 'px';
-    const div = document.createElement('div');
-    div.className = 'page';
-    div.style.width = '100%';
-    div.style.height = '100%';
-    div.innerHTML = `<img src="${page.src}" loading="eager" style="width:100%;height:100%;object-fit:contain;">`;
-    spreadEl.appendChild(div);
-  } else if (page.isSpread) {
-    // Desktop: Full landscape image
-    const spreadW = pageW * 2;
-    const spreadH = Math.round(spreadW / 1.5);
+  if (page.isSpread) {
+    // Full landscape image — natural size, no cropping
+    const spreadW = isMobile() ? (window.innerWidth - 24) : (pageW * 2);
+    const spreadH = Math.round(spreadW / 1.5); // landscape ratio
     spreadEl.style.width = spreadW + 'px';
     spreadEl.style.height = spreadH + 'px';
     const div = document.createElement('div');
     div.className = 'page spread-img';
     div.style.width = '100%';
-    div.style.height = '100%';
-    div.innerHTML = `<img src="${page.src}" style="width:100%;height:100%;object-fit:contain;">`;
+    div.style.height = spreadH + 'px';
+    div.innerHTML = `<img src="${page.src}" style="width:100%;height:100%;object-fit:contain;background:#f8f5f0;">`;
     spreadEl.appendChild(div);
+  } else if (isMobile()) {
+    // Mobile — always single page regardless of cover/back cover
+    spreadEl.style.width = (window.innerWidth - 24) + 'px';
+    spreadEl.style.height = Math.round((window.innerWidth - 24) * 1.414) + 'px';
+    const single = document.createElement('div');
+    single.className = 'page';
+    single.style.width = '100%';
+    single.style.height = '100%';
+    single.innerHTML = `<img src="${page.src}" loading="eager">`;
+    spreadEl.appendChild(single);
   } else if (page.isSingle) {
-    // Desktop: Cover or back cover — centred single page
-    spreadEl.style.width = pageW + 'px';
+    // Cover or back cover — show alone on correct side
+    const isFirst = current === 0;
+    spreadEl.style.width = (pageW * 2) + 'px';
     spreadEl.style.height = pageH + 'px';
+
+    const blank = document.createElement('div');
+    blank.className = 'page blank';
+    blank.style.width = pageW + 'px';
+    blank.style.height = pageH + 'px';
+
     const single = document.createElement('div');
     single.className = 'page';
     single.style.width = pageW + 'px';
     single.style.height = pageH + 'px';
     single.innerHTML = `<img src="${page.src}">`;
-    spreadEl.appendChild(single);
+
+    if (isFirst) {
+      spreadEl.appendChild(blank);
+      spreadEl.appendChild(single);
+    } else {
+      spreadEl.appendChild(single);
+      spreadEl.appendChild(blank);
+    }
   } else {
-    // Desktop: Normal two-page spread
+    // Normal two-page spread
     const next = pages[current + 1];
     spreadEl.style.width = (pageW * 2) + 'px';
     spreadEl.style.height = pageH + 'px';
@@ -422,9 +352,6 @@ function render() {
   // On desktop, last spread shows back cover + blank so stop one earlier
   // On mobile, go all the way to last page
   btnNext.disabled = isMobile() ? current >= total - 1 : current >= total - 1;
-
-  // Scroll to top on mobile so page is always visible
-  if (isMobile()) window.scrollTo(0, 0);
 
   // Preload next 2 pages only
   [current + 1, current + 2, current + 3].forEach(i => {
@@ -481,17 +408,7 @@ render();
 </script>
 <footer style="padding:0;overflow:hidden;background:#0a0a0a;flex-shrink:0;">
   <div style="white-space:nowrap;overflow:hidden;">
-<span style="display:inline-block;animation:ticker 22s linear infinite;">
-      <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
-      <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
-      <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
-      <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
-      <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
-      <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
-      <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
-      <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
-      <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
-      <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
+    <span style="display:inline-block;animation:ticker 22s linear infinite;">
       <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
       <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
       <img src="zineemail.webp" alt="flatstickzine@gmail.com" style="height:28px;width:auto;display:inline-block;vertical-align:middle;filter:invert(1);margin-right:-12px;">
@@ -502,8 +419,6 @@ render();
   </div>
 </footer>
 
-
-
 <!-- HEY DOWNLOAD OVERLAY -->
 <div class="hey-overlay" id="hey-overlay">
   <button class="hey-close" onclick="document.getElementById('hey-overlay').classList.remove('open')">✕</button>
@@ -512,4 +427,3 @@ render();
 </div>
 </body>
 </html>
-<!-- cache bust: mobile scroll fix v2 -->
