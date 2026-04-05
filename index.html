@@ -188,23 +188,17 @@ nav a:hover { background: #333; }
 }
 
 .shop-issues {
-  display: flex;
-  overflow-x: auto;
-  gap: 0;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
-.shop-issues::-webkit-scrollbar { display: none; }
-
 .shop-card {
-  flex-shrink: 0;
-  width: 260px;
   border-right: 2px solid var(--black);
+  border-bottom: 2px solid var(--black);
   position: relative;
 }
 
-.shop-card:last-child { border-right: none; }
+.shop-card:nth-child(3n) { border-right: none; }
 
 .shop-card-cover {
   width: 100%;
@@ -331,6 +325,9 @@ footer {
   .latest-band { flex-direction: column; gap: 8px; padding: 14px 20px; }
   .section-header { padding: 14px 20px; }
   .shop-card { padding: 24px 20px; }
+  .shop-issues { grid-template-columns: repeat(2, 1fr); }
+  .shop-card:nth-child(3n) { border-right: 2px solid var(--black); }
+  .shop-card:nth-child(2n) { border-right: none; }
 }
 
 
@@ -768,7 +765,8 @@ footer {
   </div>
 </section>
 
-<div style="padding:40px;text-align:center;border-bottom:3px solid #0a0a0a;">
+<div style="padding:40px;text-align:center;border-bottom:3px solid #0a0a0a;display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+  <button onclick="openOrder()" style="display:inline-block;padding:14px 32px;background:#0a0a0a;color:#fff;font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;border:none;cursor:crosshair;">Buy Paper Copy</button>
   <a href="https://paypal.me/flatstickzine" target="_blank" style="display:inline-block;padding:14px 32px;background:#0a0a0a;color:#fff;font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;text-decoration:none;">Donate ♥</a>
 </div>
 
@@ -841,24 +839,26 @@ const issues = [
     print_url: "https://www.paypal.com/ncp/payment/TF2WBPUNLG8X2",
     edition: 50,
   },
-    {
+  {
     label: "04",
     title: "Crossing Capricorn",
-    date: "March 2026",
+    date: "April 2026",
     location: "QLD",
     cover: "issue4.webp",
+    pdf_price: 3,
     print_price: 10,
     available: true,
     pdf_url: "read.html?i=04",
     print_url: "https://www.paypal.com/ncp/payment/TF2WBPUNLG8X2",
     edition: 50,
   },
-    {
+  {
     label: "05",
     title: "Unlucky Strike",
-    date: "March 2026",
-    location: "Clermont",
+    date: "April 2026",
+    location: "QLD",
     cover: "issue5.webp",
+    pdf_price: 3,
     print_price: 10,
     available: true,
     pdf_url: "read.html?i=05",
@@ -1060,8 +1060,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="modal-body">
       <div class="pricing-guide">
         <strong>Print copies — $10 each, posted anywhere in Australia</strong>
-        Discounts apply when ordering multiple issues.<br>
-        <span style="color:#999;font-size:10px;">PDF — $3 each, buy separately on each issue page</span>
+        Discounts apply when ordering multiple issues.
       </div>
       <form id="order-form">
         <div class="form-group">
