@@ -129,6 +129,18 @@ body {
 .action-btn.primary { border-color: #888; color: #fff; }
 .action-btn.primary:hover { background: #fff; color: #0a0a0a; }
 
+/* ── MOBILE ── */
+@media (max-width: 600px) {
+  body { height: auto; min-height: 100vh; overflow-y: auto; }
+  .viewer { overflow: visible; justify-content: flex-start; padding: 12px; }
+  .spread { max-height: none; box-shadow: 0 8px 40px rgba(0,0,0,0.6); }
+  .controls { margin-top: 12px; gap: 12px; }
+  .bottom-actions { gap: 8px; margin-top: 10px; }
+  .action-btn { padding: 10px 12px; font-size: 8px; }
+  .hint { display: none; }
+  .topbar { padding: 10px 16px; }
+}
+
 /* ── TICKER ── */
 .ticker {
   background: #0a0a0a;
