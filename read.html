@@ -32,9 +32,6 @@ body {
 .topbar-issue { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #999; }
 .topbar-back  { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #999; text-decoration: none; }
 .topbar-back:hover { color: #fff; }
-.topbar-issue-nav { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #555; text-decoration: none; white-space: nowrap; transition: color 0.12s; }
-.topbar-issue-nav:hover { color: #ccc; }
-.topbar-nav { display: flex; align-items: center; gap: 20px; }
 
 .viewer {
   flex: 1;
@@ -58,15 +55,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 10px;
 }
 
 .page img {
-  width: calc(100% - 16px);
-  height: calc(100% - 16px);
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   display: block;
-  margin: 8px;
-  background: #fff;
 }
 
 .page.blank {
@@ -101,6 +97,37 @@ body {
 .progress-wrap { width: 100%; margin-top: 10px; height: 2px; background: #333; }
 .progress-bar  { height: 100%; background: #666; transition: width 0.3s ease; }
 .hint { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: #444; margin-top: 8px; }
+
+/* ── BOTTOM ACTIONS ── */
+.bottom-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.action-btn {
+  padding: 10px 16px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid #444;
+  background: #222;
+  color: #ccc;
+  white-space: nowrap;
+  transition: background 0.12s, color 0.12s;
+  display: inline-flex;
+  align-items: center;
+}
+.action-btn:hover { background: #444; color: #fff; }
+.action-btn.hidden { visibility: hidden; }
+.action-btn.primary { border-color: #888; color: #fff; }
+.action-btn.primary:hover { background: #fff; color: #0a0a0a; }
 
 /* ── TICKER ── */
 .ticker {
@@ -186,13 +213,9 @@ body {
 </div>
 
 <div class="topbar">
-  <a href="index.html" class="topbar-back">&#8592; All</a>
-  <div class="topbar-nav">
-    <a id="btn-prev-issue" class="topbar-issue-nav" href="#" style="visibility:hidden;">&#8592; 00</a>
-    <span class="topbar-issue" id="topbar-issue">Issue —</span>
-    <a id="btn-next-issue" class="topbar-issue-nav" href="#" style="visibility:hidden;">00 &#8594;</a>
-  </div>
-  <span style="width:60px;"></span>
+  <span class="topbar-title">Flat Stick</span>
+  <span class="topbar-issue" id="topbar-issue">Issue —</span>
+  <a href="index.html" class="topbar-back">&#8592; All Issues</a>
 </div>
 
 <div class="viewer">
@@ -205,7 +228,13 @@ body {
     <button class="ctrl-btn" style="font-size:14px;" title="Download PDF" onclick="openHeyOverlay()">&#8595;</button>
   </div>
   <div class="hint">Arrow keys or swipe to turn — ↓ to download PDF</div>
-  <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#aaa;margin-top:8px;text-align:center;padding-bottom:16px;">
+  <div class="bottom-actions">
+    <a id="btn-prev-issue" class="action-btn hidden" href="#">&#8592; 00</a>
+    <a href="https://www.paypal.com/ncp/payment/TF2WBPUNLG8X2" target="_blank" class="action-btn primary">Buy Physical Copy</a>
+    <a href="https://paypal.me/flatstickzine" target="_blank" class="action-btn primary">Donate ♥</a>
+    <a id="btn-next-issue" class="action-btn hidden" href="#">00 &#8594;</a>
+  </div>
+  <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#333;margin-top:8px;text-align:center;padding-bottom:12px;">
     To print at home: download PDF → print double-sided → flip on short edge
   </div>
 </div>
@@ -263,13 +292,13 @@ const nextIssueBtn = document.getElementById('btn-next-issue');
 
 if (prevKey) {
   prevIssueBtn.href = `read.html?i=${prevKey}`;
-  prevIssueBtn.innerHTML = `&#8592; ${prevKey}`;
-  prevIssueBtn.style.visibility = 'visible';
+  prevIssueBtn.innerHTML = `&#8592; Issue ${prevKey}`;
+  prevIssueBtn.classList.remove('hidden');
 }
 if (nextKey) {
   nextIssueBtn.href = `read.html?i=${nextKey}`;
-  nextIssueBtn.innerHTML = `${nextKey} &#8594;`;
-  nextIssueBtn.style.visibility = 'visible';
+  nextIssueBtn.innerHTML = `Issue ${nextKey} &#8594;`;
+  nextIssueBtn.classList.remove('hidden');
 }
 
 function openHeyOverlay() {
