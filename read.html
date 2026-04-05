@@ -32,6 +32,9 @@ body {
 .topbar-issue { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #999; }
 .topbar-back  { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #999; text-decoration: none; }
 .topbar-back:hover { color: #fff; }
+.topbar-issue-nav { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #555; text-decoration: none; white-space: nowrap; transition: color 0.12s; }
+.topbar-issue-nav:hover { color: #ccc; }
+.topbar-nav { display: flex; align-items: center; gap: 20px; }
 
 .viewer {
   flex: 1;
@@ -60,7 +63,7 @@ body {
 .page img {
   width: calc(100% - 16px);
   height: calc(100% - 16px);
-  object-fit: cover;
+  object-fit: contain;
   display: block;
   margin: 8px;
   background: #fff;
@@ -183,9 +186,13 @@ body {
 </div>
 
 <div class="topbar">
-  <span class="topbar-title">Flat Stick</span>
-  <span class="topbar-issue" id="topbar-issue">Issue —</span>
-  <a href="index.html" class="topbar-back">&#8592; Back</a>
+  <a href="index.html" class="topbar-back">&#8592; All</a>
+  <div class="topbar-nav">
+    <a id="btn-prev-issue" class="topbar-issue-nav" href="#" style="visibility:hidden;">&#8592; 00</a>
+    <span class="topbar-issue" id="topbar-issue">Issue —</span>
+    <a id="btn-next-issue" class="topbar-issue-nav" href="#" style="visibility:hidden;">00 &#8594;</a>
+  </div>
+  <span style="width:60px;"></span>
 </div>
 
 <div class="viewer">
@@ -244,6 +251,26 @@ const issue = issues[issueKey];
 
 document.getElementById('topbar-issue').textContent = `Issue ${issue.label} — ${issue.title}`;
 document.title = `FLAT STICK — Issue ${issue.label}`;
+
+// ── ISSUE NAVIGATION ──
+const issueOrder = ['01','02','03','04','05'];
+const currentIdx = issueOrder.indexOf(issueKey);
+const prevKey = currentIdx > 0 ? issueOrder[currentIdx - 1] : null;
+const nextKey = currentIdx < issueOrder.length - 1 ? issueOrder[currentIdx + 1] : null;
+
+const prevIssueBtn = document.getElementById('btn-prev-issue');
+const nextIssueBtn = document.getElementById('btn-next-issue');
+
+if (prevKey) {
+  prevIssueBtn.href = `read.html?i=${prevKey}`;
+  prevIssueBtn.innerHTML = `&#8592; ${prevKey}`;
+  prevIssueBtn.style.visibility = 'visible';
+}
+if (nextKey) {
+  nextIssueBtn.href = `read.html?i=${nextKey}`;
+  nextIssueBtn.innerHTML = `${nextKey} &#8594;`;
+  nextIssueBtn.style.visibility = 'visible';
+}
 
 function openHeyOverlay() {
   const link = document.getElementById('hey-download-link');
