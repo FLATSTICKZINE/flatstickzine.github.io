@@ -298,7 +298,8 @@ if (nextKey && issues[nextKey]) {
 function openHeyOverlay() {
   const link = document.getElementById('hey-download-link');
   link.href = `issue${parseInt(issueKey)}.pdf`;
-  link.download = `FlatStick_Issue${parseInt(issueKey)}.pdf`;
+  link.target = '_blank';
+  link.removeAttribute('download');
   document.getElementById('hey-overlay').classList.add('open');
 }
 
